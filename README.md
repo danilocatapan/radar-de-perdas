@@ -44,6 +44,12 @@ público dessa qualidade agregada após uma passagem verde na `main`. O painel n
 é o produto, não recebe arquivos e não substitui o futuro preview protegido no
 Cloudflare Pages.
 
+No plano atual, a API do GitHub informa que Pages não está disponível para este
+repositório privado. Por isso, o deploy permanece bloqueado e somente a CI é
+executada. Depois de obter elegibilidade, o administrador pode habilitar Pages
+com fonte GitHub Actions e definir a variável do repositório
+`PAGES_ENABLED=true`; não é necessário tornar o repositório público.
+
 ## Roadmap
 
 O plano de conclusão entre agosto de 2026 e fevereiro de 2027 está em

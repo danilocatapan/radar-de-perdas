@@ -13,7 +13,7 @@ concurrency:
 jobs:
   build:
     name: Validar e gerar painel
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && vars.PAGES_ENABLED == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
