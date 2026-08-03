@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "radar.ingest-config/v1-draft",
+  "timezone": "America/Sao_Paulo",
+  "knownParticipants": [
+    "Clínica: Central",
+    "Atendente-004"
+  ]
+}

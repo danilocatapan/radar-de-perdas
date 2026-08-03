@@ -1,0 +1,28 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+.cache/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Real pilot data must never enter this repository
+private/
+real-data/
+holdout/
+packages/test-fixtures/validation-private/
+**/*.real.txt
+**/*.raw.txt
+**/*-original.txt
+**/PILOT-*/10-raw/
+**/PILOT-*/20-working/
+
+# Local operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini

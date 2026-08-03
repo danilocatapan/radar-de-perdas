@@ -1,0 +1,5 @@
+‎03/08/26 10:00:00 - Prospect-003: Mensagem com marca direcional.
+03/08/26 10:00:00 - Prospect-003: Mensagem repetida.
+03/08/26 10:00:00 - Prospect-003: Mensagem repetida.
+03/08/26 10:01:00 - Esta mensagem foi apagada
+03/08/26 10:02:00 - Chamada de voz perdida

@@ -1,0 +1,3 @@
+[03/08/2026, 11:00] Prospect-004: O texto 03/08/2026 12:00 - exemplo faz parte da mensagem.
+[03/08/2026, 11:01] Atendente-005: <Mídia omitida>
+[03/08/2026, 11:02] Prospect-004: Esta mensagem foi editada

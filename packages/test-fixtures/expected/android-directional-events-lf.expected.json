@@ -1,0 +1,24 @@
+{
+  "fixture": "regression/android-directional-events-lf.txt",
+  "set": "regression",
+  "compatibility": "SUPPORTED_CANDIDATE",
+  "variant": "ANDROID_PT_BR_DMY_24H_SECONDS_DIRECTIONAL_DRAFT",
+  "totalPhysicalLines": 5,
+  "lineLedger": [
+    { "line": 1, "classification": "MESSAGE_HEADER", "message": 1 },
+    { "line": 2, "classification": "MESSAGE_HEADER", "message": 2 },
+    { "line": 3, "classification": "MESSAGE_HEADER", "message": 3 },
+    { "line": 4, "classification": "SYSTEM_EVENT", "event": 1 },
+    { "line": 5, "classification": "SYSTEM_EVENT", "event": 2 }
+  ],
+  "messages": [
+    { "ordinal": 1, "lineStart": 1, "lineEnd": 1 },
+    { "ordinal": 2, "lineStart": 2, "lineEnd": 2, "duplicateRunOrdinal": 1 },
+    { "ordinal": 3, "lineStart": 3, "lineEnd": 3, "duplicateRunOrdinal": 2 }
+  ],
+  "events": [
+    { "ordinal": 1, "lineStart": 4, "lineEnd": 4, "kind": "DELETED_MESSAGE" },
+    { "ordinal": 2, "lineStart": 5, "lineEnd": 5, "kind": "CALL_EVENT" }
+  ],
+  "expectedErrors": []
+}
