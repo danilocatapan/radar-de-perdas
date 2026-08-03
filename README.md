@@ -25,6 +25,25 @@ O parser, a vertical slice e qualquer infraestrutura produtiva estão bloqueados
 até o atendimento dos critérios registrados em
 [`docs/GATE-STATUS.md`](docs/GATE-STATUS.md).
 
+## Testes automatizados
+
+A fundação documental e as fixtures sintéticas podem ser validadas sem iniciar o
+parser ou o frontend:
+
+```text
+python -m unittest discover -s tests -v
+python scripts/validate_repository.py --report artifacts/quality/report.json
+```
+
+O workflow `Qualidade` executa a mesma passagem em pushes e pull requests. O
+relatório contém somente contagens e estados agregados; mensagens, nomes de
+fixtures e caminhos privados não entram no artefato.
+
+O GitHub Pages, quando disponível para o plano da conta, publica apenas um painel
+público dessa qualidade agregada após uma passagem verde na `main`. O painel não
+é o produto, não recebe arquivos e não substitui o futuro preview protegido no
+Cloudflare Pages.
+
 ## Roadmap
 
 O plano de conclusão entre agosto de 2026 e fevereiro de 2027 está em
