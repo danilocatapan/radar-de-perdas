@@ -1,0 +1,81 @@
+name: Painel de qualidade
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Validar e gerar painel
+    if: github.ref == 'refs/heads/main' && vars.PAGES_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Obter repositório
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Testar validador e painel
+        run: python -m unittest discover -s tests -v
+
+      - name: Validar repositório
+        shell: bash
+        env:
+          EVENT_BASE: ${{ github.event.before }}
+        run: |
+          base="$EVENT_BASE"
+          if [[ -z "$base" || "$base" =~ ^0+$ ]]; then
+            if git rev-parse HEAD^ >/dev/null 2>&1; then
+              base="$(git rev-parse HEAD^)"
+            fi
+          fi
+
+          args=(--report artifacts/quality/report.json)
+          if [[ -n "$base" ]]; then
+            args+=(--diff-base "$base")
+          fi
+          python scripts/validate_repository.py "${args[@]}"
+
+      - name: Gerar site estático
+        run: >-
+          python scripts/build_quality_page.py
+          --report artifacts/quality/report.json
+          --output-dir _site
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Empacotar painel
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    name: Publicar painel
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

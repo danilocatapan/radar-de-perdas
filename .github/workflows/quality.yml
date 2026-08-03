@@ -1,0 +1,55 @@
+name: Qualidade
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Documentos e fixtures
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obter repositório
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Testar validador e painel
+        run: python -m unittest discover -s tests -v
+
+      - name: Validar repositório
+        shell: bash
+        env:
+          EVENT_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          base="$EVENT_BASE"
+          if [[ -z "$base" || "$base" =~ ^0+$ ]]; then
+            if git rev-parse HEAD^ >/dev/null 2>&1; then
+              base="$(git rev-parse HEAD^)"
+            fi
+          fi
+
+          args=(--report artifacts/quality/report.json)
+          if [[ -n "$base" ]]; then
+            args+=(--diff-base "$base")
+          fi
+          python scripts/validate_repository.py "${args[@]}"
+
+      - name: Anexar relatório agregado
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: quality-report
+          path: artifacts/quality/report.json
+          if-no-files-found: ignore
+          retention-days: 14

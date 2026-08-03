@@ -303,6 +303,18 @@ deve ser reavaliada antes de tornar o produto crítico para a operação.
 GitHub Pages fica excluído como hospedagem comercial devido às
 [restrições documentadas de uso](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits).
 
+Durante os marcos documentais, GitHub Pages pode publicar exclusivamente um
+painel público de qualidade gerado por GitHub Actions. Esse painel:
+
+- contém somente contagens e estados agregados da última validação verde;
+- não recebe arquivos, não executa parsing e não contém conteúdo de conversa;
+- não é preview, beta, produção nem interface do produto;
+- depende de o plano da conta permitir Pages a partir do repositório privado;
+- permanece desativado, mantendo somente a CI, se essa elegibilidade não existir.
+
+Essa exceção documental não antecipa `R4` e não altera a hospedagem definida para
+a aplicação, que continua sendo Cloudflare Pages com Access.
+
 ## 6. Contratos públicos
 
 ### 6.1 Ingestão

@@ -3,6 +3,9 @@ node_modules/
 dist/
 coverage/
 .cache/
+artifacts/
+__pycache__/
+*.py[cod]
 
 # Environment and secrets
 .env
