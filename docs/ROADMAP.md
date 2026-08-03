@@ -282,7 +282,7 @@ externos nem source maps públicos de produção.
 
 ### 5.3 Hospedagem
 
-- repositório GitHub privado;
+- repositório GitHub público, limitado a código, documentos e fixtures sintéticas;
 - produção baseada na branch `main`;
 - previews de PR protegidos;
 - domínio gratuito `pages.dev`;
@@ -306,11 +306,12 @@ GitHub Pages fica excluído como hospedagem comercial devido às
 Durante os marcos documentais, GitHub Pages pode publicar exclusivamente um
 painel público de qualidade gerado por GitHub Actions. Esse painel:
 
+- está publicado em
+  [`danilocatapan.github.io/radar-de-perdas`](https://danilocatapan.github.io/radar-de-perdas/);
 - contém somente contagens e estados agregados da última validação verde;
 - não recebe arquivos, não executa parsing e não contém conteúdo de conversa;
 - não é preview, beta, produção nem interface do produto;
-- depende de o plano da conta permitir Pages a partir do repositório privado;
-- permanece desativado, mantendo somente a CI, se essa elegibilidade não existir.
+- é implantado somente pela `main` quando `PAGES_ENABLED=true`.
 
 Essa exceção documental não antecipa `R4` e não altera a hospedagem definida para
 a aplicação, que continua sendo Cloudflare Pages com Access.

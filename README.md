@@ -39,16 +39,14 @@ O workflow `Qualidade` executa a mesma passagem em pushes e pull requests. O
 relatório contém somente contagens e estados agregados; mensagens, nomes de
 fixtures e caminhos privados não entram no artefato.
 
-O GitHub Pages, quando disponível para o plano da conta, publica apenas um painel
-público dessa qualidade agregada após uma passagem verde na `main`. O painel não
-é o produto, não recebe arquivos e não substitui o futuro preview protegido no
-Cloudflare Pages.
+O GitHub Pages publica o
+[painel público de qualidade](https://danilocatapan.github.io/radar-de-perdas/)
+após uma passagem verde na `main`. O painel não é o produto, não recebe arquivos
+e não substitui o futuro preview protegido no Cloudflare Pages.
 
-No plano atual, a API do GitHub informa que Pages não está disponível para este
-repositório privado. Por isso, o deploy permanece bloqueado e somente a CI é
-executada. Depois de obter elegibilidade, o administrador pode habilitar Pages
-com fonte GitHub Actions e definir a variável do repositório
-`PAGES_ENABLED=true`; não é necessário tornar o repositório público.
+O deploy usa GitHub Actions e depende da variável de repositório
+`PAGES_ENABLED=true`. O repositório público contém somente código, documentos e
+fixtures sintéticas; dados reais e o holdout privado continuam proibidos.
 
 ## Roadmap
 
