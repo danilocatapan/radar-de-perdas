@@ -1,0 +1,16 @@
+{
+  "fixture": "development/ios-basic-lf.txt",
+  "set": "development",
+  "compatibility": "SUPPORTED_CANDIDATE",
+  "variant": "IOS_PT_BR_DMY_24H_SECONDS_DRAFT",
+  "totalPhysicalLines": 2,
+  "lineLedger": [
+    { "line": 1, "classification": "MESSAGE_HEADER", "message": 1 },
+    { "line": 2, "classification": "MESSAGE_HEADER", "message": 2 }
+  ],
+  "messages": [
+    { "ordinal": 1, "lineStart": 1, "lineEnd": 1 },
+    { "ordinal": 2, "lineStart": 2, "lineEnd": 2 }
+  ],
+  "expectedErrors": []
+}

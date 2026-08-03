@@ -1,0 +1,20 @@
+{
+  "fixture": "rejected/group-chat-lf.txt",
+  "set": "rejected",
+  "compatibility": "REJECTED",
+  "reason": "GROUP_CHAT_NOT_SUPPORTED",
+  "totalPhysicalLines": 3,
+  "expectedExitCode": 2,
+  "lineLedger": [
+    { "line": 1, "classification": "UNSUPPORTED_CONTENT" },
+    { "line": 2, "classification": "UNSUPPORTED_CONTENT" },
+    { "line": 3, "classification": "UNSUPPORTED_CONTENT" }
+  ],
+  "expectedErrors": [
+    {
+      "code": "GROUP_CHAT_NOT_SUPPORTED",
+      "lineStart": 1,
+      "lineEnd": 3
+    }
+  ]
+}

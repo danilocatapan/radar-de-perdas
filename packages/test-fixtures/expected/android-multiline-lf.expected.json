@@ -1,0 +1,21 @@
+{
+  "fixture": "development/android-multiline-lf.txt",
+  "set": "development",
+  "compatibility": "SUPPORTED_CANDIDATE",
+  "variant": "ANDROID_PT_BR_DMY_24H_NO_SECONDS_DRAFT",
+  "totalPhysicalLines": 6,
+  "lineLedger": [
+    { "line": 1, "classification": "MESSAGE_HEADER", "message": 1 },
+    { "line": 2, "classification": "MESSAGE_CONTINUATION", "message": 1 },
+    { "line": 3, "classification": "EMPTY_LINE", "message": 1 },
+    { "line": 4, "classification": "MESSAGE_CONTINUATION", "message": 1 },
+    { "line": 5, "classification": "MESSAGE_HEADER", "message": 2 },
+    { "line": 6, "classification": "MESSAGE_HEADER", "message": 3 }
+  ],
+  "messages": [
+    { "ordinal": 1, "lineStart": 1, "lineEnd": 4 },
+    { "ordinal": 2, "lineStart": 5, "lineEnd": 5 },
+    { "ordinal": 3, "lineStart": 6, "lineEnd": 6 }
+  ],
+  "expectedErrors": []
+}
