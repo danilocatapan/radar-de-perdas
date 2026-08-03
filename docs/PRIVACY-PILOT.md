@@ -2,8 +2,8 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.0-draft |
-| Escopo | Piloto local com dados reais |
+| Versão | 1.1-draft |
+| Escopo | Piloto manual e ferramenta local-first com dados reais |
 | Status | Não aprovado juridicamente |
 | Responsável operacional | Consultor do Radar de Perdas |
 
@@ -165,9 +165,48 @@ Ao receber:
 - habilitar telemetria que registre conteúdo;
 - trabalhar em rede Wi-Fi pública.
 
-Ferramentas locais devem operar offline sempre que possível.
+Ferramentas manuais e o parser CLI devem operar offline. A ferramenta web
+local-first obedece à fronteira de rede definida na seção seguinte.
 
-## 9. Sincronização e backup
+## 9. Fronteira da ferramenta local-first
+
+A aplicação web poderá ser carregada de um ambiente estático protegido. O
+carregamento não autoriza transmitir conteúdo do piloto.
+
+Cloudflare poderá receber somente:
+
+- requisições de ativos estáticos;
+- IP e metadados técnicos inerentes ao acesso;
+- identidade usada para autenticação no Cloudflare Access.
+
+É proibido transmitir:
+
+- TXT ou anexos;
+- mensagens brutas ou normalizadas;
+- configuração de horário, SLA ou participantes;
+- achados, classificações ou relatório;
+- senha ou chave do workspace.
+
+Controles obrigatórios antes da beta:
+
+- `connect-src 'none'` na política de conteúdo;
+- scripts, estilos, fontes e Web Workers servidos pela própria aplicação;
+- nenhum analytics, telemetria, IA, error tracking ou fonte externa;
+- source maps de produção não publicados;
+- previews e domínio produtivo protegidos pelo Cloudflare Access;
+- lista de usuários permitidos revisada;
+- Cloudflare registrado na lista contratual de subprocessadores aplicável;
+- teste de rede executado somente com fixtures sintéticas.
+
+O conteúdo permanece em memória durante a sessão. Para persistência, o usuário
+exporta um arquivo `.radar` criptografado para `20-working`. Conteúdo do piloto
+não pode ser gravado em `localStorage`, IndexedDB ou cache remoto. O arquivo
+criptografado segue a mesma retenção de `20-working`.
+
+Fechar a aba encerra o estado não exportado. Perda da senha do `.radar` implica
+perda irrecuperável do workspace.
+
+## 10. Sincronização e backup
 
 - A raiz operacional não pode estar dentro de OneDrive, Google Drive, Dropbox ou
   diretório sincronizado.
@@ -176,7 +215,7 @@ Ferramentas locais devem operar offline sempre que possível.
 - Não usar histórico de arquivos do Windows para esses diretórios.
 - O relatório redigido em `30-output` segue o prazo definido no contrato.
 
-## 10. Retenção
+## 11. Retenção
 
 Prazo padrão:
 
@@ -193,7 +232,7 @@ deletion_due_at:
 legal_or_contract_reference:
 ```
 
-## 11. Preparação do descarte
+## 12. Preparação do descarte
 
 Antes da exclusão:
 
@@ -214,7 +253,7 @@ O procedimento deve recusar:
 - raiz `RadarDePerdas-Pilotos` sem um `PILOT_ID`;
 - caminhos com curingas ou variáveis não resolvidas.
 
-## 12. Exclusão
+## 13. Exclusão
 
 A exclusão deve ser executada em PowerShell, do início ao fim, usando
 `-LiteralPath` e somente após as validações da seção anterior.
@@ -252,7 +291,7 @@ O recibo não contém nomes de arquivos, textos, contatos ou hashes individuais.
 Em SSD, a evidência é de remoção lógica sobre volume criptografado, não de
 apagamento físico comprovado.
 
-## 13. Perda ou roubo
+## 14. Perda ou roubo
 
 Ao tomar ciência:
 
@@ -268,7 +307,7 @@ Ao tomar ciência:
 
 Não prometer ao cliente que criptografia elimina automaticamente o risco.
 
-## 14. Checklist anterior ao arquivo real
+## 15. Checklist anterior ao arquivo real
 
 - [ ] Instrumento jurídico aprovado.
 - [ ] Papéis LGPD definidos.
@@ -280,8 +319,9 @@ Não prometer ao cliente que criptografia elimina automaticamente o risco.
 - [ ] Retenção registrada.
 - [ ] Procedimento de incidente conhecido.
 - [ ] Oferta proíbe escopo incompatível.
+- [ ] Subprocessadores e fronteira de rede aprovados antes da beta.
 
-## 15. Aprovação
+## 16. Aprovação
 
 ```text
 Responsável operacional:
