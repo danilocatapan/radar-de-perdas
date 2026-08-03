@@ -25,6 +25,20 @@ O parser, a vertical slice e qualquer infraestrutura produtiva estão bloqueados
 até o atendimento dos critérios registrados em
 [`docs/GATE-STATUS.md`](docs/GATE-STATUS.md).
 
+## Roadmap
+
+O plano de conclusão entre agosto de 2026 e fevereiro de 2027 está em
+[`docs/ROADMAP.md`](docs/ROADMAP.md). Ele define:
+
+- piloto comercial e auditoria manual antes do software;
+- contrato final e parser antes da interface;
+- vertical slice local-first sem banco de dados;
+- beta após o primeiro piloto pago;
+- produção estável após um segundo piloto independente;
+- hospedagem estática protegida, sem transmitir conversas.
+
+As datas do roadmap não substituem os gates do produto.
+
 ## Regra de dados
 
 Dados reais, ainda que autorizados, nunca devem ser copiados para este

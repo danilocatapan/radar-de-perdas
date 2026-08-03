@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.1 |
+| Versão | 0.2 |
 | Status | Validação do serviço |
 | Responsável por aprovação | Consultor do Radar de Perdas |
 
@@ -19,13 +19,28 @@ Uma auditoria padronizada de LP-001 e LP-002:
 - é comprável por pelo menos R$ 500;
 - pode ser produzida com dados legitimamente fornecidos;
 - gera recomendações compreensíveis;
-- pode ter pelo menos 30% do tempo produtivo reduzido por ferramenta local;
+- pode ter pelo menos 30% do tempo produtivo reduzido por ferramenta
+  local-first, com processamento no navegador;
 - pode operar com taxas de descarte e omissão inferiores a 20%.
 
 ## Usuário inicial
 
 Consultor que vende, executa e apresenta auditorias. Clientes não acessam
 software no primeiro estágio.
+
+## Direção da v1
+
+- Ferramenta de uso interno do consultor.
+- Análise exclusiva de LP-001 e LP-002.
+- Interface estática hospedada e protegida no Cloudflare Pages.
+- Conversas processadas somente no navegador.
+- Nenhum banco, backend, upload de conversas ou telemetria.
+- Estado persistido em arquivo local criptografado.
+- HTML e CSV experimentais; PDF contratado produzido manualmente.
+- Beta após o primeiro piloto pago e os gates técnicos.
+- Versão estável após segundo piloto independente e gate final.
+
+O detalhamento e as dependências estão em [`ROADMAP.md`](ROADMAP.md).
 
 ## Unidade de análise
 
@@ -58,8 +73,11 @@ Relatório manual redigido ou pseudonimizado com:
 
 ## Gates do produto
 
-A aplicação produtiva só pode ser iniciada quando todos os critérios de
-`GATE-STATUS.md` estiverem atendidos e documentados.
+O parser e a vertical slice só podem ser iniciados depois de seus gates
+específicos. Preview protegido pode usar apenas fixtures sintéticas. A beta
+produtiva exige primeiro piloto pago, parser aprovado e gate de continuidade.
+A versão estável exige um segundo piloto independente e todos os critérios de
+`GATE-STATUS.md` documentados.
 
 ## Métricas de sucesso
 
