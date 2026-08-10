@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.0 |
+| Versão | 1.1 |
 | Marco | `R0` — Governança e prontidão interna |
 | Responsável pelas decisões | Proprietário do Radar de Perdas |
 | Data | 2026-08-10 |
@@ -46,12 +46,12 @@ Esta decisão é operacional e interna. Ela não transfere ao cliente riscos que
 dependam de lei ou contrato, não confirma a legitimidade de um conjunto de dados
 e não dispensa o aceite externo do instrumento de dados.
 
-## Evidências operacionais pendentes
+## Evidências operacionais
 
 | Evidência | Estado | Registro permitido no Git | Condição para conclusão |
 |---|---|---|---|
 | Oportunidade `OPP-2026-001` | BLOCKED_EXTERNAL | Apenas código, data e resultado do checklist; nunca nome ou contato | Serviço de baixo risco; uma unidade/WhatsApp; 20–50 chats individuais; ao menos 10 solicitações estimadas; horário/SLA conhecidos; decisor operacional disponível; sem saúde, menores, grupos, anexos ou dados sensíveis |
-| BitLocker da unidade `C:` | BLOCKED_ADMIN | Somente data, `encryption_state=FULLY_ENCRYPTED` e `protection_state=ON` | Executar `manage-bde -status C:` em PowerShell administrativo; nunca registrar saída bruta ou chave de recuperação |
+| BitLocker da unidade `C:` | COMPLETE | `verification_date=2026-08-10`; `encryption_state=FULLY_ENCRYPTED`; `protection_state=ON` | Verificação confirmada pelo proprietário; nenhuma saída bruta, protetor ou chave de recuperação foi registrada |
 | Instrumento de dados aceito | BLOCKED_EXTERNAL | Referência externa não sensível | Aceite contratual entre cliente e proprietário |
 | `REAL_DATA_READY` | BLOCKED | Estado composto em [`GATE-STATUS.md`](GATE-STATUS.md) | Todos os componentes devem estar concluídos antes do recebimento de dados reais |
 
