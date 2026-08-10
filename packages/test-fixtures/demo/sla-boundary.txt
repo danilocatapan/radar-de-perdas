@@ -1,0 +1,2 @@
+05/08/2026 14:00 - Prospect-Demo-003: Qual é o prazo estimado do serviço?
+05/08/2026 14:15 - Atendente-Demo-003: O prazo sintético estimado é de dois dias úteis.

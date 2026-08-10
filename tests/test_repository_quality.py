@@ -81,6 +81,17 @@ class RepositoryValidationTests(unittest.TestCase):
         self.assertEqual([], errors)
         self.assertEqual(1, report["counts"]["coveredSyntheticCases"])
 
+    def test_generated_artifacts_are_outside_repository_validation(self) -> None:
+        synthetic_token = "ghp_" + "not_a_real_token_value"
+        self._write("artifacts/synthetic-demo/findings.csv", "not,a,valid,row\n1\n")
+        self._write("artifacts/synthetic-demo/local-output.txt", synthetic_token)
+
+        report, errors = self._validate()
+
+        self.assertEqual("pass", report["status"])
+        self.assertEqual([], errors)
+        self.assertEqual(2, report["counts"]["csvFiles"])
+
     def test_invalid_json_fails(self) -> None:
         self._write(
             "packages/test-fixtures/configs/invalid.json",

@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.0 |
+| Versão | 1.1 |
 | Responsável | Proprietário do Radar de Perdas |
 | Público | Operador que executará os pilotos |
 | Dados reais no Git | Proibidos |
@@ -53,6 +53,27 @@ convite R1A + aceite do piloto + aceite do instrumento de dados
 
 O parser, o frontend e a infraestrutura produtiva não fazem parte dessas
 etapas. As auditorias `R1A` e `R1B` são serviços manuais.
+
+### 1.1 Demonstração sintética antes do R1A
+
+Para entender o fluxo sem empresa, contrato ou dados reais, execute na raiz do
+repositório:
+
+```powershell
+python scripts/run_synthetic_demo.py --output-dir artifacts/synthetic-demo
+Start-Process .\artifacts\synthetic-demo\index.html
+```
+
+Entram cinco TXT sintéticos e anotações humanas pré-revisadas. O script não
+interpreta os chats: ele valida o pacote fixo e gera `index.html`, `result.json`
+e `findings.csv`. A página mostra um caso de `LP-001`, um de `LP-002`, uma
+resposta exatamente no SLA, uma mídia não verificável e um atendimento fora do
+escopo.
+
+O ganho demonstrado é transformar uma amostra em indicadores, evidências
+revisadas, prioridades e recomendações. Não há estimativa financeira, dado real,
+parser ou análise automática. A demonstração não altera nenhum gate e não
+substitui o piloto manual `R1A`.
 
 ## 2. Antes de começar
 

@@ -45,6 +45,7 @@ IGNORED_DIRECTORY_NAMES = {
     ".pytest_cache",
     ".venv",
     "__pycache__",
+    "artifacts",
     "coverage",
     "dist",
     "node_modules",
@@ -282,7 +283,13 @@ def check_expected_manifests(root: Path) -> tuple[CheckResult, dict[str, int]]:
 
 def check_csv_files(root: Path) -> tuple[CheckResult, dict[str, int]]:
     errors: list[str] = []
-    csv_files = sorted(root.rglob("*.csv"))
+    csv_files = sorted(
+        path
+        for path in root.rglob("*.csv")
+        if not any(
+            part in IGNORED_DIRECTORY_NAMES for part in path.relative_to(root).parts
+        )
+    )
     covered = 0
     pending = 0
 
@@ -291,8 +298,6 @@ def check_csv_files(root: Path) -> tuple[CheckResult, dict[str, int]]:
             errors.append(f"CSV_OBRIGATORIO_AUSENTE: {required_relative}")
 
     for path in csv_files:
-        if any(part in IGNORED_DIRECTORY_NAMES for part in path.relative_to(root).parts):
-            continue
         relative = path.relative_to(root).as_posix()
         try:
             with path.open("r", encoding="utf-8-sig", newline="") as handle:
