@@ -19,9 +19,22 @@ FIXTURE_ROOT = ROOT / "packages" / "test-fixtures"
 DEMO_FIXTURE_ROOT = FIXTURE_ROOT / "demo"
 SCENARIO_PATH = DEMO_FIXTURE_ROOT / "synthetic-audit-demo.json"
 NOTICE = (
-    "Demonstração sintética pré-revisada; não é parser, não analisa arquivos "
-    "reais e não comprova resultado financeiro."
+    "Demonstração com dados fictícios. Não representa uma empresa real e não "
+    "estima vendas perdidas."
 )
+COMMERCIAL_LABELS = {
+    "LP-001": "Resposta acima do tempo esperado",
+    "LP-002": "Cliente ficou sem resposta",
+    "NO_FINDING_SLA_BOUNDARY": "Resposta dentro da meta",
+    "UNVERIFIABLE_RESPONSE": "Não foi possível confirmar a resposta",
+    "OUT_OF_SCOPE": "Conversa fora da análise",
+}
+COMMERCIAL_LIMITATIONS = [
+    "Todos os chats, participantes, horários e resultados desta demonstração são fictícios.",
+    "As situações apresentadas foram revisadas previamente por uma pessoa; a página não recebe nem analisa conversas do cliente.",
+    "Os resultados descrevem somente esta pequena amostra e não representam todo o atendimento de uma empresa.",
+    "Demora ou ausência de resposta não demonstra venda perdida, receita perdida, redução de conversão ou qualquer impacto financeiro.",
+]
 FINDING_FIELDS = [
     "finding_id",
     "type",
@@ -211,46 +224,109 @@ def _escape(value: Any) -> str:
     return html.escape(str(value), quote=True)
 
 
+def _commercial_consequence(chat: dict[str, Any], sla_seconds: int) -> str:
+    classification = chat["classification"]
+    sla_minutes = sla_seconds // 60
+    if classification == "LP-001":
+        difference_minutes = (chat["businessResponseSeconds"] - sla_seconds) // 60
+        return (
+            "A resposta humana útil ocorreu "
+            f"{difference_minutes} minutos acima da meta definida de "
+            f"{sla_minutes} minutos."
+        )
+    if classification == "LP-002":
+        return (
+            "O ciclo analisado terminou sem resposta humana útil para esta "
+            "solicitação elegível."
+        )
+    if classification == "NO_FINDING_SLA_BOUNDARY":
+        return (
+            "A resposta humana útil ocorreu exatamente na meta definida de "
+            f"{sla_minutes} minutos e não gera prioridade por atraso."
+        )
+    if classification == "UNVERIFIABLE_RESPONSE":
+        return (
+            "A evidência disponível não permite confirmar se houve resposta "
+            "humana útil; o caso permanece inconclusivo."
+        )
+    return (
+        "A conversa foi excluída dos denominadores comerciais porque pertence "
+        "ao atendimento de suporte."
+    )
+
+
+def _commercial_recommendation(chat: dict[str, Any]) -> str:
+    if chat["classification"] == "LP-001":
+        return (
+            "Criar um alerta operacional antes de a solicitação ultrapassar a "
+            "meta de 15 minutos."
+        )
+    if chat["classification"] == "NO_FINDING_SLA_BOUNDARY":
+        return (
+            "Manter o acompanhamento; o limite exato atende à meta e não exige "
+            "ação por atraso."
+        )
+    return chat["recommendation"]
+
+
 def build_html(scenario: dict[str, Any], result: dict[str, Any]) -> str:
     summary = result["summary"]
     cards = [
-        ("Chats recebidos", summary["chatsReceived"]),
-        ("Solicitações elegíveis", summary["eligibleRequests"]),
-        ("LP-001", f'{summary["lp001"]}/{summary["lp001Denominator"]}'),
-        ("LP-002", f'{summary["lp002"]}/{summary["lp002Denominator"]}'),
-        ("Resposta não verificável", summary["unverifiableResponses"]),
-        ("Fora do escopo", summary["outOfScope"]),
+        (
+            f'{summary["lp001"]} de {summary["lp001Denominator"]}',
+            "solicitações avaliáveis recebeu resposta acima da meta",
+        ),
+        (
+            f'{summary["lp002"]} de {summary["lp002Denominator"]}',
+            "solicitações elegíveis terminou sem resposta humana útil",
+        ),
+        (
+            summary["unverifiableResponses"],
+            "caso não permitiu confirmar se houve resposta",
+        ),
+        (summary["outOfScope"], "conversa ficou fora da análise"),
     ]
     card_html = "\n".join(
         f'<article class="metric"><strong>{_escape(value)}</strong><span>{_escape(label)}</span></article>'
-        for label, value in cards
+        for value, label in cards
     )
 
     chat_sections = []
-    for chat in scenario["chats"]:
+    for index, chat in enumerate(scenario["chats"], start=1):
         fixture_path = _safe_demo_fixture(chat["fixture"])
         source = fixture_path.read_text(encoding="utf-8").strip()
+        label = COMMERCIAL_LABELS[chat["classification"]]
+        consequence = _commercial_consequence(
+            chat, scenario["configuration"]["slaSeconds"]
+        )
+        recommendation = _commercial_recommendation(chat)
         chat_sections.append(
             "<article class=\"case\">"
-            f"<div><span class=\"tag\">{_escape(chat['classification'])}</span>"
-            f"<h3>{_escape(chat['chatId'])}</h3>"
-            f"<p>{_escape(chat['evidence'])}</p>"
-            f"<p class=\"recommendation\"><strong>Próxima ação:</strong> {_escape(chat['recommendation'])}</p></div>"
-            f"<pre>{_escape(source)}</pre>"
+            f"<div><span class=\"tag\">Caso {index} de {len(scenario['chats'])}</span>"
+            "<span class=\"case-label\">Situação encontrada</span>"
+            f"<h3>{_escape(label)}</h3>"
+            f"<h4>Evidência</h4><p>{_escape(chat['evidence'])}</p>"
+            f"<h4>Consequência verificável</h4><p>{_escape(consequence)}</p>"
+            f"<p class=\"recommendation\"><strong>Próxima ação:</strong> {_escape(recommendation)}</p></div>"
+            f"<pre aria-label=\"Trecho fictício da conversa\">{_escape(source)}</pre>"
             "</article>"
         )
 
+    finding_recommendations = {
+        chat["findingId"]: _commercial_recommendation(chat)
+        for chat in scenario["chats"]
+        if chat.get("findingId") is not None
+    }
     finding_rows = "\n".join(
         "<tr>"
-        f"<td>{_escape(item['findingId'])}</td>"
-        f"<td>{_escape(item['type'])}</td>"
-        f"<td>{_escape(item['priority'])}</td>"
-        f"<td>{_escape(item['recommendation'])}</td>"
+        f"<td>{_escape(COMMERCIAL_LABELS[item['type']])}</td>"
+        "<td>Prioridade alta</td>"
+        f"<td>{_escape(finding_recommendations[item['findingId']])}</td>"
         "</tr>"
         for item in result["findings"]
     )
     limitation_items = "\n".join(
-        f"<li>{_escape(item)}</li>" for item in result["limitations"]
+        f"<li>{_escape(item)}</li>" for item in COMMERCIAL_LIMITATIONS
     )
 
     return f"""<!doctype html>
@@ -260,7 +336,7 @@ def build_html(scenario: dict[str, Any], result: dict[str, Any]) -> str:
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
   <meta name="referrer" content="no-referrer">
-  <title>{_escape(scenario['title'])}</title>
+  <title>Radar de Perdas — demonstração comercial</title>
   <style>
     :root {{ color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #07111f; color: #eef5ff; }}
     * {{ box-sizing: border-box; }}
@@ -269,72 +345,104 @@ def build_html(scenario: dict[str, Any], result: dict[str, Any]) -> str:
     .eyebrow {{ color: #67e8f9; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; font-size: .78rem; }}
     h1 {{ max-width: 820px; margin: 12px 0 18px; font-size: clamp(2.3rem, 6vw, 4.8rem); line-height: 1; letter-spacing: -.045em; }}
     h2 {{ margin-top: 54px; }}
+    h3 {{ font-size: 1.35rem; }}
+    h4 {{ margin: 20px 0 4px; color: #93c5fd; font-size: .82rem; letter-spacing: .05em; text-transform: uppercase; }}
     .lead {{ max-width: 760px; color: #b8c7d9; font-size: 1.1rem; line-height: 1.65; }}
     .notice {{ margin: 28px 0; padding: 18px 20px; border: 1px solid #f59e0b; border-radius: 14px; background: #2b210c; color: #fde68a; font-weight: 750; }}
-    .flow {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 30px 0; }}
-    .flow div, .metric, .case, .panel {{ border: 1px solid #243a54; border-radius: 16px; background: rgba(8, 24, 42, .88); }}
-    .flow div {{ padding: 18px; }}
-    .flow strong, .flow span {{ display: block; }}
-    .flow span {{ margin-top: 6px; color: #9db0c7; line-height: 1.45; }}
+    .metric, .case, .panel, .faq {{ border: 1px solid #243a54; border-radius: 16px; background: rgba(8, 24, 42, .88); }}
     .metrics {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }}
     .metric {{ min-height: 120px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }}
     .metric strong {{ font-size: 2rem; }}
-    .metric span {{ color: #9db0c7; }}
+    .metric span {{ margin-top: 12px; color: #b8c7d9; line-height: 1.45; }}
     .case {{ display: grid; grid-template-columns: minmax(260px, .9fr) minmax(320px, 1.1fr); gap: 20px; padding: 22px; margin: 14px 0; }}
     .case h3 {{ margin: 10px 0; }}
     .case p {{ color: #c4d1e1; line-height: 1.55; }}
     .tag {{ display: inline-block; padding: 6px 9px; border-radius: 999px; background: #123c4a; color: #67e8f9; font-size: .72rem; font-weight: 800; }}
+    .case-label {{ display: block; margin-top: 18px; color: #9db0c7; font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }}
     pre {{ margin: 0; padding: 16px; overflow: auto; border-radius: 12px; background: #030a12; color: #dbeafe; white-space: pre-wrap; line-height: 1.5; }}
     .recommendation {{ border-left: 3px solid #22c55e; padding-left: 12px; }}
     .panel {{ padding: 22px; overflow: auto; }}
+    .faq-grid {{ display: grid; gap: 14px; }}
+    .faq {{ padding: 22px; }}
+    .faq h3 {{ margin: 0 0 10px; }}
+    .faq p, .steps {{ color: #c4d1e1; line-height: 1.6; }}
+    .steps {{ padding-left: 24px; }}
     table {{ width: 100%; border-collapse: collapse; }}
     th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid #243a54; vertical-align: top; }}
     th {{ color: #93c5fd; }}
     li {{ margin: 10px 0; color: #c4d1e1; line-height: 1.5; }}
-    footer {{ margin-top: 40px; color: #71849b; }}
-    @media (max-width: 760px) {{ .flow, .case {{ grid-template-columns: 1fr; }} }}
+    @media (max-width: 760px) {{
+      main {{ width: min(100% - 24px, 1120px); padding-top: 40px; }}
+      .case {{ grid-template-columns: 1fr; }}
+      th, td {{ min-width: 150px; }}
+    }}
   </style>
 </head>
 <body>
   <main>
-    <span class="eyebrow">Radar de Perdas · aprendizado seguro</span>
-    <h1>{_escape(scenario['title'])}</h1>
-    <p class="lead">Veja como uma amostra de conversas pode se transformar em achados verificáveis e ações priorizadas, sem confundir falha de atendimento com venda perdida.</p>
+    <span class="eyebrow">Radar de Perdas</span>
+    <h1>Veja onde solicitações comerciais demoraram ou terminaram sem resposta humana útil nesta amostra.</h1>
+    <p class="lead">O Radar de Perdas revisa uma amostra do atendimento comercial e transforma situações verificáveis em prioridades e ações de melhoria.</p>
     <aside class="notice">{_escape(NOTICE)}</aside>
-
-    <section class="flow" aria-label="Entrada, processamento e saída">
-      <div><strong>1. O que entra</strong><span>Cinco chats TXT inteiramente sintéticos e uma configuração com período, expediente e SLA.</span></div>
-      <div><strong>2. O que acontece</strong><span>Classificações humanas pré-revisadas são validadas e apresentadas; nenhum texto é interpretado automaticamente.</span></div>
-      <div><strong>3. O que sai</strong><span>Indicadores, dois achados confirmados, prioridades, recomendações e limitações em HTML, JSON e CSV.</span></div>
-    </section>
-
-    <h2>Resumo da amostra</h2>
-    <section class="metrics">{card_html}</section>
-
-    <h2>Casos revisados</h2>
-    {''.join(chat_sections)}
-
-    <h2>O que merece ação</h2>
-    <section class="panel">
-      <table>
-        <thead><tr><th>Achado</th><th>Tipo</th><th>Prioridade</th><th>Recomendação</th></tr></thead>
-        <tbody>{finding_rows}</tbody>
-      </table>
-    </section>
 
     <h2>O que você ganha com o serviço</h2>
     <section class="panel">
       <ul>
-        <li>Visibilidade sobre solicitações que receberam resposta depois do SLA.</li>
-        <li>Identificação de solicitações encerradas sem resposta humana útil.</li>
-        <li>Separação entre casos acionáveis, inconclusivos e fora do escopo.</li>
+        <li>Visibilidade sobre solicitações que receberam resposta depois da meta definida.</li>
+        <li>Contagem de solicitações comerciais elegíveis que terminaram sem resposta humana útil dentro da amostra analisada.</li>
+        <li>Separação entre situações acionáveis, casos inconclusivos e conversas fora da análise.</li>
         <li>Prioridades operacionais e recomendações ligadas a evidências revisadas.</li>
       </ul>
     </section>
 
+    <h2>Resultado da amostra</h2>
+    <p class="lead">Os números abaixo descrevem somente as conversas fictícias analisadas e mantêm separados os casos inconclusivos.</p>
+    <section class="metrics">{card_html}</section>
+
+    <h2>Evidências da amostra</h2>
+    {''.join(chat_sections)}
+
+    <h2>O que merece ação agora</h2>
+    <section class="panel">
+      <table>
+        <thead><tr><th>Situação</th><th>Prioridade</th><th>Próxima ação</th></tr></thead>
+        <tbody>{finding_rows}</tbody>
+      </table>
+    </section>
+
+    <h2>Como funciona com o seu WhatsApp</h2>
+    <p class="lead">O serviço atual é um piloto controlado e manual. Ele não se conecta diretamente à sua conta.</p>
+    <section class="faq-grid" aria-label="Perguntas comerciais frequentes">
+      <article class="faq">
+        <h3>Dá para fazer isso no meu WhatsApp?</h3>
+        <p>Sim, por meio de um piloto controlado. Hoje não existe integração direta com a sua conta do WhatsApp. Depois da qualificação, da definição de período, expediente e meta, dos aceites e dos controles de privacidade, você exporta legitimamente apenas a amostra acordada de 20 a 50 chats individuais.</p>
+      </article>
+      <article class="faq">
+        <h3>Você consegue descobrir quantos ficaram sem resposta?</h3>
+        <p>Na amostra analisada e segundo os critérios definidos, contamos solicitações comerciais elegíveis que terminaram sem uma resposta humana útil. Isso não cobre todos os clientes nem todo o seu WhatsApp. Casos cuja resposta não pode ser confirmada permanecem inconclusivos e separados do total.</p>
+      </article>
+      <article class="faq">
+        <h3>Como você faria isso com minhas conversas?</h3>
+        <p>Depois da qualificação e dos aceites, você exporta somente a amostra delimitada. Os arquivos seguem em mídia USB criptografada, com a senha transmitida por canal separado, e ficam em armazenamento local protegido. A análise é manual e offline; o relatório usa evidências mínimas redigidas ou pseudonimizadas, e os dados são descartados conforme a retenção acordada.</p>
+      </article>
+    </section>
+
+    <section class="panel" aria-label="Etapas do piloto controlado">
+      <h3>Etapas do piloto</h3>
+      <ol class="steps">
+        <li>Qualificamos a empresa e o tipo de conversa.</li>
+        <li>Definimos período, expediente e meta de resposta.</li>
+        <li>Formalizamos os aceites e concluímos os controles de privacidade antes de receber dados reais.</li>
+        <li>Você exporta legitimamente somente a amostra acordada de 20 a 50 chats individuais.</li>
+        <li>A transferência ocorre em mídia USB criptografada, com a senha enviada por canal separado.</li>
+        <li>Os arquivos ficam em armazenamento local protegido, fora do Git e de pastas sincronizadas.</li>
+        <li>A análise é manual e offline, sem IA ou serviços de nuvem sobre as conversas reais.</li>
+        <li>Entregamos um relatório redigido ou pseudonimizado, apresentamos os resultados e descartamos os dados conforme a retenção acordada.</li>
+      </ol>
+    </section>
+
     <h2>Limitações</h2>
     <section class="panel"><ul>{limitation_items}</ul></section>
-    <footer>Schema de demonstração: radar.demo/v1 · Metodologia: {_escape(result['methodologyVersion'])}</footer>
   </main>
 </body>
 </html>

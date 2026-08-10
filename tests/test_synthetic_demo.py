@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import copy
 import csv
+import html
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -19,6 +21,15 @@ from scripts.run_synthetic_demo import (
     validate_scenario,
     write_outputs,
 )
+
+
+CUSTOMER_FAQ_PATH = ROOT / "docs" / "CUSTOMER-FAQ.md"
+PILOT_BASELINE_PATH = ROOT / "docs" / "PILOT-BASELINE.md"
+
+
+def visible_text(page: str) -> str:
+    without_tags = re.sub(r"<[^>]+>", " ", page)
+    return " ".join(html.unescape(without_tags).split())
 
 
 class SyntheticDemoTests(unittest.TestCase):
@@ -65,7 +76,7 @@ class SyntheticDemoTests(unittest.TestCase):
 
     def test_html_escapes_scenario_content_and_has_offline_policy(self) -> None:
         scenario = copy.deepcopy(self.scenario)
-        scenario["title"] = "<script>alert('x')</script>"
+        scenario["chats"][0]["evidence"] = "<script>alert('x')</script>"
         summary = validate_scenario(scenario)
         page = build_html(scenario, build_result(scenario, summary))
 
@@ -75,6 +86,169 @@ class SyntheticDemoTests(unittest.TestCase):
         self.assertIn(NOTICE, page)
         self.assertNotIn("http://", page)
         self.assertNotIn("https://", page)
+
+    def test_html_uses_commercial_language_in_the_approved_order(self) -> None:
+        summary = validate_scenario(self.scenario)
+        page = build_html(self.scenario, build_result(self.scenario, summary))
+        text = visible_text(page)
+
+        labels = [
+            "Resposta acima do tempo esperado",
+            "Cliente ficou sem resposta",
+            "Resposta dentro da meta",
+            "Não foi possível confirmar a resposta",
+            "Conversa fora da análise",
+        ]
+        for label in labels:
+            self.assertIn(label, text)
+
+        ordered_sections = [
+            "Veja onde solicitações comerciais demoraram ou terminaram sem resposta humana útil nesta amostra.",
+            "O que você ganha com o serviço",
+            "Resultado da amostra",
+            "Evidências da amostra",
+            "O que merece ação agora",
+            "Como funciona com o seu WhatsApp",
+            "Limitações",
+        ]
+        positions = [text.index(section) for section in ordered_sections]
+        self.assertEqual(positions, sorted(positions))
+
+        self.assertIn(
+            "1 de 2 solicitações avaliáveis recebeu resposta acima da meta", text
+        )
+        self.assertIn(
+            "1 de 3 solicitações elegíveis terminou sem resposta humana útil", text
+        )
+        self.assertIn("1 caso não permitiu confirmar se houve resposta", text)
+        self.assertIn("1 conversa ficou fora da análise", text)
+        self.assertNotIn("clientes ficaram sem resposta", text.lower())
+
+    def test_html_answers_the_three_commercial_invariants(self) -> None:
+        summary = validate_scenario(self.scenario)
+        page = build_html(self.scenario, build_result(self.scenario, summary))
+        text = visible_text(page)
+
+        questions = [
+            "Dá para fazer isso no meu WhatsApp?",
+            "Você consegue descobrir quantos ficaram sem resposta?",
+            "Como você faria isso com minhas conversas?",
+        ]
+        for question in questions:
+            self.assertIn(question, text)
+
+        required_controls = [
+            "não existe integração direta",
+            "20 a 50 chats individuais",
+            "mídia USB criptografada",
+            "senha transmitida por canal separado",
+            "armazenamento local protegido",
+            "manual e offline",
+            "fora do Git e de pastas sincronizadas",
+            "sem IA ou serviços de nuvem",
+            "retenção acordada",
+        ]
+        for control in required_controls:
+            self.assertIn(control, text)
+
+        self.assertIn(
+            "Isso não cobre todos os clientes nem todo o seu WhatsApp", text
+        )
+        self.assertIn("permanecem inconclusivos e separados do total", text)
+
+    def test_html_hides_internal_tokens_but_structured_results_keep_them(self) -> None:
+        summary = validate_scenario(self.scenario)
+        result = build_result(self.scenario, summary)
+        page = build_html(self.scenario, result)
+
+        internal_tokens = [
+            "LP-001",
+            "LP-002",
+            "NO_FINDING_SLA_BOUNDARY",
+            "UNVERIFIABLE_RESPONSE",
+            "OUT_OF_SCOPE",
+            "CORRIGIR_AGORA",
+            "radar.demo/v1",
+            "AUDIT-METHOD-v0.1",
+        ]
+        for token in internal_tokens:
+            self.assertNotIn(token, page)
+
+        self.assertEqual(result["schemaVersion"], "radar.demo/v1")
+        self.assertEqual(result["methodologyVersion"], "AUDIT-METHOD-v0.1")
+        self.assertEqual(
+            {item["classification"] for item in result["reviewedCases"]},
+            {
+                "LP-001",
+                "LP-002",
+                "NO_FINDING_SLA_BOUNDARY",
+                "UNVERIFIABLE_RESPONSE",
+                "OUT_OF_SCOPE",
+            },
+        )
+
+    def test_html_limits_consequences_to_verifiable_facts(self) -> None:
+        summary = validate_scenario(self.scenario)
+        page = build_html(self.scenario, build_result(self.scenario, summary))
+        text = visible_text(page)
+
+        consequences = [
+            "5 minutos acima da meta definida de 15 minutos",
+            "O ciclo analisado terminou sem resposta humana útil para esta solicitação elegível",
+            "exatamente na meta definida de 15 minutos",
+            "o caso permanece inconclusivo",
+            "excluída dos denominadores comerciais",
+        ]
+        for consequence in consequences:
+            self.assertIn(consequence, text)
+
+        self.assertIn(
+            "Demora ou ausência de resposta não demonstra venda perdida, receita perdida, redução de conversão ou qualquer impacto financeiro",
+            text,
+        )
+
+    def test_customer_faq_is_canonical_and_keeps_pilot_evaluation_separate(
+        self,
+    ) -> None:
+        faq = CUSTOMER_FAQ_PATH.read_text(encoding="utf-8")
+        baseline = PILOT_BASELINE_PATH.read_text(encoding="utf-8")
+        normalized_faq = " ".join(faq.split())
+        normalized_baseline = " ".join(baseline.split())
+
+        commercial_questions = [
+            "Dá para fazer isso no meu WhatsApp?",
+            "Você consegue descobrir quantos ficaram sem resposta?",
+            "Como você faria isso com minhas conversas?",
+        ]
+        for question in commercial_questions:
+            self.assertIn(question, normalized_faq)
+
+        faq_controls = [
+            "não existe integração direta",
+            "20 a 50 chats individuais",
+            "mídia USB criptografada",
+            "senha transmitida por canal separado",
+            "armazenamento local protegido",
+            "manualmente e offline",
+            "retenção acordada",
+            "descartar os dados",
+        ]
+        for control in faq_controls:
+            self.assertIn(control, normalized_faq)
+
+        evaluation_questions = [
+            "Qual foi o objetivo da auditoria?",
+            "Quais foram os principais achados?",
+            "Qual ação possui maior prioridade?",
+            "Qual limitação impede interpretar os achados como vendas perdidas?",
+            "Qual é o próximo passo recomendado?",
+        ]
+        for question in evaluation_questions:
+            self.assertIn(question, normalized_baseline)
+            self.assertNotIn(question, normalized_faq)
+        self.assertIn(
+            "pelo menos quatro respostas corretas em cinco", normalized_baseline
+        )
 
     def test_write_outputs_generates_html_json_and_two_findings(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
