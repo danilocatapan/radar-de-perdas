@@ -19,3 +19,7 @@ COV-017,mídia omitida,true,regression/ios-content-timestamp-lf.txt,COVERED_SYNT
 COV-018,timestamps iguais,true,regression/android-directional-events-lf.txt,COVERED_SYNTHETIC,PENDING,
 COV-019,mensagens idênticas consecutivas,true,regression/android-directional-events-lf.txt,COVERED_SYNTHETIC,PENDING,
 COV-020,chat em grupo rejeitado,true,rejected/group-chat-lf.txt,COVERED_SYNTHETIC,PENDING,
+COV-021,ZIP rejeitado,true,,PENDING_GENERATOR,PENDING,
+COV-022,CSV rejeitado,true,,PENDING_GENERATOR,PENDING,
+COV-023,relógio de 12 horas rejeitado,true,,PENDING_GENERATOR,PENDING,
+COV-024,encoding incompatível rejeitado,true,,PENDING_GENERATOR,PENDING,

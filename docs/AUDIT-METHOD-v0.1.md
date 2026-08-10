@@ -4,8 +4,9 @@
 |---|---|
 | Versão | 0.1 |
 | Escopo | LP-001 e LP-002 |
-| Status | Aguardando aprovação |
-| Responsável por aprovação | Consultor do Radar de Perdas |
+| Status | `INTERNAL_APPROVED` |
+| Responsável pela decisão | Proprietário do Radar de Perdas |
+| Revisão externa | `EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED` |
 
 ## 1. Finalidade
 
@@ -33,6 +34,10 @@ individual.
 
 Parte do chat correspondente a um atendimento. Um novo ciclo começa depois de
 sete dias corridos sem mensagens, salvo encerramento explícito anterior.
+
+O corte é determinístico. Depois de encerrado um ciclo por inatividade, uma
+mensagem posterior inicia outro ciclo. Resposta tardia não reescreve o resultado
+do ciclo anterior; ela pode ser registrada apenas como observação posterior.
 
 ### 3.3 Solicitação
 
@@ -68,7 +73,8 @@ pela primeira resposta humana útil.
 
 ### 4.3 Avaliação manual obrigatória
 
-- Áudio ou mídia potencialmente usados como resposta.
+- Marcador de áudio ou mídia potencialmente usado como resposta, sem abrir,
+  reproduzir, transcrever ou analisar seu conteúdo.
 - Relação do contato desconhecida.
 - Mensagem ambígua quanto a pedido ou interesse.
 - Participante não resolvido.
@@ -95,18 +101,33 @@ Um reconhecimento humano sem conteúdo útil pode preencher
 `acknowledgement_at`, mas não `valid_response_at`.
 
 Áudio ou mídia enviada pelo negócio é `UNVERIFIABLE_RESPONSE`: registra contato,
-interrompe qualquer conclusão automática de LP-002 e exige revisão.
+interrompe qualquer conclusão automática de LP-002 e exige esclarecimento
+autorizado do cliente. O arquivo não é aberto, reproduzido, transcrito ou
+analisado. Sem confirmação suficiente, o resultado permanece `UNKNOWN` e não
+gera LP-002.
 
 ## 6. Relógios
 
 Para cada solicitação registrar:
 
+- `period_start_at`: início inclusivo do período auditado;
+- `period_end_at`: fim exclusivo do período auditado;
+- `evaluation_at`: instante fixo do corte da auditoria;
 - `received_at`: primeira mensagem do bloco;
 - `business_clock_start_at`: início efetivo do SLA;
 - `acknowledgement_at`: primeiro reconhecimento humano, se houver;
 - `valid_response_at`: primeira resposta útil, se houver;
 - `elapsed_response_seconds`: tempo corrido;
 - `business_response_seconds`: tempo útil.
+
+`evaluation_at` é o instante declarado da exportação pelo cliente. Se ele não
+estiver disponível, usa-se o instante documentado de recebimento do arquivo. O
+valor não muda durante a auditoria. Para solicitações sem resposta, os estados
+de SLA e encerramento são calculados somente até esse corte.
+
+Uma solicitação é recebida dentro do período quando
+`period_start_at <= received_at < period_end_at`. `evaluation_at` deve ser igual
+ou posterior a `period_end_at`; configuração que viole essa ordem é inválida.
 
 ### 6.1 Início do SLA
 
@@ -163,6 +184,9 @@ Sem resposta útil, LP-001 não é criado.
 Antes do encerramento, uma solicitação que ultrapassou o SLA sem resposta recebe
 somente `SLA_OVERDUE`.
 
+`SLA_OVERDUE` é um estado operacional calculado até `evaluation_at`; não é
+resultado comercial e não implica LP-002 enquanto o ciclo estiver aberto.
+
 LP-002 exige:
 
 - solicitação elegível;
@@ -184,10 +208,15 @@ LP-002 =
 O ciclo encerra quando:
 
 - o consultor confirma um resultado final; ou
-- passam sete dias corridos sem novas mensagens.
+- passam sete dias corridos desde a última mensagem do ciclo.
 
 Se o corte da auditoria ocorrer antes dos sete dias, o ciclo permanece
 `PENDING`, ainda que o SLA esteja vencido.
+
+Encerramento explícito anterior fecha o ciclo no instante confirmado. Mensagem
+posterior pertence a um novo ciclo. Resposta útil após o fechamento por
+inatividade não altera retroativamente LP-002 já confirmado; registra-se a
+resposta tardia e sua data como observação factual.
 
 ## 10. Resultado comercial
 
@@ -215,6 +244,7 @@ LP-001 ou LP-002 não determina automaticamente `LOST`.
 | Áudio enviado pelo negócio sem transcrição | Revisão manual; sem LP-002 automático |
 | Solicitação sem resposta e sete dias de inatividade | LP-002 |
 | Solicitação sem resposta há dois dias no corte | PENDING + SLA_OVERDUE |
+| Resposta útil depois de ciclo fechado por inatividade | Mantém resultado anterior e registra resposta tardia |
 | Negócio envia promoção; contato responde “obrigado” | Sem solicitação automática |
 | Prospect envia três mensagens antes da resposta | Uma solicitação |
 | Prospect faz nova pergunta após resposta útil | Nova solicitação |
@@ -242,7 +272,14 @@ manual_addition_rate =
   total_confirmed_findings
 ```
 
-Menos de dez itens no denominador torna a métrica inconclusiva.
+`manual_addition_rate` é um proxy de achados que não foram sugeridos
+automaticamente. Ele não mede omissão absoluta do processo.
+
+- `auto_discard_rate` é `INCONCLUSIVE` com menos de dez sugestões automáticas
+  revisadas ou denominador zero.
+- `manual_addition_rate` é `INCONCLUSIVE` com menos de dez achados confirmados
+  ou denominador zero.
+- Resultado inconclusivo nunca é convertido em zero.
 
 ## 13. Controle de versão
 
@@ -253,8 +290,9 @@ Menos de dez itens no denominador torna a métrica inconclusiva.
 ## 14. Aprovação
 
 ```text
-Responsável:
-Data:
-Decisão: APPROVED | CHANGES_REQUIRED
-Observações:
+Responsável: Proprietário do Radar de Perdas
+Data: 2026-08-10
+Decisão: INTERNAL_APPROVED
+Revisão externa: EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED
+Observações: metodologia aprovada internamente para o piloto preliminar; revisão humana integral obrigatória.
 ```

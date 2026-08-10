@@ -2,13 +2,13 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.0 |
-| Horizonte | 2026-08-03 a 2027-02-07 |
+| Versão | 1.1 |
+| Horizonte | 2026-08-03 a 2027-03-07 |
 | Capacidade planejada | 10 horas por semana |
-| Orçamento total | 260 horas |
-| Responsável | Consultor do Radar de Perdas |
-| Status | Em execução; `R0` aguardando aprovações |
-| Última revisão | 2026-08-03 |
+| Orçamento total | 300 horas |
+| Responsável | Proprietário do Radar de Perdas |
+| Status | `R0` em execução; pacote documental aprovado internamente; saída bloqueada |
+| Última revisão | 2026-08-10 |
 
 Este roadmap ordena a validação comercial, metodológica, técnica e operacional.
 As datas são metas de planejamento. Somente os gates de
@@ -46,21 +46,22 @@ adiados até nova decisão arquitetural posterior à validação.
 
 | Marco | Período | Horas | Estado | Entrega e condição de saída |
 |---|---:|---:|---|---|
-| `R0` — Governança e preparação | 03–16/08/2026 | 20 | IN_PROGRESS | Documentos e roadmap revisados; BitLocker verificado; validação jurídica iniciada; aprovações registradas |
-| `R1` — Piloto comercial manual | 17/08–13/09/2026 | 40 | BLOCKED | Oferta apresentada e aceita; instrumento de dados aprovado; R$ 500 recebidos; relatório e avaliação concluídos |
-| `R2` — Corpus e contrato final | 14/09–04/10/2026 | 30 | BLOCKED | Corpus segregado; matriz coberta; holdout preservado; `radar.ingest/v1` final aprovado |
-| `R3` — Parser CLI | 05/10–01/11/2026 | 40 | BLOCKED | CLI offline e relatório de qualidade aprovados no corpus e no holdout |
-| `R4` — Vertical slice web | 02/11–13/12/2026 | 60 | BLOCKED | Workflow local-first, workspace criptografado e exportações aprovados em preview protegido |
-| `R5` — Primeiro uso assistido e beta | 14/12/2026–10/01/2027 | 30 | BLOCKED | Medição assistida concluída; gate de continuidade aprovado; `v0.1.0-beta.1` publicada |
-| `R6` — Segundo piloto e produção estável | 11/01–07/02/2027 | 40 | BLOCKED | Piloto independente e hardening concluídos; gate final aprovado; `v1.0.0` publicada |
+| `R0` — Governança e preparação | 03–16/08/2026 | 20 | IN_PROGRESS | Decisões internas registradas; risco residual aceito; oportunidade qualificada e BitLocker verificado |
+| `R1A` — Piloto preliminar gratuito | 17/08–13/09/2026 | 40 | BLOCKED | Convite aceito; `REAL_DATA_READY`; auditoria manual e avaliação concluídas, sem validar disposição a pagar |
+| `R1B` — Piloto comercial pago | 14/09–11/10/2026 | 40 | BLOCKED | Oferta de R$ 500 aceita e paga; utilidade, compreensão e esclarecimento aprovados |
+| `R2` — Corpus e contrato final | 12/10–01/11/2026 | 30 | BLOCKED | Corpus segregado; matriz coberta; holdout preservado; `radar.ingest/v1` final aprovado |
+| `R3` — Parser CLI | 02–29/11/2026 | 40 | BLOCKED | CLI offline e relatório de qualidade aprovados no corpus e no holdout |
+| `R4` — Vertical slice web | 30/11/2026–10/01/2027 | 60 | BLOCKED | Workflow local-first, workspace criptografado e exportações aprovados em preview protegido |
+| `R5` — Primeiro uso assistido e beta | 11/01–07/02/2027 | 30 | BLOCKED | Medição assistida concluída; gate de continuidade aprovado; `v0.1.0-beta.1` publicada |
+| `R6` — Segundo piloto e produção estável | 08/02–07/03/2027 | 40 | BLOCKED | Piloto independente e hardening concluídos; gate final aprovado; `v1.0.0` publicada |
 
 Total planejado:
 
 ```text
-20 + 40 + 30 + 40 + 60 + 30 + 40 = 260 horas
+20 + 40 + 40 + 30 + 40 + 60 + 30 + 40 = 300 horas
 ```
 
-Horas de espera por cliente, jurídico ou revisão não consomem a capacidade de
+Horas de espera por cliente, ação administrativa ou revisão não consomem a capacidade de
 execução, mas podem alterar as datas.
 
 ## 4. Marcos detalhados
@@ -70,26 +71,58 @@ execução, mas podem alterar as datas.
 Entregas:
 
 - revisar oferta, relatório, baseline, metodologia, privacidade e contrato draft;
-- registrar aprovação ou mudanças requeridas para cada documento;
+- registrar decisão interna ou mudanças requeridas para cada documento em
+  [`R0-DECISION-LOG.md`](R0-DECISION-LOG.md);
 - verificar BitLocker em terminal administrativo;
-- definir responsável jurídico e referência externa do instrumento de dados;
+- registrar que a revisão jurídica externa não foi obtida e decidir internamente
+  sobre o risco residual, sem caracterizar essa decisão como parecer externo;
 - identificar empresa e contato qualificados;
 - manter este roadmap e `GATE-STATUS.md` coerentes.
 
 Gate de saída:
 
-- documentos comerciais e metodológicos aprovados;
-- protocolo encaminhado à validação jurídica;
+- documentos comerciais e metodológicos aprovados internamente;
+- contrato de ingestão aprovado internamente apenas como draft sujeito ao
+  corpus real;
+- ausência de revisão jurídica externa e decisão de risco do proprietário
+  registradas;
 - BitLocker com proteção ativa;
 - oportunidade comercial identificada;
 - nenhum bloqueio interno sem responsável.
 
-### R1 — Piloto comercial manual
+O encerramento de `R0` representa prontidão interna. Ele não autoriza o
+recebimento de dados reais, que depende separadamente de `REAL_DATA_READY`.
+
+### R1A — Piloto preliminar gratuito
+
+Entregas:
+
+- convidar uma empresa qualificada para um piloto sem custo;
+- obter o aceite contratual do instrumento de dados;
+- concluir todos os componentes de `REAL_DATA_READY` antes do recebimento;
+- executar auditoria manual de 20 a 50 chats individuais;
+- entregar relatório redigido e realizar apresentação de até 60 minutos;
+- medir utilidade, compreensão e tempo de esclarecimento;
+- registrar feedback sem interpretar o piloto gratuito como validação de
+  disposição a pagar.
+
+Gate de saída:
+
+- `REAL_DATA_READY` concluído antes do acesso a dados reais;
+- utilidade mínima de 4/5;
+- compreensão mínima de quatro respostas corretas em cinco;
+- esclarecimento após leitura de no máximo 15 minutos;
+- feedback e limitações registrados;
+- gate comercial pago permanece pendente.
+
+### R1B — Piloto comercial pago
 
 Entregas:
 
 - enviar a oferta de R$ 500 a uma empresa qualificada;
 - receber aceite, primeira parcela e insumos completos;
+- revalidar `REAL_DATA_READY` para o escopo, período e amostra de `R1B`, sem
+  reutilizar automaticamente a decisão de `R1A`;
 - executar auditoria manual de até 50 chats;
 - registrar o baseline em `PILOT-TIME-LOG.csv`;
 - entregar relatório manual em PDF;
@@ -102,7 +135,11 @@ Gate de saída:
 - utilidade mínima de 4/5;
 - compreensão mínima de quatro respostas corretas em cinco;
 - esclarecimento após leitura de no máximo 15 minutos;
-- fornecimento legítimo e operação jurídica considerados viáveis.
+- fornecimento declarado pelo cliente e controles contratuais e operacionais
+  considerados viáveis pelo proprietário, sem alegar validação jurídica externa.
+
+O gate pago de `R1B` é obrigatório para iniciar `R2`; resultados de `R1A` não
+o substituem.
 
 ### R2 — Corpus e contrato final
 
@@ -205,8 +242,8 @@ Gate de saída:
 - parser aprovado;
 - primeiro piloto pago;
 - nenhuma perda silenciosa;
-- `production_active_minutes` reduzido em pelo menos 30%;
-- `total_service_minutes` sem aumento;
+- `production_active_seconds` reduzido em pelo menos 30%;
+- `total_service_active_seconds` sem aumento;
 - descarte automático estritamente menor que 20%;
 - achados manuais adicionais estritamente menores que 20%;
 - denominadores conclusivos ou nova amostra requerida;
@@ -230,7 +267,8 @@ Gate de saída:
 
 - todos os critérios de `R5` confirmados;
 - dois pilotos independentes concluídos;
-- operação jurídica e de descarte comprovada;
+- aceite contratual e operação de descarte comprovados, mantendo explícita a
+  ausência de validação jurídica externa;
 - nenhum incidente crítico aberto;
 - release `v1.0.0` aprovada.
 
@@ -239,8 +277,8 @@ Gate de saída:
 ### 5.1 Componentes
 
 ```text
-Repositório privado no GitHub
-  -> build e preview protegidos
+Repositório público no GitHub, sem dados reais
+  -> build, previews e aplicação protegidos
   -> Cloudflare Pages + Access
   -> aplicação estática no navegador
   -> Web Worker para parsing e regras
@@ -403,6 +441,22 @@ Cobertura mínima:
 O holdout é executado somente pelo revisor no gate final do parser.
 
 ## 8. Atualização semanal
+
+### Semana de 10/08/2026
+
+```text
+data: 2026-08-10
+marco: R0
+horas_planejadas: 20
+horas_consumidas: 10
+horas_restantes: 10
+entregas_concluidas: decisões internas e replanejamento registrados
+evidencias: R0-DECISION-LOG.md; GATE-STATUS.md; ROADMAP.md
+bloqueios: BitLocker; qualificação da oportunidade
+responsavel_pelo_bloqueio: proprietário
+proxima_acao: concluir as evidências pendentes sem receber dados reais
+nova_previsao: 2026-08-16
+```
 
 Toda revisão semanal deve registrar:
 
