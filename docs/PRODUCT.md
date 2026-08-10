@@ -2,9 +2,10 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.2 |
-| Status | Validação do serviço |
-| Responsável por aprovação | Consultor do Radar de Perdas |
+| Versão | 0.3 |
+| Status | `INTERNAL_APPROVED` para `R1A` |
+| Responsável pela decisão | Proprietário do Radar de Perdas |
+| Revisão externa | `EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED` |
 
 ## Visão
 
@@ -21,7 +22,12 @@ Uma auditoria padronizada de LP-001 e LP-002:
 - gera recomendações compreensíveis;
 - pode ter pelo menos 30% do tempo produtivo reduzido por ferramenta
   local-first, com processamento no navegador;
-- pode operar com taxas de descarte e omissão inferiores a 20%.
+- pode operar com descarte automático inferior a 20% e proxy de achados não
+  sugeridos inferior a 20%.
+
+O piloto preliminar gratuito `R1A` valida operação, utilidade e compreensão. Ele
+não valida disposição a pagar. A hipótese de compra por pelo menos R$ 500 só
+pode ser considerada validada por um piloto pago posterior, em `R1B`.
 
 ## Usuário inicial
 
@@ -31,13 +37,16 @@ software no primeiro estágio.
 ## Direção da v1
 
 - Ferramenta de uso interno do consultor.
+- Código, documentação e fixtures sintéticas em repositório público; previews e
+  aplicação protegidos por controle de acesso.
 - Análise exclusiva de LP-001 e LP-002.
 - Interface estática hospedada e protegida no Cloudflare Pages.
 - Conversas processadas somente no navegador.
 - Nenhum banco, backend, upload de conversas ou telemetria.
 - Estado persistido em arquivo local criptografado.
 - HTML e CSV experimentais; PDF contratado produzido manualmente.
-- Beta após o primeiro piloto pago e os gates técnicos.
+- Piloto preliminar gratuito antes do primeiro piloto pago.
+- Beta somente após o piloto pago e os gates técnicos.
 - Versão estável após segundo piloto independente e gate final.
 
 O detalhamento e as dependências estão em [`ROADMAP.md`](ROADMAP.md).
@@ -68,7 +77,8 @@ Relatório manual redigido ou pseudonimizado com:
 - Provar causalidade entre atendimento e venda.
 - Substituir revisão humana.
 - Criar software personalizado por cliente.
-- Analisar grupos, anexos ou áudios.
+- Analisar grupos, anexos, áudios ou mídia. Marcadores de mídia apenas bloqueiam
+  conclusão automática até esclarecimento autorizado.
 - Construir SaaS antes dos gates.
 
 ## Gates do produto
@@ -81,11 +91,14 @@ A versão estável exige um segundo piloto independente e todos os critérios de
 
 ## Métricas de sucesso
 
-- Pagamento total ≥ R$ 500.
+- Piloto preliminar: custo zero, sem alegação de validação de preço.
+- Piloto pago posterior: pagamento total ≥ R$ 500.
 - Utilidade percebida ≥ 4/5.
-- Compreensão ≥ 4/5 respostas.
+- Compreensão ≥ 4 de 5 respostas corretas.
 - Esclarecimento pós-leitura ≤ 15 minutos.
-- Redução de `production_active_minutes` ≥ 30%.
-- `total_service_minutes` não aumenta.
+- Redução de `production_active_seconds` ≥ 30%.
+- `total_service_active_seconds` não aumenta; minutos são apenas apresentação
+  arredondada.
 - Descarte automático < 20%.
-- Achados manuais adicionais < 20%.
+- `manual_addition_rate` < 20%, tratado como proxy de achados não sugeridos e
+  não como taxa absoluta de omissão.

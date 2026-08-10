@@ -2,28 +2,38 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.1 |
-| Responsável | Consultor do Radar de Perdas |
-| Status | Preparação do piloto |
+| Versão | 0.2 |
+| Responsável | Proprietário do Radar de Perdas |
+| Status | `R0` em execução; pacote documental aprovado internamente; saída bloqueada |
 
-Projeto para validar e, somente depois dos gates comerciais, metodológicos e
-jurídicos, automatizar auditorias de atendimento comercial por WhatsApp.
+Projeto para validar e, somente depois dos gates comerciais, metodológicos,
+contratuais, operacionais e de privacidade, automatizar auditorias de
+atendimento comercial por WhatsApp.
 
 ## Estado atual
 
 O repositório está na etapa de preparação do piloto. Nesta etapa são permitidos:
 
 - oferta comercial;
+- convite para piloto preliminar gratuito;
 - modelo de relatório manual;
 - baseline e medição de produtividade;
 - metodologia LP-001/LP-002;
 - protocolo operacional de privacidade;
+- instrumento de tratamento de dados em rascunho;
 - contrato de ingestão em rascunho;
+- registro não sensível de decisões internas;
 - fixtures exclusivamente sintéticas.
 
 O parser, a vertical slice e qualquer infraestrutura produtiva estão bloqueados
 até o atendimento dos critérios registrados em
 [`docs/GATE-STATUS.md`](docs/GATE-STATUS.md).
+
+O pacote documental atual inclui o
+[`convite do piloto preliminar`](docs/PILOT-PRELIMINARY-INVITATION.md), a
+[`oferta comercial paga`](docs/PILOT-OFFER.md), o
+[`instrumento de dados em rascunho`](docs/PILOT-DATA-TERMS-v0.1-draft.md) e o
+[`registro de decisões do R0`](docs/R0-DECISION-LOG.md).
 
 ## Testes automatizados
 
@@ -50,10 +60,10 @@ fixtures sintéticas; dados reais e o holdout privado continuam proibidos.
 
 ## Roadmap
 
-O plano de conclusão entre agosto de 2026 e fevereiro de 2027 está em
+O plano de conclusão entre agosto de 2026 e março de 2027 está em
 [`docs/ROADMAP.md`](docs/ROADMAP.md). Ele define:
 
-- piloto comercial e auditoria manual antes do software;
+- piloto preliminar gratuito e, depois, piloto comercial pago antes do software;
 - contrato final e parser antes da interface;
 - vertical slice local-first sem banco de dados;
 - beta após o primeiro piloto pago;
@@ -72,4 +82,5 @@ C:\Users\catap\RadarDePerdas-Pilotos\<PILOT_ID>\
 ```
 
 Consulte [`docs/PRIVACY-PILOT.md`](docs/PRIVACY-PILOT.md) antes de receber
-qualquer arquivo real.
+qualquer arquivo real. O recebimento permanece proibido enquanto
+`REAL_DATA_READY` estiver diferente de `COMPLETE`.

@@ -4,8 +4,9 @@
 |---|---|
 | Versão do documento | 1.0-draft |
 | Schema pretendido | `radar.ingest/v1` |
-| Status | Hipóteses sintéticas; não implementar ainda |
-| Responsáveis por aprovação | Consultor e desenvolvedor |
+| Status | `INTERNAL_APPROVED_AS_DRAFT`; não implementar ainda |
+| Responsável pela decisão | Proprietário do Radar de Perdas |
+| Revisão externa | `EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED` |
 
 > Este rascunho organiza formatos conhecidos e fixtures sintéticas. O contrato
 > final só poderá ser criado após a revisão do corpus real autorizado.
@@ -27,6 +28,11 @@ Códigos de saída:
 - `4`: configuração inválida.
 
 O CLI não acessará rede.
+
+Os códigos, o formato de saída em falhas, as severidades, a recuperabilidade e a
+distinção entre `UNKNOWN_EVENT`, `UNSUPPORTED_CONTENT` e `PARSE_ERROR` são
+hipóteses pendentes. Eles só serão congelados no contrato final depois da revisão
+do corpus autorizado.
 
 ## 2. Escopo preliminar
 
@@ -296,6 +302,10 @@ Critérios pretendidos para o contrato suportado:
 - contabilidade = 100%;
 - rejeição explícita = 100%.
 
+O contrato final deverá definir igualdade correta como correspondência integral
+dos campos esperados da mensagem e deverá especificar os denominadores vazios.
+Nenhum denominador ausente será convertido silenciosamente em 100%.
+
 ## 13. Corpus e prevenção de overfitting
 
 - Desenvolvimento: 4 exportações, 2 Android e 2 iOS.
@@ -305,9 +315,17 @@ Critérios pretendidos para o contrato suportado:
 O conjunto privado não entra no repositório nem é consultado durante a
 implementação. O expected output fica com o revisor.
 
+Falha no holdout reprova o gate do parser. O contrato não pode ser alterado
+durante o teste. Qualquer revisão posterior exige nova versão, novos expected
+outputs aprovados e um novo holdout independente.
+
 As oito exportações são mínimo; a aprovação depende da matriz de cobertura.
 
-## 14. Matriz mínima
+## 14. Matriz mínima do corpus real
+
+Esta checklist representa evidência futura do corpus real autorizado. Cobertura
+por fixture sintética é registrada separadamente em `coverage-matrix.csv` e não
+marca estes itens como concluídos.
 
 - [ ] Ano curto.
 - [ ] Ano longo.
@@ -328,10 +346,15 @@ As oito exportações são mínimo; a aprovação depende da matriz de cobertura
 - [ ] Mídia omitida.
 - [ ] Timestamps iguais.
 - [ ] Mensagens idênticas consecutivas.
+- [ ] Chat em grupo rejeitado.
+- [ ] ZIP rejeitado.
+- [ ] CSV rejeitado.
+- [ ] Relógio de 12 horas rejeitado.
+- [ ] Encoding incompatível rejeitado.
 
 ## 15. Processo de finalização
 
-1. Aprovar este draft.
+1. Aprovar internamente este draft como conjunto de hipóteses.
 2. Receber corpus autorizado fora do repositório.
 3. Criar versões redigidas de desenvolvimento e regressão.
 4. Revisar linha a linha.
@@ -343,9 +366,9 @@ As oito exportações são mínimo; a aprovação depende da matriz de cobertura
 ## 16. Aprovação do draft
 
 ```text
-Consultor:
-Desenvolvedor:
-Data:
-Decisão: APPROVED | CHANGES_REQUIRED
-Observações:
+Responsável: Proprietário do Radar de Perdas
+Data: 2026-08-10
+Decisão: INTERNAL_APPROVED_AS_DRAFT
+Revisão externa: EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED
+Observações: sujeito ao corpus autorizado; não congela schema e não autoriza implementação.
 ```

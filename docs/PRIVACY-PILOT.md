@@ -2,47 +2,98 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.1-draft |
-| Escopo | Piloto manual e ferramenta local-first com dados reais |
-| Status | Não aprovado juridicamente |
-| Responsável operacional | Consultor do Radar de Perdas |
+| Versão | 1.2-draft |
+| Escopo | Pilotos manuais e ferramenta local-first com dados reais |
+| Revisão | `INTERNAL_APPROVED_AS_DRAFT` — revisão operacional interna |
+| Estado jurídico | `EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED` |
+| Responsável operacional | Proprietário do Radar de Perdas |
 
-> Este protocolo descreve controles operacionais. Não substitui contrato,
-> aditivo, parecer jurídico, definição de base legal ou avaliação de incidente.
+> Este protocolo descreve controles operacionais internos. Não é parecer
+> jurídico, não atesta conformidade legal e não substitui a definição, pelo
+> cliente, da hipótese legal, das informações aos titulares ou das obrigações
+> regulatórias aplicáveis.
 
-## 1. Gates anteriores ao recebimento
+## 1. Papéis e premissas
 
-Nenhum arquivo real pode ser recebido até existirem:
+Por padrão, e sujeito à confirmação no instrumento aceito por ambas as partes:
 
-- controlador e operador definidos por escrito;
-- finalidade e instruções documentadas;
-- responsabilidade pelo fornecimento legítimo;
-- período e prazo de retenção;
-- procedimento de titulares;
-- procedimento de incidente;
-- lista de subprocessadores;
-- aprovação jurídica registrada fora do repositório;
-- `PILOT_ID` sem nome do cliente.
+- o cliente é o **controlador** das conversas e decide finalidades, meios
+  essenciais, hipótese legal, atendimento aos titulares e comunicações
+  regulatórias;
+- o proprietário do Radar de Perdas é o **operador** e trata os dados apenas em
+  nome do controlador e segundo instruções documentadas;
+- qualquer mudança de papel ou finalidade exige nova instrução e atualização do
+  instrumento antes do tratamento.
 
-## 2. Identificador
+O cliente declara que pode fornecer legitimamente o material, que cumpriu os
+deveres de transparência aplicáveis e que as instruções são compatíveis com os
+direitos dos titulares. O operador não escolhe a hipótese legal em nome do
+cliente.
 
-Formato:
+## 2. Gate composto `REAL_DATA_READY`
+
+Nenhum conteúdo real pode ser recebido, copiado, aberto ou tratado até todos os
+itens abaixo estarem comprovados. O gate é indivisível: um item pendente mantém
+o estado `BLOCKED`.
+
+- [ ] Instrumento de tratamento de dados aceito pelas duas partes.
+- [ ] Papéis de controlador e operador confirmados no instrumento.
+- [ ] Finalidade, instruções e legitimidade do fornecimento registradas.
+- [ ] Escopo conferido e incompatibilidades excluídas.
+- [ ] `PILOT_ID` não identificável criado.
+- [ ] Retenção de 30 dias após a entrega registrada.
+- [ ] Canal USB criptografado testado apenas com fixture sintética.
+- [ ] Diretório local fora de sincronização criado e ACL conferida.
+- [ ] BitLocker verificado como `FULLY_ENCRYPTED` e `ON`.
+- [ ] Procedimentos de titulares, incidente e descarte conhecidos.
+- [ ] Subprocessadores confirmados; por padrão, nenhum recebe dados reais.
+
+Registrar o resultado sem dados pessoais:
+
+```text
+gate=REAL_DATA_READY
+pilot_id=PILOT-YYYYNN
+checked_at=YYYY-MM-DDTHH:MM:SS-03:00
+state=COMPLETE | BLOCKED
+pending_controls=
+operator=
+```
+
+`COMPLETE` autoriza apenas o escopo e o período aceitos. Não equivale a aprovação
+jurídica externa.
+
+## 3. Escopo e minimização
+
+O tratamento limita-se a conversas individuais necessárias à auditoria de
+perdas comerciais e à elaboração do relatório redigido. A finalidade não inclui
+treinamento de modelos, publicidade, enriquecimento cadastral, perfilamento,
+revenda, reutilização para outro cliente ou desenvolvimento com dados reais.
+
+Ficam fora do piloto:
+
+- dados pessoais sensíveis, inclusive dados de saúde;
+- dados de crianças ou adolescentes;
+- grupos e arquivos ou conteúdo de anexos, áudio, vídeo e imagens;
+- credenciais, dados financeiros e documentos de identidade;
+- material sem origem ou autorização confirmada pelo controlador.
+
+Se conteúdo incompatível for identificado, interromper o tratamento, isolar o
+arquivo sem abri-lo novamente e solicitar instrução ao controlador. Não copiar o
+conteúdo para registrar a ocorrência.
+
+Marcadores textuais de mídia omitida já presentes no TXT podem permanecer. Eles
+não autorizam receber ou abrir o conteúdo e são tratados como resposta não
+verificável pela metodologia.
+
+## 4. Identificador e diretório
+
+Usar identificador sem nome, CNPJ, telefone ou segmento:
 
 ```text
 PILOT-YYYYNN
 ```
 
-Exemplo sintético:
-
-```text
-PILOT-202601
-```
-
-Não incluir nome, CNPJ, telefone ou segmento no identificador.
-
-## 3. Diretório obrigatório
-
-Raiz:
+Raiz operacional:
 
 ```text
 C:\Users\catap\RadarDePerdas-Pilotos\<PILOT_ID>\
@@ -58,276 +109,183 @@ Subdiretórios:
 90-disposal
 ```
 
-Finalidade:
+Dados reais são proibidos no repositório do projeto e em qualquer diretório
+sincronizado. Antes do recebimento, confirmar que somente a conta Windows
+autorizada, `SYSTEM` e `Administrators` têm acesso à raiz operacional.
 
-- `00-contract`: referências operacionais ao instrumento, sem copiar documentos
-  desnecessários.
-- `10-raw`: exportações recebidas, sem alteração.
-- `20-working`: cópias e resultados intermediários.
-- `30-output`: relatório redigido e entregáveis.
-- `90-disposal`: manifesto temporário anterior ao descarte.
-
-Dados reais são proibidos dentro de:
-
-```text
-C:\Users\catap\Documents\Radar de Perdas\
-```
-
-## 4. Convenção de nomes
+Arquivos devem usar nomes não identificáveis:
 
 ```text
 <PILOT_ID>_<tipo>_<YYYYMMDD>_<sequencia>.<ext>
 ```
 
-Tipos permitidos:
+## 5. Verificação do BitLocker
 
-- `source`;
-- `working`;
-- `report`;
-- `manifest`.
-
-Exemplo:
-
-```text
-PILOT-202601_source_20260803_001.txt
-```
-
-Não usar dados identificáveis no nome.
-
-## 5. Verificação de criptografia
-
-Antes de criar o diretório, executar em terminal administrativo:
+Antes de criar a raiz operacional, executar em PowerShell administrativo:
 
 ```powershell
 manage-bde -status C:
 ```
 
-O responsável deve confirmar e registrar:
+Não copiar a saída completa. Registrar somente:
 
 ```text
-Conversion Status: Fully Encrypted
-Protection Status: Protection On
+verification_date=YYYY-MM-DD
+encryption_state=FULLY_ENCRYPTED
+protection_state=ON
 ```
 
-Se a proteção estiver suspensa, desligada ou indeterminada:
+Os valores acima são os estados canônicos internos. Se o comando não puder ser
+executado como administrador, se a informação for indeterminada ou se qualquer
+estado for diferente, registrar `BLOCKED_ADMIN`, manter `REAL_DATA_READY` como
+`BLOCKED` e não receber dados reais.
 
-1. não criar o diretório;
-2. não baixar ou copiar arquivos;
-3. corrigir a proteção;
-4. repetir a verificação;
-5. registrar somente o resultado, sem recovery key.
+Nunca registrar, fotografar, copiar ou enviar recovery key, senha, identificador
+de protetor ou qualquer material de recuperação.
 
-Nunca registrar ou enviar a chave de recuperação.
+## 6. Transferência e recebimento
 
-## 6. Acesso
+O canal padrão é mídia USB criptografada entregue diretamente. A senha deve ser
+transmitida por canal separado da mídia e conhecida apenas pelas partes
+autorizadas. Antes do primeiro uso real, testar leitura, integridade e remoção
+com fixture exclusivamente sintética.
 
-- Único usuário autorizado: conta Windows `catap`.
-- Não compartilhar sessão do Windows.
-- Bloquear a tela ao se afastar.
-- Não conceder acesso remoto durante o tratamento.
-- Jurídico, cliente e terceiros recebem somente entregáveis adequadamente
-  redigidos, salvo procedimento formal diferente.
+É proibido transferir conteúdo real por e-mail, mensageiro, formulário público,
+Git, serviço de nuvem, ferramenta de IA, clipboard compartilhado ou acesso
+remoto por agentes.
 
-Antes do piloto, verificar propriedades de segurança do diretório e confirmar
-que apenas `catap`, `SYSTEM` e `Administrators` possuem acesso.
+No recebimento:
 
-## 7. Recebimento
+1. confirmar `REAL_DATA_READY=COMPLETE`;
+2. copiar diretamente da mídia para `10-raw`;
+3. renomear conforme a convenção e calcular SHA-256 localmente;
+4. registrar em manifesto local origem, data, responsável e hash;
+5. confirmar que grupos, anexos e categorias excluídas não estão presentes;
+6. ejetar a mídia e devolver ou eliminar a cópia conforme instrução do
+   controlador.
 
-Canal de transferência deve ser definido no instrumento jurídico. O recebimento
-não pode ocorrer por:
+## 7. Regras de acesso e manuseio
 
-- WhatsApp;
-- e-mail comum;
-- clipboard compartilhado;
-- repositório Git;
-- formulário público;
-- ferramenta de IA.
+Somente o proprietário autorizado pode acessar conteúdo real. Agentes humanos
+ou de IA, revisores, fornecedores, jurídico e outros terceiros não recebem
+acesso às conversas. Revisões técnicas usam apenas fixtures sintéticas.
 
-Ao receber:
+É proibido incluir conteúdo real, inclusive trechos, identificadores ou hashes
+de arquivos reais, em:
 
-1. mover o arquivo para `10-raw`;
-2. renomear conforme a convenção;
-3. calcular SHA-256;
-4. registrar origem, data, responsável e hash em manifesto local;
-5. confirmar que não existem grupos ou anexos fora do escopo;
-6. remover a cópia do local de transferência conforme procedimento aprovado.
+- Git, issues, pull requests, CI ou diretórios do repositório;
+- nuvem, backup, sincronização ou aplicação hospedada;
+- prompts, modelos, ferramentas ou agentes de IA;
+- screenshots, gravações de tela ou demonstrações;
+- logs, telemetria, analytics, error tracking ou source maps;
+- clipboard compartilhado, e-mail, mensageiro, ticket ou nota em nuvem.
 
-## 8. Regras de manuseio
+O tratamento ocorre offline. A aplicação local-first pode carregar código
+estático protegido, mas não pode transmitir dados, configurações do piloto,
+achados ou relatórios. Controles de rede só podem ser testados com fixtures
+sintéticas. Relatórios destinados ao cliente devem ser redigidos antes de sair
+do ambiente local.
 
-É proibido:
+## 8. Titulares e instruções do controlador
 
-- copiar conteúdo para clipboard fora da ferramenta;
-- colar em e-mail, mensageiro, ticket ou nota em nuvem;
-- enviar a modelos de IA;
-- usar conteúdo em demonstrações;
-- capturar telas contendo dados reais;
-- incluir trechos em nomes de arquivos ou logs;
-- habilitar telemetria que registre conteúdo;
-- trabalhar em rede Wi-Fi pública.
+O controlador recebe e decide solicitações de titulares. Ao ser instruído, o
+operador deve localizar, corrigir, bloquear, exportar ou eliminar os dados sob
+seu controle dentro do prazo informado pelo controlador, preservadas obrigações
+legais documentadas.
 
-Ferramentas manuais e o parser CLI devem operar offline. A ferramenta web
-local-first obedece à fronteira de rede definida na seção seguinte.
+O operador deve:
 
-## 9. Fronteira da ferramenta local-first
+- manter registro local das operações e instruções, sem reproduzir conversas;
+- avisar se uma instrução parecer incompatível com este protocolo;
+- suspender o tratamento até receber instrução corrigida quando houver risco;
+- não responder ao titular em nome do controlador sem autorização escrita.
 
-A aplicação web poderá ser carregada de um ambiente estático protegido. O
-carregamento não autoriza transmitir conteúdo do piloto.
+## 9. Subprocessadores e fronteira externa
 
-Cloudflare poderá receber somente:
+O padrão do piloto manual é **nenhum subprocessador com acesso a dados reais**.
+Sistemas operacionais e código estático que não recebem conteúdo não são
+autorização para transferência de dados.
 
-- requisições de ativos estáticos;
-- IP e metadados técnicos inerentes ao acesso;
-- identidade usada para autenticação no Cloudflare Access.
+Qualquer subprocessador futuro exige, antes do acesso:
 
-É proibido transmitir:
+1. autorização prévia e escrita do controlador;
+2. finalidade, dados, localidade, retenção e segurança documentadas;
+3. obrigação contratual equivalente;
+4. atualização do instrumento e nova decisão de `REAL_DATA_READY`.
 
-- TXT ou anexos;
-- mensagens brutas ou normalizadas;
-- configuração de horário, SLA ou participantes;
-- achados, classificações ou relatório;
-- senha ou chave do workspace.
+## 10. Retenção e descarte
 
-Controles obrigatórios antes da beta:
+O prazo padrão para `10-raw`, `20-working` e qualquer saída que ainda contenha
+dados pessoais é de **30 dias corridos após a entrega**. Prazo menor prevalece
+quando instruído pelo controlador. Ampliação exige instrução documentada e
+fundamento registrado antes do vencimento.
 
-- `connect-src 'none'` na política de conteúdo;
-- scripts, estilos, fontes e Web Workers servidos pela própria aplicação;
-- nenhum analytics, telemetria, IA, error tracking ou fonte externa;
-- source maps de produção não publicados;
-- previews e domínio produtivo protegidos pelo Cloudflare Access;
-- lista de usuários permitidos revisada;
-- Cloudflare registrado na lista contratual de subprocessadores aplicável;
-- teste de rede executado somente com fixtures sintéticas.
-
-O conteúdo permanece em memória durante a sessão. Para persistência, o usuário
-exporta um arquivo `.radar` criptografado para `20-working`. Conteúdo do piloto
-não pode ser gravado em `localStorage`, IndexedDB ou cache remoto. O arquivo
-criptografado segue a mesma retenção de `20-working`.
-
-Fechar a aba encerra o estado não exportado. Perda da senha do `.radar` implica
-perda irrecuperável do workspace.
-
-## 10. Sincronização e backup
-
-- A raiz operacional não pode estar dentro de OneDrive, Google Drive, Dropbox ou
-  diretório sincronizado.
-- Não criar backup de `10-raw` ou `20-working`.
-- O cliente é responsável por conservar o original.
-- Não usar histórico de arquivos do Windows para esses diretórios.
-- O relatório redigido em `30-output` segue o prazo definido no contrato.
-
-## 11. Retenção
-
-Prazo padrão:
-
-- `10-raw` e `20-working`: até 90 dias após a entrega;
-- prazo menor prevalece quando definido em contrato ou solicitação válida;
-- nenhum prazo pode ser ampliado sem instrução documentada do controlador.
-
-Registrar:
+Registrar localmente:
 
 ```text
-delivered_at:
-retention_days:
-deletion_due_at:
-legal_or_contract_reference:
+delivered_at=
+retention_days=30
+deletion_due_at=
+instruction_reference=
 ```
 
-## 12. Preparação do descarte
+Antes da exclusão, resolver o caminho absoluto e confirmar que ele começa
+exatamente com `C:\Users\catap\RadarDePerdas-Pilotos\`, termina em um
+`PILOT_ID` válido e não contém curinga ou variável não resolvida. Recusar a raiz
+do volume, a pasta de usuário, o repositório e a raiz de pilotos sem um
+identificador.
 
-Antes da exclusão:
-
-1. resolver o caminho absoluto;
-2. confirmar que ele começa exatamente com
-   `C:\Users\catap\RadarDePerdas-Pilotos\`;
-3. confirmar que o último segmento corresponde ao `PILOT_ID`;
-4. contar arquivos;
-5. calcular SHA-256 de cada arquivo;
-6. gerar um hash do manifesto;
-7. registrar somente metadados necessários.
-
-O procedimento deve recusar:
-
-- `C:\`;
-- `C:\Users\catap`;
-- diretório do repositório;
-- raiz `RadarDePerdas-Pilotos` sem um `PILOT_ID`;
-- caminhos com curingas ou variáveis não resolvidas.
-
-## 13. Exclusão
-
-A exclusão deve ser executada em PowerShell, do início ao fim, usando
-`-LiteralPath` e somente após as validações da seção anterior.
-
-Procedimento operacional:
-
-1. fechar todas as ferramentas;
-2. excluir a raiz validada do piloto;
-3. verificar `Test-Path -LiteralPath <caminho>` igual a `False`;
-4. criar recibo fora da raiz apagada.
-
-Destino do recibo:
-
-```text
-C:\Users\catap\RadarDePerdas-Receipts\<PILOT_ID>-disposal.json
-```
-
-Campos:
-
-```text
-pilotId
-operator
-startedAt
-completedAt
-validatedAbsolutePath
-fileCount
-manifestSha256
-pathExistsAfterDeletion
-encryptionWasVerified
-notes
-```
-
-O recibo não contém nomes de arquivos, textos, contatos ou hashes individuais.
+Excluir com PowerShell de ponta a ponta e `-LiteralPath`, verificar
+`Test-Path=False` e criar recibo não sensível fora da raiz apagada. O recibo
+registra apenas `pilotId`, responsável, datas, caminho validado, quantidade de
+arquivos, hash do manifesto, confirmação da exclusão e estado de criptografia;
+não inclui nomes, conversas, contatos ou hashes individuais.
 
 Em SSD, a evidência é de remoção lógica sobre volume criptografado, não de
 apagamento físico comprovado.
 
-## 14. Perda ou roubo
+## 11. Incidentes
 
-Ao tomar ciência:
+Ao tomar conhecimento de incidente confirmado ou suspeito, o operador deve:
 
-1. registrar horário e circunstâncias;
-2. informar o controlador em até 24 horas;
-3. confirmar estado conhecido do BitLocker;
-4. revogar credenciais e sessões acessíveis;
-5. preservar logs sem copiar conversas;
-6. suspender novos tratamentos;
-7. listar categorias e volume possivelmente afetados;
-8. solicitar avaliação jurídica sobre ANPD e titulares;
-9. documentar contenção, avaliação e retomada.
+1. conter o evento sem destruir evidências;
+2. suspender novos tratamentos;
+3. registrar data, circunstâncias, categorias e volume estimado sem copiar
+   conversas;
+4. informar o controlador **em até 24 horas**, fornecendo as informações
+   disponíveis e atualizações relevantes;
+5. preservar os registros necessários e apoiar a análise e a mitigação;
+6. revogar credenciais ou sessões afetadas e confirmar o estado conhecido da
+   criptografia;
+7. retomar somente mediante instrução documentada do controlador.
 
-Não prometer ao cliente que criptografia elimina automaticamente o risco.
+Cabe ao controlador avaliar risco ou dano relevante e decidir as comunicações à
+ANPD e aos titulares. Quando aplicável, o Regulamento de Comunicação de
+Incidente de Segurança (RCIS) estabelece prazo de três dias úteis, contado do
+conhecimento pelo controlador, ressalvado prazo específico. O controlador deve
+manter registro dos incidentes, inclusive dos não comunicados, por no mínimo
+cinco anos. A obrigação contratual de 24 horas do operador é interna entre as
+partes e não altera os prazos regulatórios.
 
-## 15. Checklist anterior ao arquivo real
+A criptografia é um controle relevante, mas não elimina automaticamente o risco
+nem dispensa a avaliação do controlador.
 
-- [ ] Instrumento jurídico aprovado.
-- [ ] Papéis LGPD definidos.
-- [ ] `PILOT_ID` criado.
-- [ ] BitLocker totalmente ativo.
-- [ ] Diretório fora de sincronização.
-- [ ] Permissões conferidas.
-- [ ] Canal de transferência aprovado.
-- [ ] Retenção registrada.
-- [ ] Procedimento de incidente conhecido.
-- [ ] Oferta proíbe escopo incompatível.
-- [ ] Subprocessadores e fronteira de rede aprovados antes da beta.
+Referências oficiais, consultadas em 10/08/2026:
 
-## 16. Aprovação
+- [LGPD, arts. 46 a 48](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm);
+- [ANPD — Comunicação de Incidente de Segurança e RCIS](https://www.gov.br/anpd/pt-br/canais_atendimento/agente-de-tratamento/comunicado-de-incidente-de-seguranca-cis).
+
+## 12. Registro de revisão interna
 
 ```text
-Responsável operacional:
-Responsável jurídico:
-Data:
-Decisão: APPROVED | CHANGES_REQUIRED
-Referência do instrumento:
-Observações:
+document=PRIVACY-PILOT.md
+version=1.2-draft
+review=INTERNAL_APPROVED_AS_DRAFT | CHANGES_REQUIRED
+legal_status=EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED
+owner=
+reviewed_at=
+notes=
 ```
+
+O preenchimento deste registro comprova apenas revisão operacional interna. Não
+deve ser descrito como aprovação jurídica, validação jurídica ou parecer.

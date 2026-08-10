@@ -3,8 +3,8 @@
 | Campo | Valor |
 |---|---|
 | Versão | 1.0-draft |
-| Responsáveis | Consultor e desenvolvedor |
-| Status | Corpus exclusivamente sintético |
+| Responsável | Proprietário do Radar de Perdas |
+| Status | Corpus exclusivamente sintético; contrato apenas aprovado como draft |
 
 ## Regra fundamental
 
@@ -65,9 +65,13 @@ Cada manifesto deve declarar:
 Não ajustar expected output apenas para fazer um teste passar. Mudanças exigem
 revisão do contrato e aprovação.
 
-## Observação sobre CRLF e BOM
+## Casos pendentes de geração
 
 Os arquivos textuais versionados podem ser normalizados pelo Git. Casos que
 dependem dos bytes CRLF ou BOM deverão ser materializados por um gerador
 determinístico somente depois da aprovação do contrato final. Até lá, a matriz
 os marca como pendentes.
+
+ZIP, CSV, relógio de 12 horas e encoding incompatível também permanecem como
+casos sintéticos pendentes. A existência das linhas na matriz não antecipa o
+parser nem comprova cobertura pelo corpus real.
