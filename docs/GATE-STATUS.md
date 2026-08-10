@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 2.0 |
+| Versão | 2.1 |
 | Responsável | Proprietário do Radar de Perdas |
 | Última revisão | 2026-08-10 |
 
@@ -36,8 +36,8 @@ Estados de decisão documental:
 | Situação da revisão jurídica externa registrada | EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED | Decisão `R0-RISK-001` |
 | Decisão de risco do proprietário registrada | INTERNAL_APPROVED | Decisão `R0-RISK-001`; não libera dados reais |
 | Oportunidade qualificada identificada | BLOCKED_EXTERNAL | Código reservado `OPP-2026-001`; checklist de qualificação ainda sem evidência |
-| BitLocker verificado | BLOCKED_ADMIN | Registrar apenas data, `encryption_state=FULLY_ENCRYPTED` e `protection_state=ON` |
-| Gate de saída do R0 | BLOCKED | Depende da oportunidade qualificada e do BitLocker verificado |
+| BitLocker verificado | COMPLETE | Verificação do proprietário em 2026-08-10: `encryption_state=FULLY_ENCRYPTED`; `protection_state=ON`; sem saída bruta ou chave de recuperação |
+| Gate de saída do R0 | BLOCKED | Depende exclusivamente da oportunidade qualificada `OPP-2026-001` |
 
 O gate de saída do `R0` comprova prontidão interna. Mesmo quando concluído,
 ele não libera dados reais e não substitui `REAL_DATA_READY`.
@@ -67,7 +67,7 @@ do piloto pago `R1B`.
 | Retenção registrada | PENDING | Data limite de 30 dias após a entrega |
 | Canal criptografado testado | PENDING | Mídia USB criptografada e senha transmitida separadamente |
 | Diretório operacional e ACL aprovados | PENDING | Checklist operacional sem caminho privado no Git |
-| BitLocker ativo | BLOCKED_ADMIN | Data e estados permitidos, sem saída bruta nem chave de recuperação |
+| BitLocker ativo | PENDING | Evidência do R0 existe; revalidar `FULLY_ENCRYPTED` e `ON` para o piloto concreto, sem reutilização automática |
 | Resultado composto | BLOCKED | Somente `COMPLETE` quando todos os componentes estiverem concluídos |
 
 ## R1B — Piloto comercial pago

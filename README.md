@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.3 |
+| Versão | 0.4 |
 | Responsável | Proprietário do Radar de Perdas |
 | Status | `R0` em execução; pacote documental aprovado internamente; saída bloqueada |
 
@@ -51,6 +51,29 @@ No estado atual, a ordem é: verificar BitLocker, qualificar uma oportunidade,
 encerrar `R0`, obter os aceites de `R1A` e somente então preparar
 `REAL_DATA_READY`. Não solicite nem receba conversas durante a qualificação ou o
 convite inicial.
+
+## Demonstração sintética executável
+
+É possível conhecer o fluxo e visualizar resultados agora, sem parser e sem
+dados reais:
+
+```powershell
+python scripts/run_synthetic_demo.py --output-dir artifacts/synthetic-demo
+Start-Process .\artifacts\synthetic-demo\index.html
+```
+
+O que entra: cinco chats TXT inteiramente sintéticos e classificações humanas
+pré-revisadas. O que acontece: o script valida a consistência dessas anotações,
+sem interpretar automaticamente as conversas. O que sai:
+
+- `index.html`, com indicadores, casos, prioridades e limitações;
+- `result.json`, usando o schema exclusivo `radar.demo/v1`;
+- `findings.csv`, com os dois achados demonstrativos.
+
+A demonstração mostra como o serviço identifica demora (`LP-001`), ausência de
+resposta (`LP-002`), casos inconclusivos e itens fora do escopo. Ela não aceita
+arquivo arbitrário, não antecipa o parser e não comprova venda ou receita
+perdida.
 
 ## Testes automatizados
 

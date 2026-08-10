@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.1 |
+| Versão | 1.2 |
 | Horizonte | 2026-08-03 a 2027-03-07 |
 | Capacidade planejada | 10 horas por semana |
 | Orçamento total | 300 horas |
@@ -450,11 +450,11 @@ marco: R0
 horas_planejadas: 20
 horas_consumidas: 10
 horas_restantes: 10
-entregas_concluidas: decisões internas e replanejamento registrados
+entregas_concluidas: decisões internas, replanejamento e BitLocker verificado
 evidencias: R0-DECISION-LOG.md; GATE-STATUS.md; ROADMAP.md
-bloqueios: BitLocker; qualificação da oportunidade
+bloqueios: qualificação da oportunidade OPP-2026-001
 responsavel_pelo_bloqueio: proprietário
-proxima_acao: concluir as evidências pendentes sem receber dados reais
+proxima_acao: qualificar a oportunidade sem solicitar ou receber dados reais
 nova_previsao: 2026-08-16
 ```
 
