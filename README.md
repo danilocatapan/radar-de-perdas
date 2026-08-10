@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.2 |
+| Versão | 0.3 |
 | Responsável | Proprietário do Radar de Perdas |
 | Status | `R0` em execução; pacote documental aprovado internamente; saída bloqueada |
 
@@ -34,6 +34,23 @@ O pacote documental atual inclui o
 [`oferta comercial paga`](docs/PILOT-OFFER.md), o
 [`instrumento de dados em rascunho`](docs/PILOT-DATA-TERMS-v0.1-draft.md) e o
 [`registro de decisões do R0`](docs/R0-DECISION-LOG.md).
+
+## Comece aqui
+
+O passo a passo operacional está no
+[`manual do operador`](docs/OPERATOR-RUNBOOK.md). Ele explica, com entradas,
+comandos e resultados esperados:
+
+1. como verificar e registrar o BitLocker sem expor a chave de recuperação;
+2. como qualificar `OPP-2026-001` sem colocar a identidade da empresa no Git;
+3. como preparar e liberar cada componente de `REAL_DATA_READY`;
+4. como executar o piloto manual gratuito `R1A`;
+5. por que o piloto pago `R1B` é separado e o que ele precisa comprovar.
+
+No estado atual, a ordem é: verificar BitLocker, qualificar uma oportunidade,
+encerrar `R0`, obter os aceites de `R1A` e somente então preparar
+`REAL_DATA_READY`. Não solicite nem receba conversas durante a qualificação ou o
+convite inicial.
 
 ## Testes automatizados
 
