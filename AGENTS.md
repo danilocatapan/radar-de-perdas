@@ -75,6 +75,84 @@ parte da suíte integral, incluindo lint, typecheck, testes e build aplicáveis.
 - Fixtures versionadas devem ser sintéticas ou formalmente redigidas e aprovadas.
 - Antes de receber dados reais, seguir `docs/PRIVACY-PILOT.md`.
 
+## Qualidade de produto e comunicação comercial
+
+Ao alterar material ou comportamento visível ao cliente, o agente deve:
+
+- separar códigos internos da linguagem comercial e não expor jargão como
+  conceito principal sem necessidade;
+- permitir que o cliente compreenda o problema encontrado, a evidência, a ação
+  recomendada e os limites do resultado;
+- consultar [`docs/CUSTOMER-FAQ.md`](docs/CUSTOMER-FAQ.md) como fonte canônica
+  das respostas comerciais;
+- não prometer integração, automação ou capacidade inexistente;
+- não equiparar demora ou ausência de resposta a venda perdida, receita perdida,
+  redução de conversão ou impacto financeiro;
+- preservar integralmente os controles de segurança e privacidade.
+
+### Três invariantes comerciais
+
+Toda apresentação a prospects deve responder claramente:
+
+1. Dá para fazer isso no meu WhatsApp?
+2. Você consegue descobrir quantos ficaram sem resposta?
+3. Como você faria isso com minhas conversas?
+
+A segunda resposta deve corrigir a premissa: o Radar conta solicitações
+comerciais elegíveis sem resposta humana útil dentro da amostra analisada e dos
+critérios definidos. Não cobre todos os clientes nem todo o WhatsApp, e mantém
+casos inconclusivos separados.
+
+### Cinco perguntas de avaliação de compreensão
+
+As invariantes comerciais não substituem as cinco perguntas aplicadas ao
+decisor depois da leitura do relatório, definidas em
+[`docs/PILOT-BASELINE.md`](docs/PILOT-BASELINE.md):
+
+1. Qual foi o objetivo da auditoria?
+2. Quais foram os principais achados?
+3. Qual ação possui maior prioridade?
+4. Qual limitação impede interpretar os achados como vendas perdidas?
+5. Qual é o próximo passo recomendado?
+
+Essas perguntas medem compreensão do relatório e exigem pelo menos quatro
+respostas corretas em cinco. Não devem ser apresentadas como FAQ comercial.
+
+### Validação de produto
+
+Antes da conclusão do `R1A`, a sequência é:
+
+```text
+rodar
+  -> olhar
+  -> mostrar
+  -> ouvir
+  -> conseguir R1A
+  -> executar manualmente
+```
+
+Gerar e testar não substitui olhar a saída renderizada como cliente. Mostrar e
+ouvir usam somente a demonstração sintética; conseguir `R1A` depende da
+qualificação, dos aceites e dos controles aplicáveis. A execução continua
+manual e não autoriza parser, frontend ou automação.
+
+Depois de eventual `GO`, mudanças que alterem comportamento ou experiência
+percebida pelo usuário seguem:
+
+```text
+implementar
+  -> rodar
+  -> revisar visualmente
+  -> usar ou demonstrar
+  -> ouvir
+  -> medir
+  -> manter | corrigir | reverter
+```
+
+Compilação, testes e code review não bastam para validar uma feature de produto.
+A regra pós-`GO` não cria burocracia para mudanças puramente internas e não
+antecipa qualquer gate.
+
 ## Entrega
 
 Na resposta final, informe:
