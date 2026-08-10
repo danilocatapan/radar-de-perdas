@@ -79,6 +79,8 @@ parte da suíte integral, incluindo lint, typecheck, testes e build aplicáveis.
 
 Ao alterar material ou comportamento visível ao cliente, o agente deve:
 
+- ler e aplicar obrigatoriamente a
+  [`docs/AGENT-PERSONA-USUARIO.md`](docs/AGENT-PERSONA-USUARIO.md);
 - separar códigos internos da linguagem comercial e não expor jargão como
   conceito principal sem necessidade;
 - permitir que o cliente compreenda o problema encontrado, a evidência, a ação
@@ -89,6 +91,30 @@ Ao alterar material ou comportamento visível ao cliente, o agente deve:
 - não equiparar demora ou ausência de resposta a venda perdida, receita perdida,
   redução de conversão ou impacto financeiro;
 - preservar integralmente os controles de segurança e privacidade.
+
+### Gate interno da persona do usuário
+
+Depois de gerar e renderizar o artefato cliente-facing final, o agente deve
+executar explicitamente a revisão definida em
+[`docs/AGENT-PERSONA-USUARIO.md`](docs/AGENT-PERSONA-USUARIO.md). A revisão deve
+ocorrer sobre a experiência realmente inspecionada em desktop e mobile, não
+apenas sobre o código-fonte ou os resultados dos testes.
+
+O material somente recebe `APPROVE` interno quando:
+
+- a nota total é maior ou igual a `9.0/10.0`;
+- nenhum critério recebe zero;
+- nenhuma falha crítica é encontrada;
+- a revisão visual real foi concluída nos dois viewports.
+
+Qualquer falha crítica bloqueia `APPROVE`, independentemente da nota. Se a
+renderização ou a inspeção não puder ser concluída, registrar
+`USER_VISUAL_REVIEW_REQUIRED` e não atribuir aprovação definitiva.
+
+A entrega final deve informar nota, breakdown por critério, veredito, falhas
+críticas e estado da revisão visual. Esse score é um gate interno de qualidade:
+ele não substitui `mostrar -> ouvir`, não comprova utilidade com pessoas reais e
+não valida disposição a pagar.
 
 ### Três invariantes comerciais
 
