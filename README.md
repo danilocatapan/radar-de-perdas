@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.4 |
+| Versão | 0.5 |
 | Responsável | Proprietário do Radar de Perdas |
 | Status | `R0` em execução; pacote documental aprovado internamente; saída bloqueada |
 
@@ -25,8 +25,10 @@ O repositório está na etapa de preparação do piloto. Nesta etapa são permit
 - registro não sensível de decisões internas;
 - fixtures exclusivamente sintéticas.
 
-O parser, a vertical slice e qualquer infraestrutura produtiva estão bloqueados
-até o atendimento dos critérios registrados em
+Novas features, parser, frontend, infraestrutura, banco, IA e refinamentos
+estruturais estão pausados. Depois do piloto manual `R1A`, somente a consolidação
+`R1A.1` e o teste comercial `R1B` podem avançar; qualquer backlog técnico
+permanece bloqueado até uma decisão `GO` baseada em evidência, conforme
 [`docs/GATE-STATUS.md`](docs/GATE-STATUS.md).
 
 O pacote documental atual inclui o
@@ -47,10 +49,10 @@ comandos e resultados esperados:
 4. como executar o piloto manual gratuito `R1A`;
 5. por que o piloto pago `R1B` é separado e o que ele precisa comprovar.
 
-No estado atual, a ordem é: verificar BitLocker, qualificar uma oportunidade,
-encerrar `R0`, obter os aceites de `R1A` e somente então preparar
-`REAL_DATA_READY`. Não solicite nem receba conversas durante a qualificação ou o
-convite inicial.
+O BitLocker já foi verificado. O próximo passo operacional inequívoco é
+qualificar `OPP-2026-001`, encerrando o bloqueio restante de `R0`. Depois, a
+ordem é: obter os aceites de `R1A` e somente então preparar `REAL_DATA_READY`.
+Não solicite nem receba conversas durante a qualificação ou o convite inicial.
 
 ## Demonstração sintética executável
 
@@ -92,7 +94,8 @@ fixtures e caminhos privados não entram no artefato.
 O GitHub Pages publica o
 [painel público de qualidade](https://danilocatapan.github.io/radar-de-perdas/)
 após uma passagem verde na `main`. O painel não é o produto, não recebe arquivos
-e não substitui o futuro preview protegido no Cloudflare Pages.
+e não autoriza nem substitui um eventual preview técnico, que depende de `GO` e
+dos gates posteriores.
 
 O deploy usa GitHub Actions e depende da variável de repositório
 `PAGES_ENABLED=true`. O repositório público contém somente código, documentos e
@@ -100,17 +103,22 @@ fixtures sintéticas; dados reais e o holdout privado continuam proibidos.
 
 ## Roadmap
 
-O plano de conclusão entre agosto de 2026 e março de 2027 está em
-[`docs/ROADMAP.md`](docs/ROADMAP.md). Ele define:
+O [`roadmap de validação`](docs/ROADMAP.md) estabelece a ordem:
 
-- piloto preliminar gratuito e, depois, piloto comercial pago antes do software;
-- contrato final e parser antes da interface;
-- vertical slice local-first sem banco de dados;
-- beta após o primeiro piloto pago;
-- produção estável após um segundo piloto independente;
-- hospedagem estática protegida, sem transmitir conversas.
+```text
+R0 → R1A → R1A.1 → R1B → DECISION GATE → R2+ somente com GO
+```
 
-As datas do roadmap não substituem os gates do produto.
+- `R1A` valida manualmente operação e utilidade, não disposição a pagar;
+- `R1A.1` registra apenas aprendizados e gargalos observados;
+- `R1B` exige pagamento total de pelo menos R$ 500;
+- o `DECISION GATE` registra `GO`, `PIVOT` ou `STOP`;
+- `R2+` é backlog condicional, sem datas, orçamento ou releases comprometidos.
+
+Somente `GO`, com evidência comercial, operação manual viável e gargalo
+repetitivo comprovado, pode liberar a avaliação de automação. Os controles de
+segurança, privacidade, LGPD e `REAL_DATA_READY` permanecem obrigatórios em
+qualquer decisão.
 
 ## Regra de dados
 

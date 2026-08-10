@@ -1,515 +1,260 @@
-# Roadmap de conclusão e produção — Radar de Perdas
+# Roadmap de validação e backlog condicional — Radar de Perdas
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.2 |
-| Horizonte | 2026-08-03 a 2027-03-07 |
-| Capacidade planejada | 10 horas por semana |
-| Orçamento total | 300 horas |
+| Versão | 2.0 |
+| Prioridade | `R0 → R1A → R1A.1 → R1B → DECISION GATE → R2+ somente com GO` |
 | Responsável | Proprietário do Radar de Perdas |
-| Status | `R0` em execução; pacote documental aprovado internamente; saída bloqueada |
+| Status | `R0` em execução; saída bloqueada exclusivamente por `OPP-2026-001` |
 | Última revisão | 2026-08-10 |
 
-Este roadmap ordena a validação comercial, metodológica, técnica e operacional.
-As datas são metas de planejamento. Somente os gates de
-[`GATE-STATUS.md`](GATE-STATUS.md) autorizam o início da etapa seguinte.
+Este roadmap prioriza a validação do serviço com clientes reais antes de novos
+investimentos em software ou estrutura futura. Somente os gates de
+[`GATE-STATUS.md`](GATE-STATUS.md) autorizam a etapa seguinte. Nenhuma data,
+estimativa ou hipótese técnica substitui evidência comercial e operacional.
 
-## 1. Resultado pretendido
+## 1. Resultado pretendido agora
 
-A produção v1 será uma ferramenta de uso interno do consultor com:
+O objetivo atual é comprovar que a auditoria manual de `LP-001` e `LP-002`:
 
-- análise exclusiva de `LP-001` e `LP-002`;
-- interface hospedada e protegida no Cloudflare Pages;
-- processamento integral das conversas no navegador;
-- nenhum banco, backend, upload de conversas, telemetria ou integração;
-- persistência por arquivo local criptografado;
-- exportação experimental em HTML e CSV redigidos;
-- PDF contratado produzido manualmente a partir do template aprovado;
-- beta após o primeiro piloto pago e os gates técnicos;
-- versão estável após um segundo piloto independente e o gate final.
+- produz utilidade percebida pelo cliente;
+- pode ser executada manualmente com segurança e operação viável;
+- possui disposição real a pagar, demonstrada por pagamento total de pelo
+  menos R$ 500;
+- revela, em pilotos reais, algum gargalo repetitivo que justifique automação.
 
-Clientes não acessarão o software na v1. Neon, Supabase e outros bancos ficam
-adiados até nova decisão arquitetural posterior à validação.
+Parser, frontend, infraestrutura, banco de dados, IA, novos indicadores e
+refinamentos estruturais não são entregas atuais. A demonstração sintética já
+existente não é produto, não recebe dados arbitrários e não comprova utilidade,
+operação ou disposição a pagar.
 
 ## 2. Princípios de execução
 
-1. Gate prevalece sobre data.
-2. Dados reais nunca entram no Git, em fixture, log, issue ou PR.
-3. Holdout privado não é consultado durante a implementação.
-4. Um marco atrasado desloca todos os marcos dependentes.
-5. Cada marco de implementação usa branch e draft PR próprios.
-6. Nenhum desenvolvimento personalizado entra no piloto.
-7. Custo mensal de infraestrutura permanece igual a zero até nova autorização.
-8. Não se declara ganho de produtividade sem baseline comparável.
+1. Validação comercial e operacional precede automação.
+2. A próxima ação é qualificar `OPP-2026-001` sem solicitar ou receber dados
+   reais, encerrando o bloqueio restante de `R0`.
+3. Novas features, parser, frontend, infraestrutura e refinamentos estruturais
+   ficam pausados durante `R1A`.
+4. Depois de `R1A`, somente `R1A.1` e a preparação do teste comercial `R1B`
+   podem avançar; o backlog técnico continua bloqueado até decisão `GO`.
+5. Automação futura pode resolver somente gargalos repetitivos observados nos
+   pilotos reais, nunca problemas hipotéticos.
+6. Dados reais nunca entram no Git, em fixture, log, issue, PR ou ferramenta de
+   IA. O holdout privado nunca entra no repositório.
+7. `REAL_DATA_READY` é obrigatório e deve ser decidido novamente para cada
+   piloto, escopo, período e amostra.
+8. Nenhum resultado interno equivale a parecer jurídico externo.
+9. Não se declara ganho de produtividade sem baseline comparável.
+10. Mudança futura de produto, arquitetura relevante, segurança ou escopo deve
+    ser registrada como pendência e submetida a nova decisão; não será
+    implementada silenciosamente.
 
-## 3. Cronograma
+## 3. Sequência prioritária
 
-| Marco | Período | Horas | Estado | Entrega e condição de saída |
-|---|---:|---:|---|---|
-| `R0` — Governança e preparação | 03–16/08/2026 | 20 | IN_PROGRESS | Decisões internas registradas; risco residual aceito; oportunidade qualificada e BitLocker verificado |
-| `R1A` — Piloto preliminar gratuito | 17/08–13/09/2026 | 40 | BLOCKED | Convite aceito; `REAL_DATA_READY`; auditoria manual e avaliação concluídas, sem validar disposição a pagar |
-| `R1B` — Piloto comercial pago | 14/09–11/10/2026 | 40 | BLOCKED | Oferta de R$ 500 aceita e paga; utilidade, compreensão e esclarecimento aprovados |
-| `R2` — Corpus e contrato final | 12/10–01/11/2026 | 30 | BLOCKED | Corpus segregado; matriz coberta; holdout preservado; `radar.ingest/v1` final aprovado |
-| `R3` — Parser CLI | 02–29/11/2026 | 40 | BLOCKED | CLI offline e relatório de qualidade aprovados no corpus e no holdout |
-| `R4` — Vertical slice web | 30/11/2026–10/01/2027 | 60 | BLOCKED | Workflow local-first, workspace criptografado e exportações aprovados em preview protegido |
-| `R5` — Primeiro uso assistido e beta | 11/01–07/02/2027 | 30 | BLOCKED | Medição assistida concluída; gate de continuidade aprovado; `v0.1.0-beta.1` publicada |
-| `R6` — Segundo piloto e produção estável | 08/02–07/03/2027 | 40 | BLOCKED | Piloto independente e hardening concluídos; gate final aprovado; `v1.0.0` publicada |
+| Ordem | Marco | Estado | Entrega e condição de saída |
+|---:|---|---|---|
+| 1 | `R0` — concluir preparação | IN_PROGRESS | Qualificar `OPP-2026-001`; BitLocker e decisões internas já possuem evidência |
+| 2 | `R1A` — piloto manual real | BLOCKED | Executar um piloto gratuito com `REAL_DATA_READY`, medir operação e utilidade e não inferir disposição a pagar |
+| 3 | `R1A.1` — consolidar aprendizados | BLOCKED | Registrar somente problemas reais, gargalos, tempo gasto, feedback e mudanças essenciais |
+| 4 | `R1B` — piloto comercial pago | BLOCKED | Testar disposição a pagar e obter pagamento total de pelo menos R$ 500 |
+| 5 | `DECISION GATE` | BLOCKED | Registrar exatamente uma decisão: `GO`, `PIVOT` ou `STOP` |
+| 6 | `R2+` — backlog condicional | BLOCKED | Considerar somente após `GO`, sem datas, horas ou releases comprometidos |
 
-Total planejado:
+A estimativa histórica de 300 horas até 07/03/2027 deixa de ser compromisso de
+prazo, capacidade ou orçamento. Se houver `GO`, qualquer estimativa técnica será
+refeita a partir dos gargalos comprovados e do menor escopo capaz de resolvê-los.
 
-```text
-20 + 40 + 40 + 30 + 40 + 60 + 30 + 40 = 300 horas
-```
+## 4. Marcos de validação
 
-Horas de espera por cliente, ação administrativa ou revisão não consomem a capacidade de
-execução, mas podem alterar as datas.
+### R0 — concluir preparação e qualificar a oportunidade
 
-## 4. Marcos detalhados
+Ação prioritária:
 
-### R0 — Governança e preparação
+- aplicar o checklist de qualificação de `OPP-2026-001`;
+- manter nome, contato e informações comerciais fora do Git;
+- não solicitar nem receber conversas durante a qualificação;
+- registrar no repositório somente código, data e resultado permitido.
 
-Entregas:
+Condição de saída:
 
-- revisar oferta, relatório, baseline, metodologia, privacidade e contrato draft;
-- registrar decisão interna ou mudanças requeridas para cada documento em
-  [`R0-DECISION-LOG.md`](R0-DECISION-LOG.md);
-- verificar BitLocker em terminal administrativo;
-- registrar que a revisão jurídica externa não foi obtida e decidir internamente
-  sobre o risco residual, sem caracterizar essa decisão como parecer externo;
-- identificar empresa e contato qualificados;
-- manter este roadmap e `GATE-STATUS.md` coerentes.
+- oportunidade qualificada com evidência não sensível;
+- nenhuma alteração nos controles já aprovados;
+- `R0` continua sem autorizar dados reais, que dependem separadamente de
+  `REAL_DATA_READY`.
 
-Gate de saída:
+### R1A — piloto manual de operação e utilidade
 
-- documentos comerciais e metodológicos aprovados internamente;
-- contrato de ingestão aprovado internamente apenas como draft sujeito ao
-  corpus real;
-- ausência de revisão jurídica externa e decisão de risco do proprietário
-  registradas;
-- BitLocker com proteção ativa;
-- oportunidade comercial identificada;
-- nenhum bloqueio interno sem responsável.
-
-O encerramento de `R0` representa prontidão interna. Ele não autoriza o
-recebimento de dados reais, que depende separadamente de `REAL_DATA_READY`.
-
-### R1A — Piloto preliminar gratuito
+`R1A` é um experimento único de aprendizagem com serviço executado manualmente.
+Ele não é software, demonstração automatizada ou teste de preço.
 
 Entregas:
 
-- convidar uma empresa qualificada para um piloto sem custo;
-- obter o aceite contratual do instrumento de dados;
+- obter os aceites externos aplicáveis;
 - concluir todos os componentes de `REAL_DATA_READY` antes do recebimento;
 - executar auditoria manual de 20 a 50 chats individuais;
-- entregar relatório redigido e realizar apresentação de até 60 minutos;
-- medir utilidade, compreensão e tempo de esclarecimento;
-- registrar feedback sem interpretar o piloto gratuito como validação de
-  disposição a pagar.
+- entregar relatório redigido e apresentação de até 60 minutos;
+- medir tempo de execução, utilidade, compreensão e esclarecimento;
+- registrar feedback e limitações sem perguntar faixa de preço.
 
-Gate de saída:
+Critérios de avaliação:
 
-- `REAL_DATA_READY` concluído antes do acesso a dados reais;
 - utilidade mínima de 4/5;
 - compreensão mínima de quatro respostas corretas em cinco;
 - esclarecimento após leitura de no máximo 15 minutos;
-- feedback e limitações registrados;
-- gate comercial pago permanece pendente.
+- operação, tempo gasto, feedback e limitações registrados.
 
-### R1B — Piloto comercial pago
+O resultado de `R1A` não valida disposição a pagar e não completa nenhum gate
+comercial.
+
+### R1A.1 — consolidar aprendizados observados
+
+Após `R1A`, realizar uma consolidação curta, sem novo ciclo gratuito automático.
+Registrar somente:
+
+- problemas efetivamente encontrados;
+- gargalos e atividades repetitivas observados;
+- tempo ativo gasto por etapa;
+- feedback recebido;
+- mudanças essenciais para executar `R1B` com segurança e clareza.
+
+Não criar features, parser, frontend, infraestrutura, banco, IA, novos LPs ou
+refatorações estruturais. Itens que impliquem mudança de produto, arquitetura,
+segurança ou escopo ficam registrados como pendências para decisão explícita.
+
+### R1B — piloto comercial pago
+
+`R1B` é o gate obrigatório de disposição a pagar. Interesse, elogio, intenção de
+compra ou aceite sem pagamento não completam o gate.
 
 Entregas:
 
 - enviar a oferta de R$ 500 a uma empresa qualificada;
-- receber aceite, primeira parcela e insumos completos;
-- revalidar `REAL_DATA_READY` para o escopo, período e amostra de `R1B`, sem
-  reutilizar automaticamente a decisão de `R1A`;
-- executar auditoria manual de até 50 chats;
-- registrar o baseline em `PILOT-TIME-LOG.csv`;
-- entregar relatório manual em PDF;
-- realizar apresentação e avaliação do comprador;
-- concluir correções factuais e receber o pagamento restante.
+- obter aceite e primeira parcela;
+- revalidar integralmente `REAL_DATA_READY` para o novo escopo e período;
+- executar a auditoria manual e registrar o baseline de tempo;
+- entregar relatório, apresentação e correções factuais;
+- receber o saldo e comprovar fora do Git pagamento total de pelo menos R$ 500;
+- reaplicar utilidade, compreensão e esclarecimento.
 
-Gate de saída:
+O término da tentativa comercial leva ao `DECISION GATE`. A conclusão positiva
+de `R1B` é necessária para `GO`, mas não o produz automaticamente.
+
+## 5. Decision Gate — GO, PIVOT ou STOP
+
+A decisão deve usar evidências agregadas de `R1A`, `R1A.1` e da tentativa de
+`R1B`. Exatamente um resultado deve ser registrado.
+
+### GO
+
+Somente quando todos os critérios estiverem comprovados:
 
 - pagamento total de pelo menos R$ 500;
-- utilidade mínima de 4/5;
-- compreensão mínima de quatro respostas corretas em cinco;
-- esclarecimento após leitura de no máximo 15 minutos;
-- fornecimento declarado pelo cliente e controles contratuais e operacionais
-  considerados viáveis pelo proprietário, sem alegar validação jurídica externa.
-
-O gate pago de `R1B` é obrigatório para iniciar `R2`; resultados de `R1A` não
-o substituem.
-
-### R2 — Corpus e contrato final
-
-Entregas:
-
-- manter dados reais exclusivamente na raiz operacional do piloto;
-- separar quatro exportações de desenvolvimento, duas de regressão e duas de
-  validação privada;
-- revisar saídas esperadas linha a linha;
-- completar a matriz obrigatória de formatos e casos;
-- revisar o draft sem consultar o holdout durante a futura implementação;
-- criar e aprovar `INGEST-CONTRACT-v1.md`.
-
-Gate de saída:
-
-- contrato final congelado;
-- corpus de desenvolvimento e regressão utilizável sem dados reais no Git;
-- holdout sob responsabilidade do revisor;
-- schema `radar.ingest/v1` aprovado;
-- implementação do parser formalmente autorizada.
-
-### R3 — Parser CLI
-
-Entregas:
-
-- workspace pnpm com Node.js LTS e TypeScript estrito;
-- pacote compartilhado de ingestão;
-- CLI sem acesso à rede;
-- saída JSON, livro de linhas, eventos, avisos, erros e proveniência;
-- rejeição integral de variantes incompatíveis;
-- scripts oficiais de lint, typecheck, testes e build.
-
-Interface:
-
-```text
-radar ingest <arquivo.txt> \
-  --timezone America/Sao_Paulo \
-  --config <config.json> \
-  --output <resultado.json>
-```
-
-Códigos de saída:
-
-- `0`: compatível e processado integralmente;
-- `2`: formato incompatível;
-- `3`: erro ou ambiguidade de parsing;
-- `4`: configuração inválida.
-
-Gate de saída:
-
-- contabilidade de linhas igual a 100%;
-- precisão e recall iguais a 100%;
-- parcialidade igual a zero;
-- rejeição explícita igual a 100%;
-- sucesso no holdout sem alterar o contrato durante o teste.
-
-### R4 — Vertical slice web
-
-Entregas:
-
-- aplicação React/Vite compartilhando ingestão e regras com o CLI;
-- importação de um TXT por vez, até 50 chats no workspace;
-- parser executado em Web Worker;
-- mapeamento manual de participantes;
-- configuração de expediente, feriados, fuso e SLA;
-- identificação assistida de solicitações, respostas úteis e `SLA_OVERDUE`;
-- sugestões de `LP-001` e `LP-002`;
-- revisão de todas as solicitações elegíveis;
-- confirmação, rejeição e inclusão manual de achados;
-- medição de produtividade;
-- exportações HTML e CSV redigidas;
-- workspace local criptografado.
-
-Fluxo:
-
-```text
-importar
-  -> revisar parsing
-  -> mapear participantes
-  -> configurar expediente e SLA
-  -> revisar solicitações
-  -> confirmar, rejeitar ou adicionar achados
-  -> exportar
-```
-
-O preview pode usar apenas fixtures sintéticas e deve permanecer protegido. A
-publicação no alias produtivo continua bloqueada até `R5`.
-
-### R5 — Primeiro uso assistido e beta
-
-Ordem de preferência da medição:
-
-1. amostra independente com perfil equivalente;
-2. mesma amostra após pelo menos 14 dias, sem exibir resultados anteriores;
-3. registro explícito do efeito de aprendizagem;
-4. confirmação posterior em um segundo piloto.
-
-Gate de saída:
-
-- parser aprovado;
-- primeiro piloto pago;
-- nenhuma perda silenciosa;
-- `production_active_seconds` reduzido em pelo menos 30%;
-- `total_service_active_seconds` sem aumento;
-- descarte automático estritamente menor que 20%;
-- achados manuais adicionais estritamente menores que 20%;
-- denominadores conclusivos ou nova amostra requerida;
-- revisão de segurança e privacidade aprovada.
-
-Com o gate aprovado, publicar `v0.1.0-beta.1` para uso interno assistido.
-
-### R6 — Segundo piloto e produção estável
-
-Entregas:
-
-- executar segundo piloto pago com empresa ou amostra independente;
-- confirmar qualidade dos achados e produtividade;
-- corrigir falhas sem ampliar LPs ou formatos;
-- concluir smoke test do ambiente protegido;
-- registrar limitações do free tier e procedimento de contingência;
-- produzir relatório final do gate;
-- reavaliar persistência remota sem presumir adoção ou custo.
-
-Gate de saída:
-
-- todos os critérios de `R5` confirmados;
-- dois pilotos independentes concluídos;
-- aceite contratual e operação de descarte comprovados, mantendo explícita a
-  ausência de validação jurídica externa;
-- nenhum incidente crítico aberto;
-- release `v1.0.0` aprovada.
-
-## 5. Arquitetura local-first
-
-### 5.1 Componentes
-
-```text
-Repositório público no GitHub, sem dados reais
-  -> build, previews e aplicação protegidos
-  -> Cloudflare Pages + Access
-  -> aplicação estática no navegador
-  -> Web Worker para parsing e regras
-  -> memória da sessão
-  -> arquivo .radar criptografado
-  -> HTML/CSV redigidos
-```
-
-Não existirão na v1:
-
-- API de aplicação;
-- banco de dados;
-- função serverless;
-- armazenamento de conversas em nuvem;
-- autenticação implementada pelo produto;
-- analytics, telemetria, IA ou error tracking;
-- integração com WhatsApp, CRM ou agenda.
-
-### 5.2 Fronteira de rede
-
-Cloudflare poderá receber somente:
-
-- requisições dos ativos estáticos;
-- IP e metadados técnicos inerentes ao acesso;
-- identidade usada pelo Cloudflare Access.
-
-O navegador não poderá transmitir:
-
-- TXT;
-- mensagens normalizadas;
-- configuração comercial;
-- achados;
-- relatório;
-- senha ou chave do workspace.
-
-A política de conteúdo deve incluir `connect-src 'none'`. Scripts, estilos,
-fontes e Web Workers serão servidos pela própria aplicação. Não haverá ativos
-externos nem source maps públicos de produção.
-
-### 5.3 Hospedagem
-
-- repositório GitHub público, limitado a código, documentos e fixtures sintéticas;
-- produção baseada na branch `main`;
-- previews de PR protegidos;
-- domínio gratuito `pages.dev`;
-- Cloudflare Access limitado aos usuários aprovados;
-- nenhum domínio pago obrigatório;
-- nenhum recurso cobrado habilitado.
-
-Referências oficiais:
-
-- [limites do Cloudflare Pages](https://developers.cloudflare.com/pages/platform/limits/);
-- [integração do Pages com GitHub](https://developers.cloudflare.com/pages/configuration/git-integration/github-integration/);
-- [preço e limite do Cloudflare Access](https://www.cloudflare.com/plans/zero-trust-services/);
-- [proteção do domínio pages.dev](https://developers.cloudflare.com/pages/platform/known-issues/).
-
-O free tier não possui SLA. Essa limitação é aceita para a produção assistida e
-deve ser reavaliada antes de tornar o produto crítico para a operação.
-
-GitHub Pages fica excluído como hospedagem comercial devido às
-[restrições documentadas de uso](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits).
-
-Durante os marcos documentais, GitHub Pages pode publicar exclusivamente um
-painel público de qualidade gerado por GitHub Actions. Esse painel:
-
-- está publicado em
-  [`danilocatapan.github.io/radar-de-perdas`](https://danilocatapan.github.io/radar-de-perdas/);
-- contém somente contagens e estados agregados da última validação verde;
-- não recebe arquivos, não executa parsing e não contém conteúdo de conversa;
-- não é preview, beta, produção nem interface do produto;
-- é implantado somente pela `main` quando `PAGES_ENABLED=true`.
-
-Essa exceção documental não antecipa `R4` e não altera a hospedagem definida para
-a aplicação, que continua sendo Cloudflare Pages com Access.
-
-## 6. Contratos públicos
-
-### 6.1 Ingestão
-
-O parser implementará o schema versionado:
-
-```text
-radar.ingest/v1
-```
-
-Mudanças incompatíveis exigem novo schema e nova validação; expected outputs não
-podem ser alterados sem revisão.
-
-### 6.2 Workspace
-
-O arquivo local terá:
-
-```text
-extensão: .radar
-schema: radar.workspace/v1
-cifra: AES-256-GCM
-derivação: PBKDF2-HMAC-SHA-256
-iterações: 600000
-salt: 16 bytes aleatórios por arquivo
-IV: 12 bytes aleatórios por gravação
-tag de autenticação: 128 bits
-senha mínima: 12 caracteres
-```
-
-O envelope não cifrado conterá somente versão, parâmetros criptográficos e
-ciphertext. Empresa, participantes, mensagens, configuração e achados ficarão
-dentro do conteúdo cifrado.
-
-Regras:
-
-- senha e chave existem somente na memória da sessão;
-- conteúdo não é gravado em `localStorage`, IndexedDB ou cache remoto;
-- senha incorreta ou arquivo adulterado deve falhar sem produzir estado parcial;
-- perda da senha torna o arquivo irrecuperável;
-- cada salvamento gera novo IV;
-- o arquivo fica em `20-working` e segue a mesma retenção do piloto.
-
-### 6.3 Exportações
-
-- HTML e CSV incluem somente conteúdo redigido e confirmado;
-- campos CSV iniciados por `=`, `+`, `-`, `@`, tab ou retorno de carro devem ser
-  neutralizados;
-- duplicatas não são contadas duas vezes;
-- `OUT_OF_SCOPE` não entra nos denominadores;
-- o PDF automático permanece fora da v1.
-
-## 7. Qualidade
-
-Quando o runtime existir, a passagem integral deverá executar:
-
-```text
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm build
-pnpm test:e2e
-pnpm validate:fixtures
-pnpm validate:docs
-```
-
-Até lá, permanecem obrigatórias as validações documentais de `AGENTS.md`.
-
-Cobertura mínima:
-
-- contrato e contabilidade de todas as linhas;
-- expediente, feriados, virada de dia e SLA;
-- timestamps iguais e mensagens idênticas consecutivas;
-- multilinha, linha vazia e conteúdo semelhante a timestamp;
-- Unicode direcional e remetente com dois-pontos;
-- eventos, chamadas, mídia omitida, edição e exclusão;
-- rejeição de grupo, ZIP, CSV, 12 horas e encoding incompatível;
-- round-trip do `.radar`;
-- senha incorreta, arquivo truncado, ciphertext adulterado e IV distinto;
-- importação, revisão, achado manual, HTML e CSV;
-- neutralização de fórmula em CSV e escaping de HTML;
-- tentativa de rede bloqueada após o carregamento;
-- smoke test com fixture sintética;
-- Chrome e Edge atuais no Windows.
-
-O holdout é executado somente pelo revisor no gate final do parser.
-
-## 8. Atualização semanal
-
-### Semana de 10/08/2026
+- utilidade conforme os critérios vigentes;
+- execução manual operacionalmente viável;
+- gargalo repetitivo observado que justifique automação.
+
+`GO` autoriza apenas avaliar o menor item de `R2+` necessário para o gargalo
+comprovado. Não autoriza todo o backlog, expansão de LPs ou a arquitetura
+hipotética completa.
+
+### PIVOT
+
+Usar quando houver valor percebido, mas existir problema relevante em um ou mais
+destes pontos:
+
+- preço;
+- segmento;
+- adequação de `LP-001` ou `LP-002`;
+- formato da entrega;
+- obtenção dos dados;
+- custo operacional.
+
+O backlog técnico permanece bloqueado. A hipótese afetada deve ser revista e
+revalidada antes de nova decisão.
+
+### STOP
+
+Usar quando não houver disposição real a pagar ou quando o custo operacional
+tornar a oferta economicamente inviável. Nesse caso, `R2+` permanece sem
+autorização e não existe compromisso de continuar o produto.
+
+Uma tentativa de `R1B` sem pagamento completo pode resultar em `PIVOT` ou
+`STOP`; nunca em `GO`.
+
+## 6. R2+ — backlog técnico condicional
+
+Os antigos marcos `R2` a `R6` deixam de ser cronograma e passam a representar
+hipóteses condicionais:
+
+| Item | Hipótese condicional | Pré-condição adicional |
+|---|---|---|
+| `R2` | Revisar corpus autorizado e contrato final de ingestão | `GO` registrado; corpus real revisado sem entrar no Git |
+| `R3` | Implementar o menor parser necessário | Contrato final aprovado e gargalo de ingestão comprovado |
+| `R4` | Avaliar uma vertical slice local-first | Parser aprovado e gargalo de fluxo comprovado |
+| `R5` | Medir uso assistido | Solução mínima aprovada em segurança, privacidade e qualidade |
+| `R6` | Confirmar resultado em piloto independente | Evidência suficiente para nova decisão de continuidade |
+
+Nenhum item possui data, orçamento, release ou compromisso de execução. Cada
+item depende dos gates anteriores e de nova autorização verificável. Se o
+gargalo observado puder ser resolvido manualmente ou por mudança simples de
+processo, a automação não se justifica.
+
+## 7. Controles invariáveis de dados, privacidade e segurança
+
+O replanejamento não simplifica os controles necessários para receber dados
+reais. Permanecem obrigatórios:
+
+- aceite contratual externo do instrumento de dados;
+- escopo que exclua grupos, anexos, saúde, menores e dados sensíveis;
+- retenção de 30 dias após a entrega e descarte registrado;
+- transferência por mídia USB criptografada, com senha em canal separado;
+- diretório operacional fora do Git e de pastas sincronizadas, com ACL restrita;
+- BitLocker ativo e revalidado para cada piloto concreto;
+- trabalho offline e sem agentes de IA sobre dados reais;
+- dados reais e holdout privado sempre fora do Git;
+- relatórios e exportações redigidos, com conteúdo mínimo necessário;
+- ausência explícita de parecer jurídico externo, sem inferir validação legal.
+
+Se `GO` autorizar uma proposta técnica futura, a direção local-first continua
+como limite mínimo até nova decisão arquitetural, contratual e de privacidade:
+
+- processamento integral no navegador, sem upload de conversas;
+- nenhuma API, banco, função serverless, telemetria ou integração com dados
+  reais;
+- workspace local criptografado, com senha e chave somente em memória;
+- HTML e CSV apenas com conteúdo redigido e confirmado;
+- neutralização de fórmulas em CSV e escaping de HTML;
+- `connect-src 'none'`, ativos próprios e ausência de source maps públicos;
+- preview e aplicação protegidos, sem confundir o painel documental do GitHub
+  Pages com produto ou produção.
+
+Qualquer relaxamento desses controles exige nova decisão explícita e não pode
+ser inferido de `GO`.
+
+## 8. Qualidade e governança
+
+Até existir runtime oficial, permanecem obrigatórias as validações documentais
+de `AGENTS.md`: JSONs, contabilidade de linhas e `lineLedger`, CSVs, links locais,
+privacidade, segredos e `git diff --check`.
+
+Regras de atualização:
+
+- alterar estados somente com evidência verificável;
+- registrar apenas estados agregados e referências não sensíveis;
+- não publicar PII, dados comerciais sensíveis, conversas ou hashes reais;
+- usar branch e draft PR por alteração;
+- não fazer merge, force-push ou rebase destrutivo sem autorização explícita.
+
+## 9. Estado operacional atual
 
 ```text
 data: 2026-08-10
 marco: R0
-horas_planejadas: 20
-horas_consumidas: 10
-horas_restantes: 10
-entregas_concluidas: decisões internas, replanejamento e BitLocker verificado
-evidencias: R0-DECISION-LOG.md; GATE-STATUS.md; ROADMAP.md
-bloqueios: qualificação da oportunidade OPP-2026-001
+entregas_concluidas: decisões internas; BitLocker verificado; demonstração sintética disponível
+bloqueio: qualificação da oportunidade OPP-2026-001
 responsavel_pelo_bloqueio: proprietário
-proxima_acao: qualificar a oportunidade sem solicitar ou receber dados reais
-nova_previsao: 2026-08-16
+proxima_acao: aplicar o checklist de qualificação sem solicitar ou receber dados reais
 ```
 
-Toda revisão semanal deve registrar:
-
-```text
-data:
-marco:
-horas_planejadas:
-horas_consumidas:
-entregas_concluidas:
-evidencias:
-bloqueios:
-responsavel_pelo_bloqueio:
-proxima_acao:
-nova_previsao:
-```
-
-Regras:
-
-- atualizar o estado somente com evidência;
-- não registrar PII, dados comerciais sensíveis ou hashes reais;
-- registrar desvios acima de cinco horas;
-- replanejar marcos dependentes quando um gate atrasar;
-- preservar o orçamento total ou documentar a mudança de escopo.
-
-## 9. Estratégia Git
-
-1. Atualizar `main` com `fetch` e `pull --ff-only`.
-2. Criar branch `codex/<slug-descritivo>`.
-3. Implementar somente o escopo autorizado.
-4. Executar a suíte integral aplicável.
-5. Confirmar que `origin/main` é ancestral da branch.
-6. Revisar diff, dados, segredos e arquivos fora do escopo.
-7. Criar commit convencional e descritivo em português.
-8. Fazer push com tracking.
-9. Abrir draft PR para `main`.
-10. Consultar checks e mergeabilidade após cada push.
-11. Não fazer merge, force-push ou rebase destrutivo sem autorização explícita.
-
-Cada marco terá PR própria. Aprovações externas permanecem registradas fora do
-repositório, com somente a referência não sensível usada como evidência.
-
-## 10. Decisões adiadas
-
-Após o segundo piloto, uma nova decisão deverá avaliar:
-
-- necessidade real de sincronização entre máquinas;
-- banco remoto versus arquivo criptografado;
-- região, DPA, subprocessadores, backup e restauração;
-- autenticação do produto;
-- custo aceitável;
-- domínio próprio;
-- PDF automático;
-- novos indicadores.
-
-O padrão até essa decisão permanece: sem banco e custo mensal de infraestrutura
-igual a zero.
+Nenhuma decisão `GO`, `PIVOT` ou `STOP` foi tomada. `R1A`, `R1A.1`, `R1B`, o
+`DECISION GATE` e todo o backlog `R2+` permanecem bloqueados.

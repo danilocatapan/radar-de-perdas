@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.1 |
+| Versão | 1.2 |
 | Marco | `R0` — Governança e prontidão interna |
 | Responsável pelas decisões | Proprietário do Radar de Perdas |
 | Data | 2026-08-10 |
@@ -35,6 +35,7 @@ substituem o proprietário nem um profissional jurídico externo como decisores.
 | `R0-DEC-008` | Direção local-first em `PRODUCT.md` e `ROADMAP.md` | 0.3 / 1.1 | INTERNAL_APPROVED | Proprietário | 2026-08-10 | Código público sem dados; previews e aplicação protegidos; processamento no navegador |
 | `R0-DEC-009` | `PILOT-PRELIMINARY-INVITATION.md` | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-10 | Convite separado para o piloto preliminar gratuito; não valida disposição a pagar |
 | `R0-DEC-010` | `PILOT-DATA-TERMS-v0.1-draft.md` | 0.1-draft | INTERNAL_APPROVED_AS_DRAFT | Proprietário | 2026-08-10 | Exige aceite contratual externo e todos os componentes de `REAL_DATA_READY` antes de dados reais |
+| `R0-DEC-011` | `ROADMAP.md` | 2.0 | INTERNAL_APPROVED | Proprietário | 2026-08-10 | Substitui `R0-DEC-007`: validação real precede automação; 300 horas e 07/03/2027 deixam de ser compromissos; `R2+` depende de `GO` |
 
 ## Decisão de risco do proprietário
 

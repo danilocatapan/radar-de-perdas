@@ -1,8 +1,8 @@
-# Manual do operador — do R0 aos pilotos R1A e R1B
+# Manual do operador — do R0 ao Decision Gate
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.1 |
+| Versão | 1.2 |
 | Responsável | Proprietário do Radar de Perdas |
 | Público | Operador que executará os pilotos |
 | Dados reais no Git | Proibidos |
@@ -22,12 +22,14 @@ Os nomes são marcos do projeto, não versões do software:
 | `R0` | Preparar documentos, computador e primeira oportunidade | Prontidão interna; ainda sem dados reais |
 | `REAL_DATA_READY` | Conferir os controles de um piloto específico | Autoriza receber somente a amostra e o período aceitos |
 | `R1A` | Executar uma auditoria humana preliminar, gratuita | Aprender se o relatório é útil e compreensível |
-| `R1B` | Executar uma nova auditoria humana, paga por pelo menos R$ 500 | Demonstrar disposição real a pagar e liberar a preparação do `R2` |
+| `R1A.1` | Consolidar uma vez o que foi observado no `R1A` | Registrar problemas, gargalos, tempo, feedback e mudanças essenciais |
+| `R1B` | Executar uma nova auditoria humana, paga por pelo menos R$ 500 | Demonstrar disposição real a pagar |
+| `DECISION GATE` | Escolher `GO`, `PIVOT` ou `STOP` | Decidir se existe evidência para avaliar o backlog `R2+` |
 
 Fluxo obrigatório:
 
 ```text
-BitLocker + oportunidade qualificada
+BitLocker verificado + oportunidade qualificada
                  |
                  v
              R0 completo
@@ -42,17 +44,24 @@ convite R1A + aceite do piloto + aceite do instrumento de dados
  auditoria manual + relatório + feedback do R1A
                  |
                  v
+ consolidação R1A.1 sem desenvolvimento técnico
+                 |
+                 v
  oferta e pagamento do R1B + novo REAL_DATA_READY
                  |
                  v
  auditoria manual paga + avaliação + pagamento total
                  |
                  v
- R2: corpus autorizado e contrato de ingestão final
+ DECISION GATE: GO | PIVOT | STOP
+                 |
+                 v
+ R2+ somente se GO e somente para gargalo comprovado
 ```
 
 O parser, o frontend e a infraestrutura produtiva não fazem parte dessas
-etapas. As auditorias `R1A` e `R1B` são serviços manuais.
+etapas. As auditorias `R1A` e `R1B` são serviços manuais. A demonstração
+sintética não altera essa ordem nem fornece evidência para os gates.
 
 ### 1.1 Demonstração sintética antes do R1A
 
@@ -595,9 +604,28 @@ O `R1A` atinge suas metas quando:
 - esclarecimento ativo é no máximo 900 segundos;
 - relatório, apresentação, feedback e limitações estão registrados.
 
-Resultado baixo ou inconclusivo não deve ser convertido em aprovação. Ele gera
-ajuste e, quando necessário, nova amostra. No `R1A`, não pergunte faixa de preço
-nem declare disposição a pagar validada.
+Resultado baixo ou inconclusivo não deve ser convertido em aprovação nem gerar
+nova amostra gratuita automática. Ele segue para a consolidação única `R1A.1`.
+No `R1A`, não pergunte faixa de preço nem declare disposição a pagar validada.
+
+### 7.5 Consolidar o `R1A.1`
+
+Depois da entrega e do feedback de `R1A`, registre fora do Git os detalhes
+confidenciais e compartilhe com o repositório somente uma síntese não sensível:
+
+```text
+problemas_reais=
+gargalos_observados=
+tempo_ativo_por_etapa=
+feedback_agregado=
+mudancas_essenciais_para_R1B=
+pendencias_de_produto_arquitetura_seguranca_ou_escopo=
+```
+
+Não implemente as pendências. `R1A.1` permite somente ajustes essenciais ao
+serviço manual, à oferta, à metodologia ou à operação segura necessários para
+executar `R1B`. Parser, frontend, infraestrutura, banco, IA, novos LPs e
+refinamentos estruturais continuam bloqueados.
 
 ## 8. Executar o `R1B` pago de R$ 500
 
@@ -623,8 +651,23 @@ Passos:
 
 O `R1B` só completa quando o pagamento total e as metas operacionais estiverem
 comprovados. “Gostei”, intenção de compra ou aceite sem pagamento não completam
-o gate. Somente depois disso o projeto pode iniciar `R2`, revisar corpus real
-autorizado e criar o contrato de ingestão final.
+o gate. O término da tentativa comercial leva ao `DECISION GATE`; `R1B` não
+libera `R2+` automaticamente.
+
+### 8.1 Aplicar o `DECISION GATE`
+
+Registre exatamente uma decisão, com referência apenas a evidências agregadas:
+
+- `GO`: pagamento total de pelo menos R$ 500, utilidade aprovada, operação
+  manual viável e gargalo repetitivo observado que justifique automação;
+- `PIVOT`: valor percebido com problema relevante de preço, segmento,
+  `LP-001`/`LP-002`, formato, obtenção dos dados ou custo operacional;
+- `STOP`: ausência de disposição real a pagar ou custo operacional que torne a
+  oferta economicamente inviável.
+
+Uma tentativa sem pagamento completo pode resultar em `PIVOT` ou `STOP`, nunca
+em `GO`. Somente `GO` permite avaliar o menor item de `R2+` necessário para um
+gargalo comprovado; não autoriza automaticamente todo o backlog.
 
 ## 9. Descarte após a entrega
 
