@@ -1,5 +1,11 @@
 # Protocolo operacional de privacidade do piloto
 
+> **Aplicabilidade no pivot:** o `REAL_DATA_READY` abaixo continua válido para
+> qualquer piloto futuro que receba arquivos, mas não se aplica ao `R1A` sem
+> custódia. Para o discovery atual, use
+> [`DISCOVERY-SESSION-READY.md`](DISCOVERY-SESSION-READY.md). Não descreva a
+> ausência de cópia ou retenção como ausência de tratamento de dados.
+
 | Campo | Valor |
 |---|---|
 | Versão | 1.2-draft |

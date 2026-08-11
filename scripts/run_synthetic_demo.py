@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Gera uma demonstração visual a partir de resultados sintéticos pré-revisados."""
+"""Gera a demonstração histórica da auditoria a partir de dados sintéticos.
+
+A representação vigente do R1A é o Markdown mínimo em
+docs/R1A-SYNTHETIC-LIST.md. Este gerador permanece apenas para preservar a
+regressão do material anterior e não define a experiência atual do produto.
+"""
 
 from __future__ import annotations
 

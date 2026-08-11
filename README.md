@@ -2,133 +2,103 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.5 |
-| Responsável | Proprietário do Radar de Perdas |
-| Status | `R0` em execução; pacote documental aprovado internamente; saída bloqueada |
+| Versão | 0.6 |
+| Status | `R1A_READY`; Discovery Concierge ainda não executado |
+| Próximo resultado | `R1A_READY` |
 
-Projeto para validar e, somente depois dos gates comerciais, metodológicos,
-contratuais, operacionais e de privacidade, automatizar auditorias de
-atendimento comercial por WhatsApp.
+O Radar de Perdas está validando uma ideia simples para prestadores de serviço
+locais: encontrar, nas conversas que eles já mantêm no WhatsApp, clientes que
+ainda precisam de uma ação para o serviço não ficar pelo caminho.
 
-## Estado atual
+> Continue usando seu WhatsApp normalmente. O Radar mostra quais clientes
+> precisam de uma ação sua para o serviço não ficar pelo caminho.
 
-O repositório está na etapa de preparação do piloto. Nesta etapa são permitidos:
+## Para quem
 
-- oferta comercial;
-- convite para piloto preliminar gratuito;
-- modelo de relatório manual;
-- baseline e medição de produtividade;
-- metodologia LP-001/LP-002;
-- protocolo operacional de privacidade;
-- instrumento de tratamento de dados em rascunho;
-- contrato de ingestão em rascunho;
-- registro não sensível de decisões internas;
-- fixtures exclusivamente sintéticas.
+O primeiro público é o prestador ou a microempresa de serviços que:
 
-Novas features, parser, frontend, infraestrutura, banco, IA e refinamentos
-estruturais estão pausados. Depois do piloto manual `R1A`, somente a consolidação
-`R1A.1` e o teste comercial `R1B` podem avançar; qualquer backlog técnico
-permanece bloqueado até uma decisão `GO` baseada em evidência, conforme
-[`docs/GATE-STATUS.md`](docs/GATE-STATUS.md).
+- vende principalmente pelo WhatsApp Business;
+- passa boa parte do dia executando serviços em campo;
+- trabalha em equipe de uma a cinco pessoas, sem vendedor dedicado;
+- não usa CRM ou não consegue manter um funil atualizado;
+- precisa resolver as pendências em poucos minutos pelo celular.
 
-O pacote documental atual inclui o
-[`convite do piloto preliminar`](docs/PILOT-PRELIMINARY-INVITATION.md), a
-[`oferta comercial paga`](docs/PILOT-OFFER.md), o
-[`instrumento de dados em rascunho`](docs/PILOT-DATA-TERMS-v0.1-draft.md) e o
-[`registro de decisões do R0`](docs/R0-DECISION-LOG.md).
+Eletricistas, encanadores, instaladores de ar-condicionado, assistência técnica
+e manutenção residencial são segmentos prioritários. Oficina pequena permanece
+como segmento secundário.
 
-## Comece aqui
+## Hipótese atual
 
-O passo a passo operacional está no
-[`manual do operador`](docs/OPERATOR-RUNBOOK.md). Ele explica, com entradas,
-comandos e resultados esperados:
+O trabalho a validar é: **“me diga quais clientes ainda podem virar serviço e
+qual é a próxima coisa que preciso fazer.”**
 
-1. como verificar e registrar o BitLocker sem expor a chave de recuperação;
-2. como qualificar `OPP-2026-001` sem colocar a identidade da empresa no Git;
-3. como preparar e liberar cada componente de `REAL_DATA_READY`;
-4. como executar o piloto manual gratuito `R1A`;
-5. por que o piloto pago `R1B` é separado e o que ele precisa comprovar.
+O primeiro discovery observará quatro situações:
 
-O BitLocker já foi verificado. O próximo passo operacional inequívoco é
-qualificar `OPP-2026-001`, encerrando o bloqueio restante de `R0`. Depois, a
-ordem é: obter os aceites de `R1A` e somente então preparar `REAL_DATA_READY`.
-Não solicite nem receba conversas durante a qualificação ou o convite inicial.
+| Situação apresentada ao prestador | Código interno | Exemplo de próxima ação |
+|---|---|---|
+| Precisa responder | `NEEDS_RESPONSE` | Responder o pedido |
+| Precisa orçar | `NEEDS_QUOTE` | Enviar o orçamento prometido |
+| Follow-up pendente | `FOLLOWUP_DUE` | Retomar a proposta |
+| Retorno prometido | `PROMISED_RETURN_DUE` | Cumprir o retorno combinado |
 
-## Demonstração sintética executável
+Padrões diferentes podem ser anotados como `OUT_OF_SCOPE_CANDIDATE`. Isso gera
+aprendizado, não uma nova feature ou ampliação automática do produto.
 
-É possível conhecer o fluxo e visualizar resultados agora, sem parser e sem
-dados reais:
+## Próximo experimento: R1A
+
+O `R1A` é um Discovery Concierge com cinco prestadores. Em cada sessão:
+
+1. o prestador mantém o próprio aparelho sob controle;
+2. a revisão presencial dura de 20 a 30 minutos;
+3. não há fotografia, gravação, cópia ou exportação de conversas;
+4. o prestador confirma se a oportunidade importa, se a havia esquecido e qual
+   ação faz sentido;
+5. contatos curtos nos dias 4 e 7 registram ações e desfechos, sem nova revisão
+   completa do WhatsApp.
+
+O procedimento completo está em [`docs/R1A-DISCOVERY.md`](docs/R1A-DISCOVERY.md)
+e o checklist de início em
+[`docs/DISCOVERY-SESSION-READY.md`](docs/DISCOVERY-SESSION-READY.md).
+
+O teste pago só poderá ser preparado se todos os critérios por prestador forem
+atingidos: problema em pelo menos 4 de 5; oportunidade relevante esquecida,
+ação executada e interesse recorrente em pelo menos 3 de 5.
+
+## O que não está sendo construído
+
+Não há produto, integração com WhatsApp, parser, IA, frontend, backend, banco,
+notificação, automação, arquitetura definitiva ou infraestrutura produtiva em
+desenvolvimento. A hipótese de um acompanhamento pago de R$ 149 por sete dias
+continua apenas como hipótese e será revista depois do `R1A`.
+
+A antiga auditoria de `LP-001`/`LP-002`, seu relatório longo e sua oferta de
+R$ 500 foram substituídos como direção de produto. Os materiais continuam no
+repositório como histórico e os detectores podem servir como evidência auxiliar.
+
+## Representação sintética mínima
+
+A [`lista sintética`](docs/R1A-SYNTHETIC-LIST.md) ilustra somente o formato que
+será mostrado no discovery: no máximo cinco clientes, cada um com prioridade,
+motivo e próxima ação. Ela não é produto, demo comercial refinada ou evidência
+de mercado.
+
+## Validação documental
 
 ```powershell
-python scripts/run_synthetic_demo.py --output-dir artifacts/synthetic-demo
-Start-Process .\artifacts\synthetic-demo\index.html
-```
-
-O que entra: cinco chats TXT inteiramente sintéticos e classificações humanas
-pré-revisadas. O que acontece: o script valida a consistência dessas anotações,
-sem interpretar automaticamente as conversas. O que sai:
-
-- `index.html`, com indicadores, casos, prioridades e limitações;
-- `result.json`, usando o schema exclusivo `radar.demo/v1`;
-- `findings.csv`, com os dois achados demonstrativos.
-
-A demonstração mostra como o serviço identifica demora (`LP-001`), ausência de
-resposta (`LP-002`), casos inconclusivos e itens fora do escopo. Ela não aceita
-arquivo arbitrário, não antecipa o parser e não comprova venda ou receita
-perdida.
-
-## Testes automatizados
-
-A fundação documental e as fixtures sintéticas podem ser validadas sem iniciar o
-parser ou o frontend:
-
-```text
 python -m unittest discover -s tests -v
 python scripts/validate_repository.py --report artifacts/quality/report.json
 ```
 
-O workflow `Qualidade` executa a mesma passagem em pushes e pull requests. O
-relatório contém somente contagens e estados agregados; mensagens, nomes de
-fixtures e caminhos privados não entram no artefato.
+Essas verificações cobrem fixtures sintéticas, contabilidade de linhas, CSVs,
+links locais, privacidade, segredos e integridade do diff. Testes verdes não
+validam o problema nem substituem as cinco conversas com prestadores.
 
-O GitHub Pages publica o
-[painel público de qualidade](https://danilocatapan.github.io/radar-de-perdas/)
-após uma passagem verde na `main`. O painel não é o produto, não recebe arquivos
-e não autoriza nem substitui um eventual preview técnico, que depende de `GO` e
-dos gates posteriores.
+## Dados e privacidade
 
-O deploy usa GitHub Actions e depende da variável de repositório
-`PAGES_ENABLED=true`. O repositório público contém somente código, documentos e
-fixtures sintéticas; dados reais e o holdout privado continuam proibidos.
+Dados reais nunca entram neste Git. No `R1A`, a sessão é sem custódia, sem
+cópia e sem retenção das conversas, mas isso não deve ser descrito como ausência
+de tratamento de dados. Nomes, telefones, mensagens, mídias e informações
+sensíveis não são registrados. A revisão jurídica externa não foi obtida.
 
-## Roadmap
-
-O [`roadmap de validação`](docs/ROADMAP.md) estabelece a ordem:
-
-```text
-R0 → R1A → R1A.1 → R1B → DECISION GATE → R2+ somente com GO
-```
-
-- `R1A` valida manualmente operação e utilidade, não disposição a pagar;
-- `R1A.1` registra apenas aprendizados e gargalos observados;
-- `R1B` exige pagamento total de pelo menos R$ 500;
-- o `DECISION GATE` registra `GO`, `PIVOT` ou `STOP`;
-- `R2+` é backlog condicional, sem datas, orçamento ou releases comprometidos.
-
-Somente `GO`, com evidência comercial, operação manual viável e gargalo
-repetitivo comprovado, pode liberar a avaliação de automação. Os controles de
-segurança, privacidade, LGPD e `REAL_DATA_READY` permanecem obrigatórios em
-qualquer decisão.
-
-## Regra de dados
-
-Dados reais, ainda que autorizados, nunca devem ser copiados para este
-repositório. O diretório operacional do piloto fica fora dele:
-
-```text
-C:\Users\catap\RadarDePerdas-Pilotos\<PILOT_ID>\
-```
-
-Consulte [`docs/PRIVACY-PILOT.md`](docs/PRIVACY-PILOT.md) antes de receber
-qualquer arquivo real. O recebimento permanece proibido enquanto
-`REAL_DATA_READY` estiver diferente de `COMPLETE`.
+Consulte [`docs/GATE-STATUS.md`](docs/GATE-STATUS.md) para os bloqueios vigentes
+e [`docs/R0-DECISION-LOG.md`](docs/R0-DECISION-LOG.md) para o histórico.

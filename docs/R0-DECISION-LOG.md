@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.2 |
+| Versão | 1.3 |
 | Marco | `R0` — Governança e prontidão interna |
 | Responsável pelas decisões | Proprietário do Radar de Perdas |
 | Data | 2026-08-10 |
@@ -36,6 +36,22 @@ substituem o proprietário nem um profissional jurídico externo como decisores.
 | `R0-DEC-009` | `PILOT-PRELIMINARY-INVITATION.md` | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-10 | Convite separado para o piloto preliminar gratuito; não valida disposição a pagar |
 | `R0-DEC-010` | `PILOT-DATA-TERMS-v0.1-draft.md` | 0.1-draft | INTERNAL_APPROVED_AS_DRAFT | Proprietário | 2026-08-10 | Exige aceite contratual externo e todos os componentes de `REAL_DATA_READY` antes de dados reais |
 | `R0-DEC-011` | `ROADMAP.md` | 2.0 | INTERNAL_APPROVED | Proprietário | 2026-08-10 | Substitui `R0-DEC-007`: validação real precede automação; 300 horas e 07/03/2027 deixam de ser compromissos; `R2+` depende de `GO` |
+| `R0-DEC-012` | Pivot para recuperação de oportunidades comerciais | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-10 | Substitui a auditoria LP-001/LP-002 como proposta central; não representa evidência de mercado |
+| `R0-DEC-013` | `R1A-DISCOVERY.md`, novo convite e `DISCOVERY_SESSION_READY` | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-10 | Autoriza preparar cinco sessões sem custódia; não autoriza produto, teste pago ou dados no Git |
+
+## Efeito do pivot sobre decisões anteriores
+
+- `R0-DEC-001`, `R0-DEC-002`, `R0-DEC-003`, `R0-DEC-004` e `R0-DEC-009`
+  permanecem preservadas como decisões históricas, mas seus materiais estão
+  `SUPERSEDED` para o `R1A` atual.
+- `R0-DEC-006` e `R0-DEC-008` não definem arquitetura vigente; ingestão,
+  parser e direção técnica continuam bloqueados.
+- `R0-DEC-005` e `R0-DEC-010` permanecem rascunhos condicionais para eventual
+  recebimento futuro de arquivos. Eles não se aplicam à sessão sem custódia e
+  não foram promovidos a parecer jurídico.
+- A oportunidade `OPP-2026-001` poderá ser considerada no novo discovery apenas
+  se atender ao ICP e ao checklist atuais. Os antigos requisitos de 20–50 chats,
+  exportação e SLA não são critérios do `R1A` pivotado.
 
 ## Decisão de risco do proprietário
 
@@ -47,7 +63,10 @@ Esta decisão é operacional e interna. Ela não transfere ao cliente riscos que
 dependam de lei ou contrato, não confirma a legitimidade de um conjunto de dados
 e não dispensa o aceite externo do instrumento de dados.
 
-## Evidências operacionais
+## Evidências operacionais do plano anterior
+
+A tabela abaixo permanece sem alteração retroativa para preservar o histórico.
+Ela não define a qualificação do `R1A` pivotado.
 
 | Evidência | Estado | Registro permitido no Git | Condição para conclusão |
 |---|---|---|---|
@@ -55,6 +74,14 @@ e não dispensa o aceite externo do instrumento de dados.
 | BitLocker da unidade `C:` | COMPLETE | `verification_date=2026-08-10`; `encryption_state=FULLY_ENCRYPTED`; `protection_state=ON` | Verificação confirmada pelo proprietário; nenhuma saída bruta, protetor ou chave de recuperação foi registrada |
 | Instrumento de dados aceito | BLOCKED_EXTERNAL | Referência externa não sensível | Aceite contratual entre cliente e proprietário |
 | `REAL_DATA_READY` | BLOCKED | Estado composto em [`GATE-STATUS.md`](GATE-STATUS.md) | Todos os componentes devem estar concluídos antes do recebimento de dados reais |
+
+## Evidências vigentes do R0-PIVOT
+
+| Evidência | Estado | Registro permitido no Git | Condição para conclusão |
+|---|---|---|---|
+| Kit documental do `R1A` | COMPLETE | Documentos, CSV vazio e resultado das validações | Suíte documental integral verde, sem alegar validação externa |
+| Primeiro prestador | BLOCKED_EXTERNAL | Apenas código, data e resultado de qualificação | ICP atual e `DISCOVERY_SESSION_READY=READY`; nenhum conteúdo de conversa |
+| Cinco sessões | BLOCKED_EXTERNAL | Somente contagens agregadas e referência confidencial | Sessões e follow-ups concluídos sem dados reais no Git |
 
 ## Regras para novas entradas
 

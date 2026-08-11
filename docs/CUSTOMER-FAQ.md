@@ -1,79 +1,52 @@
-# Perguntas comerciais frequentes — Radar de Perdas
+# Perguntas frequentes do Discovery Concierge
 
 | Campo | Valor |
 |---|---|
-| Objetivo | Respostas canônicas para apresentação e qualificação comercial |
-| Escopo atual | Piloto controlado, manual e offline |
-| Dados reais no Git ou em IA | Proibidos |
-
-Este documento é a fonte canônica para responder às três perguntas que uma
-apresentação comercial do Radar precisa esclarecer. Ele não substitui a
-avaliação de compreensão do relatório definida em
-[`PILOT-BASELINE.md`](PILOT-BASELINE.md).
+| Versão | 2.0 |
+| Escopo | `R0-PIVOT` e `R1A` |
+| Evidência externa | Ainda não obtida |
 
 ## Dá para fazer isso no meu WhatsApp?
 
-Sim, por meio de um piloto controlado. Atualmente não existe integração direta
-com a conta do WhatsApp.
+No primeiro discovery, sim, por meio de uma revisão presencial e manual. Você
+continua com o aparelho nas mãos e escolhe as conversas que serão vistas. Hoje
+o Radar não possui integração direta, automação ou acesso à sua conta.
 
-Depois da qualificação da empresa, definimos o período, o expediente e a meta de
-resposta, formalizamos os aceites e concluímos os controles de privacidade. Só
-então o cliente exporta legitimamente a amostra delimitada de 20 a 50 chats
-individuais acordada para o piloto.
+## O que vocês procuram?
 
-A análise atual é manual e offline. Não prometemos integração ou automação que
-ainda não existe.
+Conversas comerciais recentes nas quais ainda pode existir uma ação útil: uma
+resposta, um orçamento prometido, um follow-up ou um retorno combinado. Você
+confirma se cada caso realmente importa e qual ação faz sentido.
 
-## Você consegue descobrir quantos ficaram sem resposta?
+## Vocês conseguem contar todos os clientes sem resposta?
 
-Dentro da amostra analisada e dos critérios definidos, conseguimos contar
-quantas solicitações comerciais elegíveis terminaram sem uma resposta humana
-útil.
+Não. O discovery observa somente as conversas revisadas durante uma sessão
+curta. Pode registrar solicitações comerciais elegíveis sem resposta dentro
+desse recorte, mantendo casos duvidosos separados, mas não cobre todos os
+clientes nem todo o WhatsApp.
 
-Essa contagem não representa todos os clientes da empresa nem cobre todo o
-WhatsApp. Também não significa que cada solicitação corresponde a uma venda
-perdida. Quando a evidência disponível não permite confirmar se houve resposta,
-como em determinados marcadores de mídia omitida, o caso permanece inconclusivo
-e separado do numerador.
+## Como vocês usam minhas conversas?
 
-## Como você faria isso com minhas conversas?
+A sessão é sem custódia, sem cópia e sem retenção das conversas:
 
-O fluxo atualmente aprovado é:
+- você controla fisicamente o aparelho;
+- não fotografamos, gravamos, copiamos ou exportamos mensagens;
+- nomes e conteúdo não são registrados;
+- conversas sensíveis ou incompatíveis são puladas;
+- guardamos apenas códigos pseudônimos, classificações genéricas e respostas
+  necessárias para avaliar o experimento.
 
-1. verificar se a empresa e o tipo de conversa são elegíveis;
-2. definir período, expediente e meta de resposta;
-3. formalizar os aceites e concluir todos os controles de privacidade antes de
-   receber dados reais;
-4. solicitar somente a exportação legítima da amostra delimitada de 20 a 50
-   chats individuais;
-5. transferir os arquivos em mídia USB criptografada, com a senha transmitida
-   por canal separado;
-6. guardar os arquivos em armazenamento local protegido, fora do Git e de
-   pastas sincronizadas;
-7. executar a análise manualmente e offline, sem IA ou serviços de nuvem sobre
-   as conversas reais;
-8. classificar apenas situações verificáveis e manter casos inconclusivos
-   separados;
-9. produzir relatório redigido ou pseudonimizado, com indicadores, evidências
-   mínimas e recomendações;
-10. apresentar os resultados e realizar eventuais correções factuais;
-11. aplicar a retenção acordada e descartar os dados conforme o instrumento
-    aceito.
+Isso reduz a exposição, mas não deve ser descrito como ausência de tratamento
+de dados. A revisão jurídica externa não foi obtida.
 
-Os detalhes operacionais e os bloqueios obrigatórios permanecem definidos em
-[`OPERATOR-RUNBOOK.md`](OPERATOR-RUNBOOK.md) e
-[`PRIVACY-PILOT.md`](PRIVACY-PILOT.md). O recebimento de dados reais continua
-proibido enquanto todos os controles aplicáveis ao piloto não estiverem
-concluídos.
+## O Radar recupera vendas?
 
-## Limites obrigatórios da resposta comercial
+O Radar pode ajudar a identificar uma próxima ação. Uma conversa reativada ou
+um serviço confirmado será registrado apenas quando o prestador confirmar o
+fato. Isso não prova causalidade nem autoriza atribuir receita ao Radar.
 
-- Não afirmar que o Radar cobre todos os clientes ou todo o WhatsApp.
-- Não tratar caso inconclusivo como solicitação sem resposta.
-- Não equiparar demora ou ausência de resposta a venda perdida, receita perdida,
-  redução de conversão ou impacto financeiro.
-- Não prometer integração direta, automação, parser ou infraestrutura ainda não
-  autorizados.
-- Não simplificar mídia USB criptografada, senha em canal separado,
-  armazenamento local protegido, operação offline, retenção e descarte para a
-  expressão genérica “transferência segura”.
+## Isso já é um produto pago?
+
+Não. O estágio atual é um discovery com cinco prestadores. R$ 149 por sete dias
+é somente uma hipótese para um teste posterior. Formato, preço e operação serão
+revistos com base no que acontecer no `R1A`.

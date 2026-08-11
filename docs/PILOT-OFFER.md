@@ -1,11 +1,17 @@
 # Oferta do piloto — Radar de Perdas
 
+> **Status: `SUPERSEDED`.** Esta oferta de auditoria por R$ 500 foi substituída
+> pela decisão de pivot registrada em [`R0-DECISION-LOG.md`](R0-DECISION-LOG.md).
+> Não enviar nem adaptar este modelo. A hipótese posterior de R$ 149 por sete
+> dias ainda não é uma oferta e depende dos resultados do `R1A` descrito em
+> [`ROADMAP.md`](ROADMAP.md).
+
 | Campo | Valor |
 |---|---|
 | Versão | 1.1 |
 | Responsável | Proprietário e consultor do Radar de Perdas |
 | Marco | `R1B` — piloto comercial pago |
-| Status | `INTERNAL_APPROVED`; sujeito a preenchimento e aceite externo |
+| Status | `SUPERSEDED`; uso comercial proibido no pivot atual |
 | Validade da proposta | 10 dias corridos após o envio |
 
 > Este documento descreve a oferta comercial. Ele não substitui proposta

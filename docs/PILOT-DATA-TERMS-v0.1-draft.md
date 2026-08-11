@@ -1,5 +1,9 @@
 # Instrumento de tratamento de dados do piloto — v0.1-draft
 
+> **Status: `SUPERSEDED_FOR_CURRENT_R1A`.** Esta minuta pressupõe recebimento de
+> exportações e não é necessária para a sessão sem custódia. Permanece rascunho
+> histórico, sem revisão jurídica externa e sem autorizar dados reais.
+
 | Campo | Valor |
 |---|---|
 | Versão | 0.1-draft |
