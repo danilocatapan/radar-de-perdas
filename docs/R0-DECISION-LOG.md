@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.4 |
+| Versão | 1.5 |
 | Marco | `R0` — Governança e prontidão interna |
 | Responsável pelas decisões | Proprietário do Radar de Perdas |
 | Última atualização | 2026-08-11 |
@@ -41,6 +41,8 @@ substituem o proprietário nem um profissional jurídico externo como decisores.
 | `R0-DEC-014` | Aquisição local/relacional e mesma vertical no R1A | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-11 | Cinco participantes da mesma vertical; seleção permanece `PENDING_OWNER_SELECTION`; aquisição por rede pessoal, indicações, bairro e cidade, sem mídia paga |
 | `R0-DEC-015` | `R1B-COMMERCIAL-EXPERIMENT.md` e hipótese de R$ 49,90/mês | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-11 | `HYPOTHESIS_ONLY`; até 30 dias gratuitos, sem cartão obrigatório ou cobrança automática; substitui a hipótese vigente de R$ 149 por sete dias; execução bloqueada até R1A PASS e nova decisão |
 | `R0-DEC-016` | Gates comerciais, regras de STOP e bloqueios técnicos | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-11 | `0=STOP`, `1=INSUFFICIENT_EVIDENCE`, `>=2=COMMERCIAL_SIGNAL_TO_INVESTIGATE`; STOP encerra a etapa atual; produto continua bloqueado |
+| `R0-DEC-017` | Reavaliação competitiva e wedge `MOBILE_FIELD_PROVIDER_NO_CRM` | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-11 | Não competir como CRM horizontal nem buscar paridade de features; R1A passa a diagnosticar dispositivo principal, WhatsApp Web e aceitação de ferramenta externa; categoria existente não valida demanda pelo Radar |
+| `R0-DEC-018` | R1B como `PAID_ASSISTED_PILOT` de 30 dias por R$ 99 antecipados | 2.0 | INTERNAL_APPROVED | Proprietário | 2026-08-11 | `PAID_PILOT_PRICE=R$99.00` e `HYPOTHESIS_ONLY`; substitui a hipótese comercial de `R0-DEC-015` sem alterá-la retroativamente; sem período gratuito pós-R1A, cartão obrigatório ou renovação automática; execução continua bloqueada |
 
 ## Efeito do pivot sobre decisões anteriores
 
@@ -57,6 +59,9 @@ substituem o proprietário nem um profissional jurídico externo como decisores.
   exportação e SLA não são critérios do `R1A` pivotado.
 - `R0-DEC-014`, `R0-DEC-015` e `R0-DEC-016` evoluem incrementalmente o
   Discovery Concierge aprovado em `R0-DEC-012/013`; não repivotam o R1A.
+- `R0-DEC-017` registra a reavaliação competitiva sem alegar evidência de
+  demanda. `R0-DEC-018` substitui somente a hipótese comercial vigente de
+  `R0-DEC-015`: R$ 49,90/mês e seu período gratuito tornam-se `SUPERSEDED`.
 - R$ 149 por sete dias deixa de ser hipótese vigente. A oferta de R$ 500 e as
   decisões que a registraram permanecem preservadas como histórico
   `SUPERSEDED`, sem alteração retroativa.

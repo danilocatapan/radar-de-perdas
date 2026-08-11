@@ -117,6 +117,9 @@ Fixtures e testes não comprovam utilidade, mercado ou disposição a pagar.
   como evidência estatística com `n=5`.
 - Investigar etiquetas, estrela, agenda, caderno, memória, CRM e outros métodos
   atuais, incluindo suas falhas e a causa da oportunidade parada.
+- Registrar categoricamente dispositivo principal de vendas, uso de WhatsApp
+  Web, aceitação de ferramenta externa diária e origem do recrutamento. Esses
+  campos diagnosticam `MOBILE_FIELD_PROVIDER_NO_CRM` e não são gates isolados.
 - Se pelo menos três de cinco prestadores considerarem os substitutos atuais
   suficientes, o R1B permanece bloqueado.
 - Pagamento real em teste futuro é a única evidência comercial; comentário sobre
@@ -124,7 +127,11 @@ Fixtures e testes não comprovam utilidade, mercado ou disposição a pagar.
 
 ## Hipótese comercial posterior
 
-- `MONTHLY_PRICE=R$49.90` permanece `HYPOTHESIS_ONLY`.
+- O modelo vigente é `PAID_ASSISTED_PILOT`: 30 dias, pagamento `UPFRONT` de
+  `PAID_PILOT_PRICE=R$99.00`, com estado `HYPOTHESIS_ONLY`.
+- Não há período gratuito depois do R1A, cartão obrigatório ou renovação
+  automática.
+- `MONTHLY_PRICE=R$49.90` permanece somente como histórico `SUPERSEDED`.
 - `R1B` permanece `BLOCKED_UNTIL_R1A_PASS` e depende de nova autorização
   explícita do proprietário.
 - `OPERATIONAL_LIMIT=PENDING_OWNER_DECISION`; agentes não inventam o limite.

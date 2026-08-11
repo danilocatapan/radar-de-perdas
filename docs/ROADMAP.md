@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 3.1 |
+| Versão | 3.2 |
 | Prioridade | `R1A_READY → VERTICAL_SELECTION → R1A → R1B bloqueado` |
 | Status | `R1A_READY=COMPLETE`; primeira sessão bloqueada |
 | Última revisão | 2026-08-11 |
@@ -47,13 +47,16 @@ Fluxo por prestador:
    prestador;
 3. investigar como etiquetas, estrela, agenda, caderno, memória, CRM ou outros
    métodos evitam esquecimentos e onde falham;
-4. registrar, quando legitimamente conhecidas, faixas de contatos/orçamentos
+4. registrar dispositivo principal de vendas, uso regular de WhatsApp Web,
+   aceitação de ferramenta externa diária e origem do recrutamento em campos
+   categóricos e diagnósticos;
+5. registrar, quando legitimamente conhecidas, faixas de contatos/orçamentos
    semanais e ticket típico, sem identificar clientes ou alegar receita perdida;
-5. classificar manualmente os quatro estados permitidos e registrar padrões
+6. classificar manualmente os quatro estados permitidos e registrar padrões
    externos apenas como `OUT_OF_SCOPE_CANDIDATE`;
-6. confirmar relevância, esquecimento, causa da paralisação e próxima ação;
-7. fazer contatos curtos nos dias 4 e 7, sem nova revisão completa do WhatsApp;
-8. registrar ação, desfecho, interesse recorrente e custo operacional.
+7. confirmar relevância, esquecimento, causa da paralisação e próxima ação;
+8. fazer contatos curtos nos dias 4 e 7, sem nova revisão completa do WhatsApp;
+9. registrar ação, desfecho, interesse recorrente e custo operacional.
 
 ### Gate por prestador
 
@@ -91,9 +94,10 @@ O protocolo está em
 `BLOCKED_UNTIL_R1A_PASS`. Mesmo após o R1A, exige nova autorização explícita do
 proprietário e `OPERATIONAL_LIMIT` definido.
 
-A hipótese é oferecer até 30 dias gratuitos, sem cartão obrigatório ou cobrança
-automática, e então apresentar pelo menos cinco ofertas explícitas de
-continuidade por `MONTHLY_PRICE=R$49.90`, com estado `HYPOTHESIS_ONLY`.
+A hipótese é apresentar pelo menos cinco ofertas explícitas de um
+`PAID_ASSISTED_PILOT` de 30 dias, com pagamento `UPFRONT` de
+`PAID_PILOT_PRICE=R$99.00`. O preço é `HYPOTHESIS_ONLY`. Não há período gratuito
+depois do R1A, cartão obrigatório ou renovação automática.
 
 | Pagamentos reais recebidos | Resultado |
 |---:|---|
@@ -110,8 +114,8 @@ intervenções manuais. Evolução para produto permanece bloqueada até recorr�
 gargalo manual repetitivo, viabilidade operacional, decisão Produto/Negócios e
 validações de Segurança/Privacidade aplicáveis.
 
-A hipótese de R$ 149 por sete dias está `SUPERSEDED`. A auditoria por R$ 500
-permanece histórica e `SUPERSEDED`.
+`MONTHLY_PRICE=R$49.90`, a hipótese de R$ 149 por sete dias e a auditoria por
+R$ 500 permanecem históricas e `SUPERSEDED`.
 
 ## 4. Backlog bloqueado
 

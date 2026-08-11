@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.5 |
+| Versão | 0.6 |
 | Status | `PRODUCT_PIVOT`; hipótese sem validação externa |
 | Responsável pela decisão | Proprietário do Radar de Perdas |
 
@@ -14,6 +14,12 @@ duplicado ou manutenção manual de funil.
 
 Esta direção é uma hipótese. Nenhum contato real foi registrado como evidência
 deste pivot e nenhuma capacidade técnica está autorizada.
+
+O wedge a investigar é `MOBILE_FIELD_PROVIDER_NO_CRM`: prestador em campo,
+mobile-first, que vende pelo WhatsApp e não quer manter CRM, funil ou cadastro
+duplicado. A reavaliação competitiva está documentada em
+[`MARKET-REASSESSMENT-2026-08-11.md`](MARKET-REASSESSMENT-2026-08-11.md). A
+existência de soluções maduras na categoria não comprova demanda pelo Radar.
 
 ## Trabalho a ser validado
 
@@ -84,14 +90,14 @@ bloqueadas até evidência real e uma decisão posterior.
 
 ## Hipótese comercial posterior
 
-`MONTHLY_PRICE=R$49.90` está `HYPOTHESIS_ONLY`. Não é preço validado,
-recomendação de mercado ou comprovação de sustentabilidade econômica. A
-hipótese anterior de R$ 149 por sete dias está `SUPERSEDED`; a oferta histórica
-de auditoria por R$ 500 continua preservada como `SUPERSEDED`.
+O R1B hipotético é um `PAID_ASSISTED_PILOT` de 30 dias, com pagamento
+`UPFRONT` de `PAID_PILOT_PRICE=R$99.00`. O preço está `HYPOTHESIS_ONLY`: não é
+validado, recomendado pelo mercado ou comprovadamente sustentável.
 
-Um eventual R1B prevê período gratuito de até 30 dias, sem cartão obrigatório
-ou cobrança automática, seguido de oferta explícita de continuidade. Somente
-pagamento efetivamente recebido constitui evidência comercial.
+Não haverá período gratuito depois do R1A, cartão obrigatório ou renovação
+automática. Somente pagamento efetivamente recebido constitui evidência
+comercial. `MONTHLY_PRICE=R$49.90`, R$ 149 por sete dias e a oferta histórica de
+auditoria por R$ 500 estão preservados como `SUPERSEDED`.
 
 ## Próxima decisão
 

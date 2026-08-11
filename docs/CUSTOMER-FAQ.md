@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 2.1 |
+| Versão | 2.2 |
 | Escopo | `R0-PIVOT` e `R1A` |
 | Evidência externa | Ainda não obtida |
 
@@ -51,10 +51,12 @@ Não. O estágio atual é um discovery gratuito com cinco prestadores da mesma
 vertical, que ainda será escolhida pelo proprietário. Não existe produto,
 assinatura ativa ou cobrança automática.
 
-A hipótese para um experimento posterior é R$ 49,90 por mês, com estado
-`HYPOTHESIS_ONLY`. O R1B permanece bloqueado até o R1A passar e o proprietário
-autorizar explicitamente sua execução. R$ 149 por sete dias e a antiga oferta
-de auditoria por R$ 500 são referências históricas `SUPERSEDED`.
+A hipótese para um experimento posterior é um piloto assistido de 30 dias, pago
+antecipadamente por R$ 99, com estado `HYPOTHESIS_ONLY`, sem período gratuito
+depois do R1A e sem renovação automática. O R1B permanece bloqueado até o R1A
+passar e o proprietário autorizar explicitamente sua execução. R$ 49,90 por
+mês, R$ 149 por sete dias e a antiga oferta de auditoria por R$ 500 são
+referências históricas `SUPERSEDED`.
 
 Somente pagamento efetivamente recebido em experimento autorizado constitui
 evidência comercial. “Eu pagaria”, elogio ou intenção não validam o preço.

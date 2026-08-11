@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.1 |
+| Versão | 1.2 |
 | Participantes planejados | 5 prestadores |
 | Prontidão documental | `R1A_READY=COMPLETE` |
 | Seleção de vertical | `VERTICAL_SELECTION=PENDING_OWNER_SELECTION` |
@@ -17,6 +17,11 @@ recebem uma revisão curta e proativa.
 
 O `R1A` é gratuito e não valida software, integração, automação, IA, preço,
 disposição a pagar ou causalidade financeira.
+
+O wedge estratégico em investigação é `MOBILE_FIELD_PROVIDER_NO_CRM`: um
+prestador em campo, mobile-first, que vende pelo WhatsApp e não aceita manter
+CRM, funil ou cadastro duplicado no cotidiano. Ele é hipótese diagnóstica, não
+critério isolado de aprovação do R1A.
 
 ## Aquisição e seleção da vertical
 
@@ -71,35 +76,43 @@ decisão padrão.
 O prestador mantém o aparelho nas mãos e navega nas próprias conversas.
 
 1. Antes de revisar oportunidades, perguntar:
+   - Qual é o dispositivo principal que você usa para vender: celular,
+     computador ou ambos?
+   - Você usa WhatsApp Web com regularidade?
+   - Você aceitaria manter diariamente outro aplicativo, CRM ou funil além do
+     WhatsApp?
    - Como você evita esquecer clientes hoje?
    - Quando foi a última vez que uma oportunidade ficou parada por falta de
      acompanhamento?
    - Você usa etiqueta, estrela, agenda, caderno, CRM ou outro método?
    - O que falha no método atual?
-   - Já tentou algum CRM ou ferramenta semelhante? Se abandonou, por quê?
-2. Quando o prestador souber responder legitimamente, registrar somente a faixa
+   - Já tentou algum CRM, extensão ou ferramenta semelhante? Se abandonou, por
+     quê?
+2. Registrar a origem do recrutamento como categoria genérica, sem nome de quem
+   indicou ou qualquer contato identificável.
+3. Quando o prestador souber responder legitimamente, registrar somente a faixa
    aproximada de contatos ou orçamentos comerciais por semana e a faixa de
    ticket típico. Não registrar faturamento, valor exato identificável ou dados
    de clientes.
-3. Pedir que ele procure conversas comerciais recentes que possam ainda exigir
+4. Pedir que ele procure conversas comerciais recentes que possam ainda exigir
    alguma providência.
-4. Ignorar imediatamente qualquer conversa incompatível.
-5. Para cada possível oportunidade, criar apenas um código sequencial, como
+5. Ignorar imediatamente qualquer conversa incompatível.
+6. Para cada possível oportunidade, criar apenas um código sequencial, como
    `R1A-2026-P01-O01`.
-6. Classificar uma das quatro situações permitidas ou
+7. Classificar uma das quatro situações permitidas ou
    `OUT_OF_SCOPE_CANDIDATE`.
-7. Perguntar:
+8. Perguntar:
    - Essa conversa ainda poderia virar serviço?
    - Você teria lembrado de procurar esse cliente sem esta revisão?
    - Qual é a próxima ação correta?
    - Por que esta oportunidade específica ficou parada?
-8. Registrar a prioridade acordada com o prestador e a ação em termos genéricos,
+9. Registrar a prioridade acordada com o prestador e a ação em termos genéricos,
    sem copiar texto da conversa.
-9. Pedir que ele execute somente as ações que considerar relevantes, no momento
+10. Pedir que ele execute somente as ações que considerar relevantes, no momento
    que julgar apropriado.
-10. Perguntar se o método atual resolve suficientemente o problema e registrar
+11. Perguntar se o método atual resolve suficientemente o problema e registrar
     `YES`, `NO` ou `UNKNOWN` como diagnóstico, nunca como resposta presumida.
-11. Encerrar o registro de tempo quando a participação ativa terminar.
+12. Encerrar o registro de tempo quando a participação ativa terminar.
 
 Prioridade é julgamento manual e contextual. Não existe mapeamento automático
 entre estado e prioridade.
@@ -131,8 +144,9 @@ Cada cópia externa de `R1A-DISCOVERY-LOG.csv` usa dois tipos de linha:
 - `SESSION`: uma linha obrigatória por prestador, com `session_code`, método
   atual, falha do método, experiência e eventual abandono de CRM, suficiência
   do substituto, frequência do problema, faixa da última oportunidade parada,
-  faixas econômicas, interesse recorrente e tempos; campos de oportunidade
-  ficam vazios;
+  faixas econômicas, dispositivo principal de vendas, uso de WhatsApp Web,
+  aceitação de ferramenta externa diária, origem da aquisição, interesse
+  recorrente e tempos; campos de oportunidade ficam vazios;
 - `OPPORTUNITY`: uma linha por oportunidade codificada, com `session_code`,
   `opportunity_code`, estado, prioridade, confirmações, próxima ação, desfechos,
   causa genérica da paralisação e eventual candidato fora do escopo; campos de
@@ -142,6 +156,19 @@ Campos `YES | NO | UNKNOWN` nunca recebem resposta presumida. Métodos, falhas,
 motivos e causas usam rótulos genéricos; `notes` não recebe nomes, mensagens,
 datas exatas ou detalhes que permitam reidentificação. As faixas econômicas são
 aproximadas, opcionais e permanecem somente na cópia confidencial fora do Git.
+
+Os campos diagnósticos usam somente estes valores:
+
+| Campo | Valores permitidos |
+|---|---|
+| `primary_sales_device` | `MOBILE_ONLY \| MOBILE_MOSTLY \| BALANCED \| DESKTOP_MOSTLY \| UNKNOWN` |
+| `whatsapp_web_usage` | `YES \| NO \| UNKNOWN` |
+| `daily_external_tool_acceptance` | `YES \| NO \| UNKNOWN` |
+| `acquisition_source` | `FRIEND \| REFERRAL \| NEIGHBORHOOD \| CITY_OTHER \| UNKNOWN` |
+
+Esses campos ajudam a avaliar o wedge `MOBILE_FIELD_PROVIDER_NO_CRM`, mas não
+substituem nenhum dos quatro gates centrais, não criam um gate autônomo e não
+validam demanda ou disposição a pagar.
 
 ## Dias 4 e 7 — follow-ups curtos
 

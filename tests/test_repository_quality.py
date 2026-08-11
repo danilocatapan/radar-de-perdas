@@ -245,6 +245,10 @@ class R1ADiscoveryDocumentationTests(unittest.TestCase):
 
         self.assertEqual("record_type", header[0])
         for field in (
+            "primary_sales_device",
+            "whatsapp_web_usage",
+            "daily_external_tool_acceptance",
+            "acquisition_source",
             "current_tracking_method",
             "current_method_failure",
             "crm_experience",
@@ -258,18 +262,68 @@ class R1ADiscoveryDocumentationTests(unittest.TestCase):
         ):
             self.assertIn(field, header)
 
+        discovery = (ROOT / "docs/R1A-DISCOVERY.md").read_text(encoding="utf-8")
+        for allowed_value in (
+            "MOBILE_ONLY",
+            "MOBILE_MOSTLY",
+            "BALANCED",
+            "DESKTOP_MOSTLY",
+            "CITY_OTHER",
+        ):
+            self.assertIn(allowed_value, discovery)
+
     def test_r1b_uses_real_payments_without_redundant_acceptance_gate(self) -> None:
-        content = (ROOT / "docs/R1B-COMMERCIAL-EXPERIMENT.md").read_text(
-            encoding="utf-8"
+        content = " ".join(
+            (ROOT / "docs/R1B-COMMERCIAL-EXPERIMENT.md")
+            .read_text(encoding="utf-8")
+            .split()
         )
 
         self.assertIn("`BLOCKED_UNTIL_R1A_PASS`", content)
-        self.assertIn("`MONTHLY_PRICE=R$49.90`", content)
+        self.assertIn("`PAID_ASSISTED_PILOT`", content)
+        self.assertIn("`PAID_PILOT_PRICE=R$99.00`", content)
+        self.assertIn("`UPFRONT`", content)
+        self.assertIn("sem período gratuito depois do R1A", content)
+        self.assertIn("`MONTHLY_PRICE=R$49.90` está `SUPERSEDED`", content)
         self.assertIn("| `0` | `STOP` |", content)
         self.assertIn("| `1` | `INSUFFICIENT_EVIDENCE` |", content)
         self.assertIn("| `>=2` | `COMMERCIAL_SIGNAL_TO_INVESTIGATE` |", content)
         self.assertIn("Um pagamento recebido já comprova o aceite", content)
         self.assertIn("não existe gate separado ou redundante", content)
+
+    def test_market_reassessment_separates_evidence_from_hypothesis(self) -> None:
+        content = " ".join(
+            (ROOT / "docs/MARKET-REASSESSMENT-2026-08-11.md")
+            .read_text(encoding="utf-8")
+            .split()
+        )
+
+        for heading in (
+            "## Evidências consultadas",
+            "## Hipótese",
+            "## Inferência a investigar",
+            "## Riscos",
+            "## Decisões",
+        ):
+            self.assertIn(heading, content)
+        self.assertIn("`MOBILE_FIELD_PROVIDER_NO_CRM`", content)
+        self.assertIn("não valida o problema do Radar", content)
+
+    def test_current_strategy_marks_previous_price_as_superseded(self) -> None:
+        for relative in (
+            "README.md",
+            "AGENTS.md",
+            "docs/PRODUCT.md",
+            "docs/ROADMAP.md",
+            "docs/GATE-STATUS.md",
+            "docs/R1B-COMMERCIAL-EXPERIMENT.md",
+            "docs/MARKET-REASSESSMENT-2026-08-11.md",
+        ):
+            content = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("PAID_PILOT_PRICE=R$99.00", content)
+            self.assertIn("HYPOTHESIS_ONLY", content)
+            self.assertIn("MONTHLY_PRICE=R$49.90", content)
+            self.assertIn("SUPERSEDED", content)
 
 
 class QualityPageTests(unittest.TestCase):
