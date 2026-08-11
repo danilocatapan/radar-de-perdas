@@ -2,9 +2,9 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 3.0 |
+| Versão | 3.1 |
 | Responsável | Proprietário do Radar de Perdas |
-| Última revisão | 2026-08-10 |
+| Última revisão | 2026-08-11 |
 
 Estados pendentes ou bloqueados não autorizam a etapa seguinte. Atualize este
 documento somente com evidência verificável e nunca converta fixture, intenção
@@ -22,13 +22,26 @@ ou elogio em validação de mercado.
 | Representação sintética mínima | COMPLETE | Quatro itens, formato vertical e sem códigos internos na experiência |
 | `R1A_READY` | COMPLETE | Suíte documental integral verde; nenhuma evidência externa alegada |
 
-`R1A_READY` autoriza somente abordar e executar discovery com um prestador
-qualificado. Não é `GO` de produto, integração ou automação.
+`R1A_READY=COMPLETE` permanece inalterado e comprova somente prontidão
+documental. Autoriza recrutamento e qualificação, mas a primeira sessão depende
+dos gates separados abaixo. Não é `GO` de produto, integração ou automação.
+
+## Seleção da vertical e primeira sessão
+
+| Gate | Estado | Condição para mudança |
+|---|---|---|
+| `VERTICAL_SELECTION` | `PENDING_OWNER_SELECTION` | Proprietário escolhe uma vertical com capacidade real de recrutar cinco prestadores pela rede pessoal, indicações, bairro ou cidade |
+| `FIRST_R1A_SESSION` | `BLOCKED` | `VERTICAL_SELECTION=COMPLETE` e `DISCOVERY_SESSION_READY=READY` para a sessão concreta |
+
+Os cinco participantes devem pertencer à mesma vertical. Exemplos de segmentos
+não constituem decisão e o Codex não escolhe a vertical.
 
 ## Gate leve `DISCOVERY_SESSION_READY`
 
 | Verificação | Estado inicial |
 |---|---|
+| `VERTICAL_SELECTION=COMPLETE` | PENDING |
+| Prestador pertence à vertical selecionada | PENDING |
 | Prestador compatível com o ICP | PENDING |
 | Objetivo e limites explicados | PENDING |
 | Prestador controla fisicamente o aparelho | PENDING |
@@ -51,22 +64,39 @@ esse fluxo sem arquivos.
 | Oportunidade relevante esquecida | BLOCKED_EXTERNAL | Pelo menos 3 de 5 confirmam ao menos uma |
 | Ação executada | BLOCKED_EXTERNAL | Pelo menos 3 de 5 executam ao menos uma ação relevante |
 | Interesse recorrente | BLOCKED_EXTERNAL | Pelo menos 3 de 5 querem receber novamente a lista ou revisão |
+| Substitutos atuais avaliados | BLOCKED_EXTERNAL | Se pelo menos 3 de 5 os considerarem suficientes, resultado `STOP` para a hipótese atual |
+| Frequência do problema avaliada | BLOCKED_EXTERNAL | Problema excessivamente episódico mantém R1B bloqueado e exige decisão explícita |
 | Gate do R1A | BLOCKED_EXTERNAL | Todos os quatro critérios por prestador atendidos |
 
 Métricas de taxas, reativação, serviço confirmado e tempo são diagnósticas e
 não substituem os quatro critérios. O detalhe permanece fora do Git; somente
 resultados agregados e não identificáveis podem ser registrados no repositório.
 
-## Teste pago posterior
+Falha de qualquer gate central bloqueia o R1B. `STOP` encerra somente a hipótese
+ou etapa atual; repetição, reformulação ou pivot exigem nova decisão explícita
+do proprietário e não arquivam automaticamente o repositório.
+
+## R1B — experimento comercial posterior
 
 | Gate | Estado | Condição |
 |---|---|---|
-| Hipótese de R$ 149 por sete dias | HYPOTHESIS_ONLY | Não é oferta aprovada nem formato congelado |
-| Preparação do teste pago | BLOCKED | Gate do R1A completo e decisão explícita do proprietário |
-| Evidência comercial | BLOCKED_EXTERNAL | Pagamento real; manifestação verbal não basta |
+| Protocolo documental | COMPLETE | [`R1B-COMMERCIAL-EXPERIMENT.md`](R1B-COMMERCIAL-EXPERIMENT.md) |
+| Estado do R1B | `BLOCKED_UNTIL_R1A_PASS` | Todos os gates centrais do R1A aprovados e nenhuma condição de STOP |
+| Nova autorização do proprietário | PENDING_OWNER_DECISION | Decisão explícita posterior ao R1A PASS |
+| `MONTHLY_PRICE=R$49.90` | `HYPOTHESIS_ONLY` | Não é preço validado, recomendado ou economicamente sustentável |
+| `OPERATIONAL_LIMIT` | `PENDING_OWNER_DECISION` | Limite definido pelo proprietário antes do R1B |
+| Pelo menos cinco ofertas explícitas | BLOCKED_EXTERNAL | Contagem agregada e referência externa não identificável |
+| Pagamentos reais recebidos | BLOCKED_EXTERNAL | Comprovantes fora do Git; intenção ou aceite verbal não substituem pagamento |
+| Resultado comercial | BLOCKED | `0=STOP`; `1=INSUFFICIENT_EVIDENCE`; `>=2=COMMERCIAL_SIGNAL_TO_INVESTIGATE` |
+| Evolução para produto | BLOCKED | Recorrência, gargalo repetitivo, viabilidade operacional, decisão Produto/Negócios e controles aplicáveis |
 
-O antigo `R1B` de auditoria por R$ 500 está `SUPERSEDED`. Nenhuma oferta nova
-será finalizada neste marco.
+Um pagamento recebido já comprova o aceite de continuidade daquele cliente; não
+existe gate redundante de aceitação. Uma revisão controlada da oferta depende de
+nova decisão explícita e, persistindo resultado abaixo de dois pagamentos, a
+hipótese recebe `STOP`. `COMMERCIAL_SIGNAL_TO_INVESTIGATE` não é `GO_PRODUCT`.
+
+A hipótese de R$ 149 por sete dias está `SUPERSEDED`. O antigo `R1B` de
+auditoria por R$ 500 continua histórico e `SUPERSEDED`.
 
 ## Backlog técnico
 
@@ -77,6 +107,7 @@ será finalizada neste marco.
 | Frontend, backend ou banco | BLOCKED | Teste pago e novo gate técnico |
 | IA ou classificação automática | BLOCKED | Evidência, arquitetura, privacidade e segurança aprovadas |
 | Integração WhatsApp | BLOCKED | Viabilidade técnica e jurídica decidida depois da validação |
+| Automação, notificações ou cobrança | BLOCKED | Evidência recorrente, decisão Produto/Negócios e gates técnicos aplicáveis |
 | Infraestrutura produtiva | BLOCKED | Gate comercial, operacional e técnico posterior |
 
 ## Materiais históricos

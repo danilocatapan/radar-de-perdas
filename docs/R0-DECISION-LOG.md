@@ -2,10 +2,10 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.3 |
+| Versão | 1.4 |
 | Marco | `R0` — Governança e prontidão interna |
 | Responsável pelas decisões | Proprietário do Radar de Perdas |
-| Data | 2026-08-10 |
+| Última atualização | 2026-08-11 |
 | Revisão jurídica externa | `EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED` |
 
 Este registro contém somente decisões e evidências não sensíveis. Agentes
@@ -38,6 +38,9 @@ substituem o proprietário nem um profissional jurídico externo como decisores.
 | `R0-DEC-011` | `ROADMAP.md` | 2.0 | INTERNAL_APPROVED | Proprietário | 2026-08-10 | Substitui `R0-DEC-007`: validação real precede automação; 300 horas e 07/03/2027 deixam de ser compromissos; `R2+` depende de `GO` |
 | `R0-DEC-012` | Pivot para recuperação de oportunidades comerciais | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-10 | Substitui a auditoria LP-001/LP-002 como proposta central; não representa evidência de mercado |
 | `R0-DEC-013` | `R1A-DISCOVERY.md`, novo convite e `DISCOVERY_SESSION_READY` | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-10 | Autoriza preparar cinco sessões sem custódia; não autoriza produto, teste pago ou dados no Git |
+| `R0-DEC-014` | Aquisição local/relacional e mesma vertical no R1A | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-11 | Cinco participantes da mesma vertical; seleção permanece `PENDING_OWNER_SELECTION`; aquisição por rede pessoal, indicações, bairro e cidade, sem mídia paga |
+| `R0-DEC-015` | `R1B-COMMERCIAL-EXPERIMENT.md` e hipótese de R$ 49,90/mês | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-11 | `HYPOTHESIS_ONLY`; até 30 dias gratuitos, sem cartão obrigatório ou cobrança automática; substitui a hipótese vigente de R$ 149 por sete dias; execução bloqueada até R1A PASS e nova decisão |
+| `R0-DEC-016` | Gates comerciais, regras de STOP e bloqueios técnicos | 1.0 | INTERNAL_APPROVED | Proprietário | 2026-08-11 | `0=STOP`, `1=INSUFFICIENT_EVIDENCE`, `>=2=COMMERCIAL_SIGNAL_TO_INVESTIGATE`; STOP encerra a etapa atual; produto continua bloqueado |
 
 ## Efeito do pivot sobre decisões anteriores
 
@@ -52,6 +55,11 @@ substituem o proprietário nem um profissional jurídico externo como decisores.
 - A oportunidade `OPP-2026-001` poderá ser considerada no novo discovery apenas
   se atender ao ICP e ao checklist atuais. Os antigos requisitos de 20–50 chats,
   exportação e SLA não são critérios do `R1A` pivotado.
+- `R0-DEC-014`, `R0-DEC-015` e `R0-DEC-016` evoluem incrementalmente o
+  Discovery Concierge aprovado em `R0-DEC-012/013`; não repivotam o R1A.
+- R$ 149 por sete dias deixa de ser hipótese vigente. A oferta de R$ 500 e as
+  decisões que a registraram permanecem preservadas como histórico
+  `SUPERSEDED`, sem alteração retroativa.
 
 ## Decisão de risco do proprietário
 
@@ -80,7 +88,8 @@ Ela não define a qualificação do `R1A` pivotado.
 | Evidência | Estado | Registro permitido no Git | Condição para conclusão |
 |---|---|---|---|
 | Kit documental do `R1A` | COMPLETE | Documentos, CSV vazio e resultado das validações | Suíte documental integral verde, sem alegar validação externa |
-| Primeiro prestador | BLOCKED_EXTERNAL | Apenas código, data e resultado de qualificação | ICP atual e `DISCOVERY_SESSION_READY=READY`; nenhum conteúdo de conversa |
+| Seleção da vertical | PENDING_OWNER_SELECTION | Estado e referência não identificável da decisão | Proprietário escolhe uma vertical com capacidade de recrutar cinco prestadores reais |
+| Primeira sessão | BLOCKED | Apenas código, data e resultado de qualificação | `VERTICAL_SELECTION=COMPLETE`, prestador da vertical escolhida e `DISCOVERY_SESSION_READY=READY`; nenhum conteúdo de conversa |
 | Cinco sessões | BLOCKED_EXTERNAL | Somente contagens agregadas e referência confidencial | Sessões e follow-ups concluídos sem dados reais no Git |
 
 ## Regras para novas entradas

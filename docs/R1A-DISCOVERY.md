@@ -2,9 +2,11 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.0 |
+| Versão | 1.1 |
 | Participantes planejados | 5 prestadores |
-| Estado | Preparação documental; nenhuma sessão concluída |
+| Prontidão documental | `R1A_READY=COMPLETE` |
+| Seleção de vertical | `VERTICAL_SELECTION=PENDING_OWNER_SELECTION` |
+| Primeira sessão | `FIRST_R1A_SESSION=BLOCKED` |
 | Revisão jurídica externa | `EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED` |
 
 ## Objetivo
@@ -13,13 +15,32 @@ Descobrir se prestadores compatíveis com o ICP possuem oportunidades comerciais
 que consideram relevantes, poderiam ter esquecido e transformam em ação quando
 recebem uma revisão curta e proativa.
 
-O `R1A` não valida software, integração, automação, preço ou causalidade
-financeira.
+O `R1A` é gratuito e não valida software, integração, automação, IA, preço,
+disposição a pagar ou causalidade financeira.
+
+## Aquisição e seleção da vertical
+
+Os cinco participantes devem pertencer à mesma vertical. O proprietário escolhe
+a vertical; o Codex não a define. A decisão deve priorizar onde seja possível
+recrutar rapidamente cinco prestadores reais por:
+
+- amigos e conhecidos compatíveis com o ICP;
+- indicações da rede pessoal;
+- prestadores do bairro;
+- prestadores da cidade.
+
+A abordagem é direta e relacional, sem mídia paga nesta fase. Exemplos de
+verticais servem somente para orientar a decisão e não constituem escolha.
+
+`R1A_READY=COMPLETE` permanece inalterado. A primeira sessão só pode ocorrer
+quando `VERTICAL_SELECTION=COMPLETE` e o `DISCOVERY_SESSION_READY` da sessão
+concreta estiver `READY`.
 
 ## Qualificação do prestador
 
 O prestador deve:
 
+- pertencer à vertical selecionada;
 - vender serviços locais principalmente pelo WhatsApp Business;
 - trabalhar sozinho ou em equipe de até cinco pessoas;
 - não contar com vendedor ou recepcionista dedicado;
@@ -34,34 +55,51 @@ decisão padrão.
 
 ## Antes da sessão
 
-1. Reservar um código como `R1A-2026-P01`, sem associá-lo publicamente ao nome.
-2. Explicar o objetivo e enviar o
+1. Confirmar `VERTICAL_SELECTION=COMPLETE` e que o prestador pertence à vertical
+   selecionada.
+2. Reservar um código como `R1A-2026-P01`, sem associá-lo publicamente ao nome.
+3. Explicar o objetivo e enviar o
    [`convite de discovery`](R1A-DISCOVERY-INVITATION.md).
-3. Conferir o checklist de uma página.
-4. Abrir localmente uma cópia vazia de `R1A-DISCOVERY-LOG.csv` fora do Git.
-5. Não solicitar exportação, screenshot, mensagem encaminhada ou lista de
+4. Conferir o checklist de uma página e obter `DISCOVERY_SESSION_READY=READY`.
+5. Abrir localmente uma cópia vazia de `R1A-DISCOVERY-LOG.csv` fora do Git.
+6. Criar uma linha `SESSION` mesmo que nenhuma oportunidade seja encontrada.
+7. Não solicitar exportação, screenshot, mensagem encaminhada ou lista de
    clientes.
 
 ## Dia 1 — sessão presencial de 20–30 minutos
 
 O prestador mantém o aparelho nas mãos e navega nas próprias conversas.
 
-1. Pedir que ele procure conversas comerciais recentes que possam ainda exigir
+1. Antes de revisar oportunidades, perguntar:
+   - Como você evita esquecer clientes hoje?
+   - Quando foi a última vez que uma oportunidade ficou parada por falta de
+     acompanhamento?
+   - Você usa etiqueta, estrela, agenda, caderno, CRM ou outro método?
+   - O que falha no método atual?
+   - Já tentou algum CRM ou ferramenta semelhante? Se abandonou, por quê?
+2. Quando o prestador souber responder legitimamente, registrar somente a faixa
+   aproximada de contatos ou orçamentos comerciais por semana e a faixa de
+   ticket típico. Não registrar faturamento, valor exato identificável ou dados
+   de clientes.
+3. Pedir que ele procure conversas comerciais recentes que possam ainda exigir
    alguma providência.
-2. Ignorar imediatamente qualquer conversa incompatível.
-3. Para cada possível oportunidade, criar apenas um código sequencial, como
+4. Ignorar imediatamente qualquer conversa incompatível.
+5. Para cada possível oportunidade, criar apenas um código sequencial, como
    `R1A-2026-P01-O01`.
-4. Classificar uma das quatro situações permitidas ou
+6. Classificar uma das quatro situações permitidas ou
    `OUT_OF_SCOPE_CANDIDATE`.
-5. Perguntar:
+7. Perguntar:
    - Essa conversa ainda poderia virar serviço?
    - Você teria lembrado de procurar esse cliente sem esta revisão?
    - Qual é a próxima ação correta?
-6. Registrar a prioridade acordada com o prestador e a ação em termos genéricos,
+   - Por que esta oportunidade específica ficou parada?
+8. Registrar a prioridade acordada com o prestador e a ação em termos genéricos,
    sem copiar texto da conversa.
-7. Pedir que ele execute somente as ações que considerar relevantes, no momento
+9. Pedir que ele execute somente as ações que considerar relevantes, no momento
    que julgar apropriado.
-8. Encerrar o registro de tempo quando a participação ativa terminar.
+10. Perguntar se o método atual resolve suficientemente o problema e registrar
+    `YES`, `NO` ou `UNKNOWN` como diagnóstico, nunca como resposta presumida.
+11. Encerrar o registro de tempo quando a participação ativa terminar.
 
 Prioridade é julgamento manual e contextual. Não existe mapeamento automático
 entre estado e prioridade.
@@ -85,6 +123,25 @@ Para `OUT_OF_SCOPE_CANDIDATE`, registrar somente:
 
 O registro não cria feature, estado oficial ou gate. Padrões recorrentes serão
 avaliados somente depois das cinco sessões.
+
+## Contrato do registro pseudônimo
+
+Cada cópia externa de `R1A-DISCOVERY-LOG.csv` usa dois tipos de linha:
+
+- `SESSION`: uma linha obrigatória por prestador, com `session_code`, método
+  atual, falha do método, experiência e eventual abandono de CRM, suficiência
+  do substituto, frequência do problema, faixa da última oportunidade parada,
+  faixas econômicas, interesse recorrente e tempos; campos de oportunidade
+  ficam vazios;
+- `OPPORTUNITY`: uma linha por oportunidade codificada, com `session_code`,
+  `opportunity_code`, estado, prioridade, confirmações, próxima ação, desfechos,
+  causa genérica da paralisação e eventual candidato fora do escopo; campos de
+  contexto da sessão ficam vazios.
+
+Campos `YES | NO | UNKNOWN` nunca recebem resposta presumida. Métodos, falhas,
+motivos e causas usam rótulos genéricos; `notes` não recebe nomes, mensagens,
+datas exatas ou detalhes que permitam reidentificação. As faixas econômicas são
+aproximadas, opcionais e permanecem somente na cópia confidencial fora do Git.
 
 ## Dias 4 e 7 — follow-ups curtos
 
@@ -126,6 +183,23 @@ Após cinco sessões, contar cada prestador no máximo uma vez por critério:
 
 Todos os quatro critérios devem ser atendidos para preparar o teste pago.
 
+## Análise de substitutos e regras de parada
+
+Depois das cinco sessões, contar cada prestador no máximo uma vez:
+
+- se pelo menos três de cinco considerarem que etiquetas, estrela, agenda,
+  caderno, memória, CRM ou outra rotina já resolvem suficientemente o problema,
+  registrar `STOP` para a hipótese atual e manter o R1B bloqueado;
+- se a evidência mostrar que o problema é excessivamente episódico para um
+  acompanhamento recorrente, o proprietário registra `STOP` ou outra decisão
+  explícita e o R1B permanece bloqueado;
+- se qualquer um dos quatro gates centrais falhar, o R1B permanece bloqueado.
+
+`STOP` encerra somente a hipótese ou etapa atual. Repetir o R1A, reformular a
+hipótese ou pivotar exige nova decisão explícita do proprietário. A falha não
+cria feature, não inicia uma sequência automática de pivots e não arquiva o
+repositório.
+
 ## Métricas diagnósticas
 
 Registrar numerador e denominador, sem tratar `n=5` como evidência estatística:
@@ -135,6 +209,8 @@ Registrar numerador e denominador, sem tratar `n=5` como evidência estatística
 - `actions_executed_rate`;
 - `conversations_reactivated`;
 - `services_confirmed`;
+- `providers_with_sufficient_substitute`;
+- `reported_problem_frequency`;
 - `provider_active_time`;
 - `operator_active_time`, incluindo deslocamento separado.
 
@@ -154,7 +230,10 @@ providers_with_candidate=<0-5>
 providers_with_forgotten_relevant_opportunity=<0-5>
 providers_who_executed_action=<0-5>
 providers_with_recurring_interest=<0-5>
+providers_with_sufficient_substitute=<0-5>
+problem_frequency_summary=<agregado não identificável>
 r1a_gate=PASS | FAIL | INCONCLUSIVE
+stage_decision=CONTINUE_TO_R1B_PREPARATION | STOP | OWNER_DECISION_REQUIRED
 external_evidence_reference=registro confidencial fora do Git
 ```
 
