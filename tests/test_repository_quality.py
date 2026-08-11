@@ -228,6 +228,49 @@ class R1ADiscoveryDocumentationTests(unittest.TestCase):
         self.assertIn("Pelo menos 3 de 5 querem receber novamente", content)
         self.assertIn("não representam evidência estatística", content)
 
+    def test_vertical_selection_blocks_only_the_first_session(self) -> None:
+        gates = (ROOT / "docs/GATE-STATUS.md").read_text(encoding="utf-8")
+        checklist = (ROOT / "docs/DISCOVERY-SESSION-READY.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("`R1A_READY` | COMPLETE", gates)
+        self.assertIn("`VERTICAL_SELECTION` | `PENDING_OWNER_SELECTION`", gates)
+        self.assertIn("`FIRST_R1A_SESSION` | `BLOCKED`", gates)
+        self.assertIn("[ ] VERTICAL_SELECTION=COMPLETE.", checklist)
+        self.assertIn("[ ] Prestador pertence à vertical selecionada.", checklist)
+
+    def test_discovery_log_covers_substitutes_and_economic_ranges(self) -> None:
+        header = EXPECTED_CSV_HEADERS["docs/R1A-DISCOVERY-LOG.csv"]
+
+        self.assertEqual("record_type", header[0])
+        for field in (
+            "current_tracking_method",
+            "current_method_failure",
+            "crm_experience",
+            "crm_abandonment_reason",
+            "substitute_sufficient",
+            "problem_frequency",
+            "last_stalled_opportunity_range",
+            "weekly_commercial_contacts_range",
+            "typical_ticket_range_brl",
+            "stalled_cause",
+        ):
+            self.assertIn(field, header)
+
+    def test_r1b_uses_real_payments_without_redundant_acceptance_gate(self) -> None:
+        content = (ROOT / "docs/R1B-COMMERCIAL-EXPERIMENT.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("`BLOCKED_UNTIL_R1A_PASS`", content)
+        self.assertIn("`MONTHLY_PRICE=R$49.90`", content)
+        self.assertIn("| `0` | `STOP` |", content)
+        self.assertIn("| `1` | `INSUFFICIENT_EVIDENCE` |", content)
+        self.assertIn("| `>=2` | `COMMERCIAL_SIGNAL_TO_INVESTIGATE` |", content)
+        self.assertIn("Um pagamento recebido já comprova o aceite", content)
+        self.assertIn("não existe gate separado ou redundante", content)
+
 
 class QualityPageTests(unittest.TestCase):
     def test_page_contains_only_aggregate_quality_information(self) -> None:

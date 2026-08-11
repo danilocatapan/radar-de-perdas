@@ -6,6 +6,8 @@ Checklist de uma página para cada sessão presencial do `R1A`.
 session_code=
 checked_at=
 
+[ ] VERTICAL_SELECTION=COMPLETE.
+[ ] Prestador pertence à vertical selecionada.
 [ ] Prestador compatível com o ICP.
 [ ] Objetivo e limites da sessão explicados.
 [ ] Prestador controla fisicamente o aparelho.
@@ -22,6 +24,10 @@ confidential_reference=
 
 Use `READY` somente com todos os itens confirmados. Qualquer dúvida produz
 `BLOCKED` e a conversa não é visualizada.
+
+`R1A_READY=COMPLETE` continua significando prontidão documental. A primeira
+sessão permanece `FIRST_R1A_SESSION=BLOCKED` enquanto a vertical estiver
+pendente ou este checklist concreto não estiver `READY`.
 
 Esta é uma sessão sem custódia, sem cópia e sem retenção das conversas. A
 minimização não deve ser descrita como ausência de tratamento de dados. A

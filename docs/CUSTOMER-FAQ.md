@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 2.0 |
+| Versão | 2.1 |
 | Escopo | `R0-PIVOT` e `R1A` |
 | Evidência externa | Ainda não obtida |
 
@@ -47,6 +47,21 @@ fato. Isso não prova causalidade nem autoriza atribuir receita ao Radar.
 
 ## Isso já é um produto pago?
 
-Não. O estágio atual é um discovery com cinco prestadores. R$ 149 por sete dias
-é somente uma hipótese para um teste posterior. Formato, preço e operação serão
-revistos com base no que acontecer no `R1A`.
+Não. O estágio atual é um discovery gratuito com cinco prestadores da mesma
+vertical, que ainda será escolhida pelo proprietário. Não existe produto,
+assinatura ativa ou cobrança automática.
+
+A hipótese para um experimento posterior é R$ 49,90 por mês, com estado
+`HYPOTHESIS_ONLY`. O R1B permanece bloqueado até o R1A passar e o proprietário
+autorizar explicitamente sua execução. R$ 149 por sete dias e a antiga oferta
+de auditoria por R$ 500 são referências históricas `SUPERSEDED`.
+
+Somente pagamento efetivamente recebido em experimento autorizado constitui
+evidência comercial. “Eu pagaria”, elogio ou intenção não validam o preço.
+
+## Isso substitui meu CRM ou método atual?
+
+Não é esse o objetivo. No R1A queremos entender se etiquetas, estrela, agenda,
+caderno, memória, CRM ou outro método já resolvem suficientemente o problema e
+o que falha quando uma oportunidade fica parada. Se as alternativas atuais já
+forem suficientes para a maioria, isso conta contra continuar a hipótese.

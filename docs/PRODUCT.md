@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.4 |
+| Versão | 0.5 |
 | Status | `PRODUCT_PIVOT`; hipótese sem validação externa |
 | Responsável pela decisão | Proprietário do Radar de Perdas |
 
@@ -29,6 +29,22 @@ merece atenção e qual ação deve ser tomada.
 Prestador local ou microempresa de uma a cinco pessoas, sem vendedor dedicado,
 que vende serviços principalmente pelo WhatsApp Business e passa grande parte
 do dia em campo.
+
+Os cinco participantes do `R1A` devem pertencer à mesma vertical. A vertical
+concreta não está decidida: `VERTICAL_SELECTION=PENDING_OWNER_SELECTION`. A
+seleção cabe ao proprietário e prioriza capacidade real de recrutamento pela
+rede pessoal, indicações, bairro e cidade.
+
+## Entrada no mercado
+
+A aquisição inicial é direta e relacional: amigos e conhecidos compatíveis com
+o ICP, indicações e prestadores do bairro e da cidade, sem mídia paga nesta
+fase. O Radar pretende ganhar aprendizado e clientes pela simplicidade,
+proximidade, baixo atrito e utilidade concreta para um nicho pequeno.
+
+Essa escolha não significa confronto competitivo, substituição de CRM ou busca
+de paridade funcional. A frase “há clientes para todo mundo” não constitui
+evidência de mercado e não será usada como tal.
 
 ## Estados do primeiro discovery
 
@@ -66,9 +82,21 @@ A versão 0.3 deste documento descrevia uma ferramenta interna local-first e
 metas de parser. Essas escolhas não são arquitetura vigente e permanecem
 bloqueadas até evidência real e uma decisão posterior.
 
+## Hipótese comercial posterior
+
+`MONTHLY_PRICE=R$49.90` está `HYPOTHESIS_ONLY`. Não é preço validado,
+recomendação de mercado ou comprovação de sustentabilidade econômica. A
+hipótese anterior de R$ 149 por sete dias está `SUPERSEDED`; a oferta histórica
+de auditoria por R$ 500 continua preservada como `SUPERSEDED`.
+
+Um eventual R1B prevê período gratuito de até 30 dias, sem cartão obrigatório
+ou cobrança automática, seguido de oferta explícita de continuidade. Somente
+pagamento efetivamente recebido constitui evidência comercial.
+
 ## Próxima decisão
 
-O único trabalho autorizado é preparar e executar o `R1A` definido em
-[`R1A-DISCOVERY.md`](R1A-DISCOVERY.md). O resultado poderá autorizar a preparação
-de um teste pago, pivotar novamente ou interromper a hipótese. Não autoriza
-desenvolvimento do produto.
+O único trabalho externo autorizado é selecionar a vertical e executar o `R1A`
+definido em [`R1A-DISCOVERY.md`](R1A-DISCOVERY.md). O protocolo posterior está
+em [`R1B-COMMERCIAL-EXPERIMENT.md`](R1B-COMMERCIAL-EXPERIMENT.md), com estado
+`BLOCKED_UNTIL_R1A_PASS` e nova autorização do proprietário obrigatória. Nenhum
+resultado autoriza desenvolvimento automático do produto.

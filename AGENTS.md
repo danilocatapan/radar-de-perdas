@@ -45,19 +45,29 @@ Enquanto não houver runtime oficial, verificar:
 
 ## Gate atual do produto
 
-O único alvo atual é `R0-PIVOT + R1A_READY`.
+`R1A_READY=COMPLETE` continua registrando a prontidão documental já
+comprovada. A primeira sessão permanece separadamente bloqueada por:
+
+- `VERTICAL_SELECTION=PENDING_OWNER_SELECTION`;
+- `FIRST_R1A_SESSION=BLOCKED`.
+
+`FIRST_R1A_SESSION` só pode mudar de estado quando a vertical estiver
+`COMPLETE` e o `DISCOVERY_SESSION_READY` da sessão concreta estiver `READY`.
+O agente não escolhe a vertical.
 
 Permitido:
 
 - documentação do pivot e do Discovery Concierge;
+- estratégia de aquisição local e relacional;
 - checklist simples `DISCOVERY_SESSION_READY`;
 - registro pseudônimo vazio;
 - representação sintética mínima de até cinco itens;
+- protocolo documental do R1B, mantido `BLOCKED_UNTIL_R1A_PASS`;
 - testes documentais estritamente necessários.
 
 Bloqueado:
 
-- oferta paga definitiva;
+- execução ou oferta paga definitiva do R1B;
 - demo comercial refinada;
 - parser, frontend, backend, banco ou IA;
 - integração com WhatsApp, notificações ou automação;
@@ -93,7 +103,10 @@ Fixtures e testes não comprovam utilidade, mercado ou disposição a pagar.
 
 ## Contrato do R1A
 
-- Cinco prestadores; sessão inicial presencial de 20–30 minutos.
+- Cinco prestadores da mesma vertical; sessão inicial presencial de 20–30
+  minutos.
+- A vertical concreta depende do proprietário e deve privilegiar capacidade
+  real de recrutamento pela rede pessoal, indicações, bairro e cidade.
 - Follow-ups curtos nos dias 4 e 7, sem nova revisão completa do WhatsApp.
 - Estados do gate: `NEEDS_RESPONSE`, `NEEDS_QUOTE`, `FOLLOWUP_DUE` e
   `PROMISED_RETURN_DUE`.
@@ -102,8 +115,25 @@ Fixtures e testes não comprovam utilidade, mercado ou disposição a pagar.
   oportunidades.
 - Taxas diagnósticas sempre exibem numerador e denominador e não são tratadas
   como evidência estatística com `n=5`.
+- Investigar etiquetas, estrela, agenda, caderno, memória, CRM e outros métodos
+  atuais, incluindo suas falhas e a causa da oportunidade parada.
+- Se pelo menos três de cinco prestadores considerarem os substitutos atuais
+  suficientes, o R1B permanece bloqueado.
 - Pagamento real em teste futuro é a única evidência comercial; comentário sobre
   preço é apenas sinal.
+
+## Hipótese comercial posterior
+
+- `MONTHLY_PRICE=R$49.90` permanece `HYPOTHESIS_ONLY`.
+- `R1B` permanece `BLOCKED_UNTIL_R1A_PASS` e depende de nova autorização
+  explícita do proprietário.
+- `OPERATIONAL_LIMIT=PENDING_OWNER_DECISION`; agentes não inventam o limite.
+- Zero pagamentos reais produz `STOP`; um produz `INSUFFICIENT_EVIDENCE`; dois
+  ou mais produzem `COMMERCIAL_SIGNAL_TO_INVESTIGATE`, nunca `GO_PRODUCT`.
+- Aceite verbal, elogio, intenção ou promessa são apenas diagnóstico.
+- `STOP` encerra a hipótese ou etapa atual. Repetição, reformulação ou pivot
+  exigem nova decisão explícita; não arquivar o repositório nem criar feature
+  automaticamente.
 
 ## Entrega
 

@@ -3,8 +3,8 @@
 > **Status: `SUPERSEDED`.** Esta oferta de auditoria por R$ 500 foi substituída
 > pela decisão de pivot registrada em [`R0-DECISION-LOG.md`](R0-DECISION-LOG.md).
 > Não enviar nem adaptar este modelo. A hipótese posterior de R$ 149 por sete
-> dias ainda não é uma oferta e depende dos resultados do `R1A` descrito em
-> [`ROADMAP.md`](ROADMAP.md).
+> dias também está `SUPERSEDED`. O protocolo vigente, ainda bloqueado, está em
+> [`R1B-COMMERCIAL-EXPERIMENT.md`](R1B-COMMERCIAL-EXPERIMENT.md).
 
 | Campo | Valor |
 |---|---|

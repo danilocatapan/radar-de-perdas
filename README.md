@@ -2,9 +2,9 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.6 |
-| Status | `R1A_READY`; Discovery Concierge ainda não executado |
-| Próximo resultado | `R1A_READY` |
+| Versão | 0.7 |
+| Status | `R1A_READY=COMPLETE`; Discovery Concierge ainda não executado |
+| Próximo gate | `VERTICAL_SELECTION=PENDING_OWNER_SELECTION` |
 
 O Radar de Perdas está validando uma ideia simples para prestadores de serviço
 locais: encontrar, nas conversas que eles já mantêm no WhatsApp, clientes que
@@ -23,9 +23,21 @@ O primeiro público é o prestador ou a microempresa de serviços que:
 - não usa CRM ou não consegue manter um funil atualizado;
 - precisa resolver as pendências em poucos minutos pelo celular.
 
-Eletricistas, encanadores, instaladores de ar-condicionado, assistência técnica
-e manutenção residencial são segmentos prioritários. Oficina pequena permanece
-como segmento secundário.
+Os cinco participantes iniciais pertencerão à mesma vertical. A vertical
+concreta ainda não foi escolhida: `VERTICAL_SELECTION=PENDING_OWNER_SELECTION`.
+Exemplos como eletricistas, encanadores, ar-condicionado, assistência técnica e
+manutenção residencial não são decisões. A escolha cabe ao proprietário e deve
+priorizar onde seja possível recrutar cinco prestadores reais rapidamente.
+
+## Aquisição inicial
+
+O recrutamento começa por amigos e conhecidos compatíveis com o ICP,
+indicações, prestadores do bairro e prestadores da cidade. A abordagem é direta
+e relacional, sem mídia paga nesta fase.
+
+Essa é uma decisão deliberada de atuar de forma pequena, próxima e simples. Não
+é evidência de que “há clientes para todo mundo”, nem estratégia de competir em
+funcionalidades, substituir CRMs ou buscar paridade com plataformas maiores.
 
 ## Hipótese atual
 
@@ -46,30 +58,47 @@ aprendizado, não uma nova feature ou ampliação automática do produto.
 
 ## Próximo experimento: R1A
 
-O `R1A` é um Discovery Concierge com cinco prestadores. Em cada sessão:
+O `R1A` é um Discovery Concierge gratuito com cinco prestadores da mesma
+vertical. `R1A_READY=COMPLETE` permanece como prontidão documental, mas
+`FIRST_R1A_SESSION=BLOCKED` até que a vertical esteja `COMPLETE` e o checklist
+da sessão concreta esteja `READY`. Em cada sessão:
 
 1. o prestador mantém o próprio aparelho sob controle;
 2. a revisão presencial dura de 20 a 30 minutos;
 3. não há fotografia, gravação, cópia ou exportação de conversas;
-4. o prestador confirma se a oportunidade importa, se a havia esquecido e qual
-   ação faz sentido;
+4. o prestador confirma se a oportunidade importa, se a havia esquecido, por
+   que ficou parada e qual ação faz sentido;
 5. contatos curtos nos dias 4 e 7 registram ações e desfechos, sem nova revisão
    completa do WhatsApp.
+
+O discovery também investiga como o prestador evita esquecimentos hoje, o que
+falha em etiquetas, estrela, agenda, caderno, memória, CRM ou outros métodos e
+se essas alternativas já resolvem suficientemente o problema. Faixas de volume
+semanal e ticket típico só são registradas quando legitimamente conhecidas,
+sem identificar clientes ou alegar receita perdida.
 
 O procedimento completo está em [`docs/R1A-DISCOVERY.md`](docs/R1A-DISCOVERY.md)
 e o checklist de início em
 [`docs/DISCOVERY-SESSION-READY.md`](docs/DISCOVERY-SESSION-READY.md).
 
-O teste pago só poderá ser preparado se todos os critérios por prestador forem
+O R1B só poderá ser preparado se todos os critérios por prestador forem
 atingidos: problema em pelo menos 4 de 5; oportunidade relevante esquecida,
-ação executada e interesse recorrente em pelo menos 3 de 5.
+ação executada e interesse recorrente em pelo menos 3 de 5. Se pelo menos três
+participantes considerarem os substitutos atuais suficientes, ou se o problema
+for excessivamente episódico, o R1B permanece bloqueado.
 
 ## O que não está sendo construído
 
 Não há produto, integração com WhatsApp, parser, IA, frontend, backend, banco,
-notificação, automação, arquitetura definitiva ou infraestrutura produtiva em
-desenvolvimento. A hipótese de um acompanhamento pago de R$ 149 por sete dias
-continua apenas como hipótese e será revista depois do `R1A`.
+notificação, automação, cobrança, arquitetura definitiva ou infraestrutura
+produtiva em desenvolvimento. A hipótese vigente para um experimento posterior
+é `MONTHLY_PRICE=R$49.90`, com estado `HYPOTHESIS_ONLY`.
+
+O protocolo está pré-registrado em
+[`docs/R1B-COMMERCIAL-EXPERIMENT.md`](docs/R1B-COMMERCIAL-EXPERIMENT.md), mas
+permanece `BLOCKED_UNTIL_R1A_PASS`, depende de nova autorização explícita e não
+é uma oferta vigente. A hipótese anterior de R$ 149 por sete dias está
+`SUPERSEDED`.
 
 A antiga auditoria de `LP-001`/`LP-002`, seu relatório longo e sua oferta de
 R$ 500 foram substituídos como direção de produto. Os materiais continuam no
