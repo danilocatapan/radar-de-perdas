@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.7 |
+| Versão | 0.8 |
 | Status | `R1A_READY=COMPLETE`; Discovery Concierge ainda não executado |
 | Próximo gate | `VERTICAL_SELECTION=PENDING_OWNER_SELECTION` |
 
@@ -39,6 +39,13 @@ Essa é uma decisão deliberada de atuar de forma pequena, próxima e simples. N
 é evidência de que “há clientes para todo mundo”, nem estratégia de competir em
 funcionalidades, substituir CRMs ou buscar paridade com plataformas maiores.
 
+A reavaliação de mercado registrou o wedge
+`MOBILE_FIELD_PROVIDER_NO_CRM`: prestador em campo, mobile-first, que vende pelo
+WhatsApp e não quer manter CRM, funil ou cadastro duplicado. A existência de
+CRMs e ferramentas para WhatsApp comprova apenas uma categoria concorrida; não
+valida demanda pelo Radar. Evidências, inferências e riscos estão separados em
+[`docs/MARKET-REASSESSMENT-2026-08-11.md`](docs/MARKET-REASSESSMENT-2026-08-11.md).
+
 ## Hipótese atual
 
 O trabalho a validar é: **“me diga quais clientes ainda podem virar serviço e
@@ -73,9 +80,12 @@ da sessão concreta esteja `READY`. Em cada sessão:
 
 O discovery também investiga como o prestador evita esquecimentos hoje, o que
 falha em etiquetas, estrela, agenda, caderno, memória, CRM ou outros métodos e
-se essas alternativas já resolvem suficientemente o problema. Faixas de volume
-semanal e ticket típico só são registradas quando legitimamente conhecidas,
-sem identificar clientes ou alegar receita perdida.
+se essas alternativas já resolvem suficientemente o problema. Também registra,
+em categorias, o dispositivo principal de vendas, uso regular de WhatsApp Web,
+aceitação de outra ferramenta diária e origem do recrutamento. Faixas de volume
+semanal e ticket típico só são registradas quando legitimamente conhecidas, sem
+identificar clientes ou alegar receita perdida. Esses dados são diagnósticos e
+não criam gates isolados.
 
 O procedimento completo está em [`docs/R1A-DISCOVERY.md`](docs/R1A-DISCOVERY.md)
 e o checklist de início em
@@ -92,13 +102,16 @@ for excessivamente episódico, o R1B permanece bloqueado.
 Não há produto, integração com WhatsApp, parser, IA, frontend, backend, banco,
 notificação, automação, cobrança, arquitetura definitiva ou infraestrutura
 produtiva em desenvolvimento. A hipótese vigente para um experimento posterior
-é `MONTHLY_PRICE=R$49.90`, com estado `HYPOTHESIS_ONLY`.
+é um `PAID_ASSISTED_PILOT` de 30 dias, pago antecipadamente por
+`PAID_PILOT_PRICE=R$99.00`, com estado `HYPOTHESIS_ONLY`, sem período gratuito
+depois do R1A e sem renovação automática.
 
 O protocolo está pré-registrado em
 [`docs/R1B-COMMERCIAL-EXPERIMENT.md`](docs/R1B-COMMERCIAL-EXPERIMENT.md), mas
 permanece `BLOCKED_UNTIL_R1A_PASS`, depende de nova autorização explícita e não
 é uma oferta vigente. A hipótese anterior de R$ 149 por sete dias está
-`SUPERSEDED`.
+`SUPERSEDED`. `MONTHLY_PRICE=R$49.90` também está `SUPERSEDED` e permanece
+somente como histórico da decisão anterior.
 
 A antiga auditoria de `LP-001`/`LP-002`, seu relatório longo e sua oferta de
 R$ 500 foram substituídos como direção de produto. Os materiais continuam no

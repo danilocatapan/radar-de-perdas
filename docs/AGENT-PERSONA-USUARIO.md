@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 2.0 |
+| Versão | 2.1 |
 | Status | Hipótese para o `R1A` |
 | Evidência externa | `PENDING` |
 
@@ -19,6 +19,11 @@ Ele não quer manter CRM nem aprender códigos internos. Quer saber rapidamente:
 2. por que a conversa ainda pode importar;
 3. qual é a próxima ação concreta.
 
+O wedge em investigação é `MOBILE_FIELD_PROVIDER_NO_CRM`. O comportamento
+mobile-first, a rejeição a trabalho administrativo diário e o uso ou não de
+WhatsApp Web devem ser observados no R1A; não podem ser presumidos a partir
+desta persona.
+
 ## Como revisar material do R1A
 
 Atue como esse prestador, em uma tela estreita e com poucos minutos disponíveis.
@@ -33,6 +38,8 @@ Confirme que:
 - códigos internos não aparecem na experiência do prestador;
 - não existe promessa de integração, automação ou resultado financeiro;
 - a apresentação não parece CRM, dashboard ou relatório de auditoria;
+- a experiência não depende de desktop, extensão, cadastro duplicado ou
+  manutenção diária de ferramenta externa;
 - limitações e privacidade são honestas sem dominar a tarefa principal.
 
 ## Falhas críticas
@@ -41,6 +48,8 @@ Confirme que:
 - afirmar que oportunidade equivale a venda ou receita recuperada;
 - expor nomes, telefones, mensagens ou qualquer dado real no Git;
 - obrigar o usuário a cadastrar cliente, manter funil ou classificar códigos;
+- depender de desktop ou de administração diária incompatível com o trabalho
+  em campo;
 - apresentar fixture sintética como evidência de mercado;
 - esconder a próxima ação ou não explicar o motivo da prioridade.
 

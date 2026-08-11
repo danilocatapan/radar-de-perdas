@@ -1,11 +1,14 @@
-# R1B — Experimento comercial posterior
+# R1B — Piloto assistido pago
 
 | Campo | Valor |
 |---|---|
-| Versão | 1.0 |
+| Versão | 2.0 |
 | Estado | `BLOCKED_UNTIL_R1A_PASS` |
-| Preço mensal | `MONTHLY_PRICE=R$49.90` |
+| Modelo | `PAID_ASSISTED_PILOT` |
+| Duração | 30 dias |
+| Preço do piloto | `PAID_PILOT_PRICE=R$99.00` |
 | Estado do preço | `HYPOTHESIS_ONLY` |
+| Pagamento | `UPFRONT` |
 | Limite operacional | `OPERATIONAL_LIMIT=PENDING_OWNER_DECISION` |
 | Autorização de execução | `PENDING_OWNER_DECISION` |
 
@@ -16,27 +19,30 @@ explícita do proprietário.
 
 ## Hipótese
 
-Prestadores da vertical validada no R1A podem perceber valor recorrente em um
-acompanhamento simples das oportunidades comerciais paradas, apresentado como
-lista curta de próximas ações.
+Prestadores da vertical validada no R1A podem pagar antecipadamente R$ 99 por
+30 dias de acompanhamento assistido e manual de oportunidades comerciais
+paradas, apresentado como lista de no máximo cinco prioridades, seus motivos e
+próximas ações.
 
 A aquisição inicial continua direta e relacional, por rede pessoal, indicações,
-bairro e cidade, sem mídia paga. O Radar não pretende substituir CRM, competir
-por quantidade de funcionalidades ou exigir funil mantido pelo prestador.
+bairro e cidade, sem mídia paga. O Radar investiga o wedge
+`MOBILE_FIELD_PROVIDER_NO_CRM`: não pretende substituir CRM, exigir funil
+mantido pelo prestador nem competir por quantidade de funcionalidades.
 
 ## Formato a testar
 
-- período gratuito de no máximo 30 dias;
+- piloto assistido pago com duração de 30 dias;
+- pagamento antecipado de R$ 99;
+- sem período gratuito depois do R1A;
 - sem cartão obrigatório;
-- sem cobrança automática ao final;
-- acompanhamento ainda manual, com operação e controles definidos antes do
-  início;
-- oferta explícita para continuar por R$ 49,90 por mês ao término;
-- pelo menos cinco ofertas explícitas de continuidade.
+- sem cobrança ou renovação automática;
+- acompanhamento manual, com operação e controles definidos antes do início;
+- pelo menos cinco ofertas explícitas do piloto.
 
-R$ 49,90 não é preço validado, recomendado pelo mercado ou comprovadamente
-sustentável. A hipótese de R$ 149 por sete dias está `SUPERSEDED`. A oferta de
-auditoria por R$ 500 permanece histórica e `SUPERSEDED`.
+`PAID_PILOT_PRICE=R$99.00` é `HYPOTHESIS_ONLY`: não é preço validado,
+recomendado pelo mercado ou comprovadamente sustentável. A hipótese de
+`MONTHLY_PRICE=R$49.90` está `SUPERSEDED`, assim como a hipótese de R$ 149 por
+sete dias. A oferta de auditoria por R$ 500 permanece histórica e `SUPERSEDED`.
 
 ## Evidência comercial
 
@@ -44,8 +50,8 @@ Pagamento efetivamente recebido é a evidência comercial. Aceite verbal, elogio
 intenção, promessa, “eu pagaria” ou resposta positiva podem ser registrados
 somente como diagnóstico e nunca substituem pagamento.
 
-Um pagamento recebido já comprova o aceite de continuidade daquele cliente;
-não existe gate separado ou redundante de aceitação.
+Um pagamento recebido já comprova o aceite daquele cliente; não existe gate
+separado ou redundante de aceitação.
 
 Depois de pelo menos cinco ofertas explícitas, aplicar exatamente:
 
@@ -56,7 +62,7 @@ Depois de pelo menos cinco ofertas explícitas, aplicar exatamente:
 | `>=2` | `COMMERCIAL_SIGNAL_TO_INVESTIGATE` |
 
 `COMMERCIAL_SIGNAL_TO_INVESTIGATE` não é `GO_PRODUCT`, não autoriza automação e
-não comprova sustentabilidade econômica.
+não comprova recorrência ou sustentabilidade econômica.
 
 ## Gate operacional
 
@@ -71,7 +77,7 @@ Medir por cliente:
 - tempo de deslocamento;
 - número de intervenções manuais.
 
-O objetivo é impedir que R$ 49,90 por mês esconda um serviço manual
+O objetivo é impedir que R$ 99 por 30 dias esconda um serviço manual
 economicamente inviável. Mesmo com dois ou mais pagamentos, automação permanece
 bloqueada até haver evidência de recorrência, gargalo manual repetitivo,
 viabilidade operacional analisada, decisão explícita de Produto/Negócios e

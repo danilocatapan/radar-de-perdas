@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 3.1 |
+| Versão | 3.2 |
 | Responsável | Proprietário do Radar de Perdas |
 | Última revisão | 2026-08-11 |
 
@@ -71,6 +71,9 @@ esse fluxo sem arquivos.
 Métricas de taxas, reativação, serviço confirmado e tempo são diagnósticas e
 não substituem os quatro critérios. O detalhe permanece fora do Git; somente
 resultados agregados e não identificáveis podem ser registrados no repositório.
+Dispositivo principal, uso de WhatsApp Web, aceitação de ferramenta externa e
+origem da aquisição também são diagnósticos do wedge
+`MOBILE_FIELD_PROVIDER_NO_CRM`; não formam gate autônomo.
 
 Falha de qualquer gate central bloqueia o R1B. `STOP` encerra somente a hipótese
 ou etapa atual; repetição, reformulação ou pivot exigem nova decisão explícita
@@ -83,7 +86,8 @@ do proprietário e não arquivam automaticamente o repositório.
 | Protocolo documental | COMPLETE | [`R1B-COMMERCIAL-EXPERIMENT.md`](R1B-COMMERCIAL-EXPERIMENT.md) |
 | Estado do R1B | `BLOCKED_UNTIL_R1A_PASS` | Todos os gates centrais do R1A aprovados e nenhuma condição de STOP |
 | Nova autorização do proprietário | PENDING_OWNER_DECISION | Decisão explícita posterior ao R1A PASS |
-| `MONTHLY_PRICE=R$49.90` | `HYPOTHESIS_ONLY` | Não é preço validado, recomendado ou economicamente sustentável |
+| Modelo | `PAID_ASSISTED_PILOT` | Piloto assistido manual por 30 dias; não é produto ou assinatura |
+| `PAID_PILOT_PRICE=R$99.00` | `HYPOTHESIS_ONLY` | Pagamento `UPFRONT`; não é preço validado, recomendado ou economicamente sustentável |
 | `OPERATIONAL_LIMIT` | `PENDING_OWNER_DECISION` | Limite definido pelo proprietário antes do R1B |
 | Pelo menos cinco ofertas explícitas | BLOCKED_EXTERNAL | Contagem agregada e referência externa não identificável |
 | Pagamentos reais recebidos | BLOCKED_EXTERNAL | Comprovantes fora do Git; intenção ou aceite verbal não substituem pagamento |
@@ -95,8 +99,9 @@ existe gate redundante de aceitação. Uma revisão controlada da oferta depende
 nova decisão explícita e, persistindo resultado abaixo de dois pagamentos, a
 hipótese recebe `STOP`. `COMMERCIAL_SIGNAL_TO_INVESTIGATE` não é `GO_PRODUCT`.
 
-A hipótese de R$ 149 por sete dias está `SUPERSEDED`. O antigo `R1B` de
-auditoria por R$ 500 continua histórico e `SUPERSEDED`.
+Não há período gratuito depois do R1A, cartão obrigatório ou renovação
+automática. `MONTHLY_PRICE=R$49.90`, a hipótese de R$ 149 por sete dias e o
+antigo `R1B` de auditoria por R$ 500 continuam históricos e `SUPERSEDED`.
 
 ## Backlog técnico
 
