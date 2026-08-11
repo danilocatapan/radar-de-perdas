@@ -1,5 +1,11 @@
 # Modelo de relatório do piloto — Radar de Perdas
 
+> **Status: `SUPERSEDED_AS_PRIMARY_EXPERIENCE`.** O relatório longo pertence ao
+> plano anterior de auditoria e não será usado no primeiro Discovery Concierge.
+> A experiência mínima atual está ilustrada em
+> [`R1A-SYNTHETIC-LIST.md`](R1A-SYNTHETIC-LIST.md). O template abaixo permanece
+> preservado como histórico.
+
 | Campo | Valor |
 |---|---|
 | Versão do template | 1.1 |

@@ -2,103 +2,73 @@
 
 | Campo | Valor |
 |---|---|
-| Versão | 0.3 |
-| Status | `INTERNAL_APPROVED` para `R1A` |
+| Versão | 0.4 |
+| Status | `PRODUCT_PIVOT`; hipótese sem validação externa |
 | Responsável pela decisão | Proprietário do Radar de Perdas |
-| Revisão externa | `EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED` |
 
-## Visão
+## Direção atual
 
-Ajudar pequenos negócios a identificar falhas verificáveis no atendimento
-comercial por WhatsApp e priorizar melhorias, sem equiparar automaticamente uma
-falha a uma venda perdida.
+O Radar de Perdas pretende ajudar prestadores locais a identificar oportunidades
+comerciais paradas no WhatsApp e decidir a próxima ação, sem exigir CRM, cadastro
+duplicado ou manutenção manual de funil.
 
-## Hipótese principal
+Esta direção é uma hipótese. Nenhum contato real foi registrado como evidência
+deste pivot e nenhuma capacidade técnica está autorizada.
 
-Uma auditoria padronizada de LP-001 e LP-002:
+## Trabalho a ser validado
 
-- é comprável por pelo menos R$ 500;
-- pode ser produzida com dados legitimamente fornecidos;
-- gera recomendações compreensíveis;
-- pode ter pelo menos 30% do tempo produtivo reduzido por ferramenta
-  local-first, com processamento no navegador;
-- pode operar com descarte automático inferior a 20% e proxy de achados não
-  sugeridos inferior a 20%.
+> Me diga quais clientes ainda podem virar serviço e qual é a próxima coisa que
+> preciso fazer.
 
-O piloto preliminar gratuito `R1A` valida operação, utilidade e compreensão. Ele
-não valida disposição a pagar. A hipótese de compra por pelo menos R$ 500 só
-pode ser considerada validada por um piloto pago posterior, em `R1B`.
+O usuário continua trabalhando e conversando normalmente. A experiência
+pretendida é uma lista curta, mobile-first, que explique por que cada cliente
+merece atenção e qual ação deve ser tomada.
 
 ## Usuário inicial
 
-Consultor que vende, executa e apresenta auditorias. Clientes não acessam
-software no primeiro estágio.
+Prestador local ou microempresa de uma a cinco pessoas, sem vendedor dedicado,
+que vende serviços principalmente pelo WhatsApp Business e passa grande parte
+do dia em campo.
 
-## Direção da v1
+## Estados do primeiro discovery
 
-- Ferramenta de uso interno do consultor.
-- Código, documentação e fixtures sintéticas em repositório público; previews e
-  aplicação protegidos por controle de acesso.
-- Análise exclusiva de LP-001 e LP-002.
-- Interface estática hospedada e protegida no Cloudflare Pages.
-- Conversas processadas somente no navegador.
-- Nenhum banco, backend, upload de conversas ou telemetria.
-- Estado persistido em arquivo local criptografado.
-- HTML e CSV experimentais; PDF contratado produzido manualmente.
-- Piloto preliminar gratuito antes do primeiro piloto pago.
-- Beta somente após o piloto pago e os gates técnicos.
-- Versão estável após segundo piloto independente e gate final.
+- `NEEDS_RESPONSE`: solicitação comercial relevante sem resposta útil.
+- `NEEDS_QUOTE`: orçamento ou preço prometido ainda não enviado.
+- `FOLLOWUP_DUE`: proposta enviada com oportunidade razoável de retomada.
+- `PROMISED_RETURN_DUE`: retorno, confirmação ou verificação prometida e não
+  cumprida.
+- `OUT_OF_SCOPE_CANDIDATE`: padrão observado fora dos quatro estados; serve
+  somente para aprendizagem e decisão futura.
 
-O detalhamento e as dependências estão em [`ROADMAP.md`](ROADMAP.md).
+## Princípios
 
-## Unidade de análise
-
-- Empresa: uma por piloto.
-- Unidade: uma por piloto.
-- Canal: um WhatsApp.
-- Amostra: até 50 chats individuais.
-- Período: até 30 dias.
-- Solicitação: bloco consecutivo de mensagens do prospect até uma resposta
-  humana útil.
-
-## Resultado entregue
-
-Relatório manual redigido ou pseudonimizado com:
-
-- escopo e limitações;
-- indicadores LP-001/LP-002;
-- evidências mínimas;
-- hipóteses de causa;
-- recomendações e prioridades.
+- Zero trabalho administrativo sempre que possível.
+- Nenhum cadastro duplicado ou funil para o usuário manter.
+- Lista curta, motivo explícito e próxima ação clara.
+- Uso pensado primeiro para celular e inferior a dois minutos por dia.
+- Códigos internos não aparecem como linguagem principal para o prestador.
+- Privacidade e operação ficam predominantemente sob responsabilidade do Radar.
 
 ## Não objetivos
 
-- Estimar receita perdida.
-- Provar causalidade entre atendimento e venda.
-- Substituir revisão humana.
-- Criar software personalizado por cliente.
-- Analisar grupos, anexos, áudios ou mídia. Marcadores de mídia apenas bloqueiam
-  conclusão automática até esclarecimento autorizado.
-- Construir SaaS antes dos gates.
+CRM, caixa de entrada, chatbot, helpdesk, ERP, financeiro, agenda completa,
+campanhas, analytics complexo, automação de mensagens e substituição do
+WhatsApp não pertencem ao escopo.
 
-## Gates do produto
+## Situação da direção anterior
 
-O parser e a vertical slice só podem ser iniciados depois de seus gates
-específicos. Preview protegido pode usar apenas fixtures sintéticas. A beta
-produtiva exige primeiro piloto pago, parser aprovado e gate de continuidade.
-A versão estável exige um segundo piloto independente e todos os critérios de
-`GATE-STATUS.md` documentados.
+A auditoria de `LP-001` e `LP-002`, o relatório retrospectivo e a oferta de
+R$ 500 estão `SUPERSEDED` como proposta principal. As definições continuam
+preservadas historicamente e podem fornecer detectores ou evidências auxiliares,
+sem representar venda ou receita perdida.
 
-## Métricas de sucesso
+A versão 0.3 deste documento descrevia uma ferramenta interna local-first e
+metas de parser. Essas escolhas não são arquitetura vigente e permanecem
+bloqueadas até evidência real e uma decisão posterior.
 
-- Piloto preliminar: custo zero, sem alegação de validação de preço.
-- Piloto pago posterior: pagamento total ≥ R$ 500.
-- Utilidade percebida ≥ 4/5.
-- Compreensão ≥ 4 de 5 respostas corretas.
-- Esclarecimento pós-leitura ≤ 15 minutos.
-- Redução de `production_active_seconds` ≥ 30%.
-- `total_service_active_seconds` não aumenta; minutos são apenas apresentação
-  arredondada.
-- Descarte automático < 20%.
-- `manual_addition_rate` < 20%, tratado como proxy de achados não sugeridos e
-  não como taxa absoluta de omissão.
+## Próxima decisão
+
+O único trabalho autorizado é preparar e executar o `R1A` definido em
+[`R1A-DISCOVERY.md`](R1A-DISCOVERY.md). O resultado poderá autorizar a preparação
+de um teste pago, pivotar novamente ou interromper a hipótese. Não autoriza
+desenvolvimento do produto.

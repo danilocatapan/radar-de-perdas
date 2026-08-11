@@ -1,10 +1,14 @@
 # Metodologia de auditoria v0.1
 
+> **Status: `SUPERSEDED_AS_PRODUCT_METHOD`.** LP-001 e LP-002 deixaram de ser a
+> proposta central. Este método permanece histórico e pode fornecer apenas
+> evidência auxiliar; não define o gate do Discovery Concierge.
+
 | Campo | Valor |
 |---|---|
 | Versão | 0.1 |
 | Escopo | LP-001 e LP-002 |
-| Status | `INTERNAL_APPROVED` |
+| Status | `SUPERSEDED_AS_PRODUCT_METHOD` |
 | Responsável pela decisão | Proprietário do Radar de Perdas |
 | Revisão externa | `EXTERNAL_LEGAL_REVIEW_NOT_OBTAINED` |
 

@@ -1,13 +1,18 @@
 # Convite para piloto preliminar gratuito — Radar de Perdas
 
+> **Status: `SUPERSEDED`.** Este convite pertence ao plano anterior de auditoria
+> LP-001/LP-002. Para o `R1A` atual, use
+> [`R1A-DISCOVERY-INVITATION.md`](R1A-DISCOVERY-INVITATION.md). O conteúdo abaixo
+> permanece somente como histórico.
+
 | Campo | Valor |
 |---|---|
 | Versão | 1.0 |
 | Marco | `R1A` — piloto preliminar gratuito |
 | Código da oportunidade | `OPP-2026-001` |
 | Responsável | Proprietário e consultor do Radar de Perdas |
-| Status do modelo | `INTERNAL_APPROVED` |
-| Status da oportunidade | `QUALIFICATION_PENDING_OWNER` |
+| Status do modelo | `SUPERSEDED` |
+| Status da oportunidade | Histórico; requalificar pelo novo ICP |
 
 > Este convite não é a oferta comercial paga. A identidade da empresa e do
 > contato decisor deve permanecer em registro confidencial fora do Git.

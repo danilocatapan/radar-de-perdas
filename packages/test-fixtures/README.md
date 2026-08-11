@@ -13,6 +13,12 @@ redigido, revisado e formalmente aprovado para entrar no repositório.
 
 Arquivos originais, ainda que autorizados, permanecem fora do Git.
 
+Os arquivos em `demo/` que usam LP-001/LP-002 preservam a demonstração da
+direção anterior e estão `SUPERSEDED` como experiência principal. A lista mínima
+do Discovery Concierge está em
+[`docs/R1A-SYNTHETIC-LIST.md`](../../docs/R1A-SYNTHETIC-LIST.md); ela não altera
+o contrato de ingestão nem autoriza parser.
+
 ## Estrutura
 
 ```text

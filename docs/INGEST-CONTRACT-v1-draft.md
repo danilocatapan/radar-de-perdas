@@ -1,5 +1,9 @@
 # Contrato de ingestão v1 — rascunho
 
+> **Status: `LEGACY_DRAFT_BLOCKED`.** O pivot não autoriza ingestão, contrato
+> final ou parser. Este rascunho permanece preservado e só poderá ser retomado
+> após evidência real e novo gate explícito.
+
 | Campo | Valor |
 |---|---|
 | Versão do documento | 1.0-draft |

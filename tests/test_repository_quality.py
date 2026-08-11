@@ -12,6 +12,9 @@ from scripts.validate_repository import (
 )
 
 
+ROOT = Path(__file__).resolve().parents[1]
+
+
 class RepositoryValidationTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
@@ -61,6 +64,11 @@ class RepositoryValidationTests(unittest.TestCase):
         )
         time_header = EXPECTED_CSV_HEADERS["docs/PILOT-TIME-LOG.csv"]
         self._write("docs/PILOT-TIME-LOG.csv", ",".join(time_header) + "\n")
+        discovery_header = EXPECTED_CSV_HEADERS["docs/R1A-DISCOVERY-LOG.csv"]
+        self._write(
+            "docs/R1A-DISCOVERY-LOG.csv",
+            ",".join(discovery_header) + "\n",
+        )
         self._write("docs/guide.md", "# Guia\n")
         self._write("README.md", "[Guia](docs/guide.md)\n")
 
@@ -90,7 +98,7 @@ class RepositoryValidationTests(unittest.TestCase):
 
         self.assertEqual("pass", report["status"])
         self.assertEqual([], errors)
-        self.assertEqual(2, report["counts"]["csvFiles"])
+        self.assertEqual(3, report["counts"]["csvFiles"])
 
     def test_invalid_json_fails(self) -> None:
         self._write(
@@ -156,7 +164,7 @@ class RepositoryValidationTests(unittest.TestCase):
         self.assert_validation_fails_with("CSV_LARGURA_INVALIDA")
 
     def test_required_csv_missing_fails(self) -> None:
-        (self.root / "docs/PILOT-TIME-LOG.csv").unlink()
+        (self.root / "docs/R1A-DISCOVERY-LOG.csv").unlink()
         self.assert_validation_fails_with("CSV_OBRIGATORIO_AUSENTE")
 
     def test_broken_markdown_link_fails(self) -> None:
@@ -184,6 +192,41 @@ class RepositoryValidationTests(unittest.TestCase):
         synthetic_email = "pessoa.real" + "@" + "example.com"
         self._write("docs/contact.txt", synthetic_email)
         self.assert_validation_fails_with("CONTEUDO_SENSIVEL_EMAIL")
+
+
+class R1ADiscoveryDocumentationTests(unittest.TestCase):
+    def test_synthetic_list_is_short_and_hides_internal_states(self) -> None:
+        content = (ROOT / "docs/R1A-SYNTHETIC-LIST.md").read_text(encoding="utf-8")
+        items = [
+            line
+            for line in content.splitlines()
+            if line.startswith("## ")
+        ]
+
+        self.assertIn("Você tem serviços para destravar", content)
+        self.assertGreaterEqual(len(items), 1)
+        self.assertLessEqual(len(items), 5)
+        self.assertEqual(len(items), content.count("Motivo:"))
+        self.assertEqual(len(items), content.count("Próxima ação:"))
+        for internal_code in (
+            "NEEDS_RESPONSE",
+            "NEEDS_QUOTE",
+            "FOLLOWUP_DUE",
+            "PROMISED_RETURN_DUE",
+            "OUT_OF_SCOPE_CANDIDATE",
+        ):
+            self.assertNotIn(internal_code, content)
+
+    def test_r1a_gate_uses_providers_as_the_unit(self) -> None:
+        content = " ".join(
+            (ROOT / "docs/R1A-DISCOVERY.md").read_text(encoding="utf-8").split()
+        )
+
+        self.assertIn("Pelo menos 4 de 5 têm uma oportunidade candidata", content)
+        self.assertIn("Pelo menos 3 de 5 confirmam pelo menos uma", content)
+        self.assertIn("Pelo menos 3 de 5 executam pelo menos uma ação relevante", content)
+        self.assertIn("Pelo menos 3 de 5 querem receber novamente", content)
+        self.assertIn("não representam evidência estatística", content)
 
 
 class QualityPageTests(unittest.TestCase):

@@ -37,6 +37,25 @@ EXPECTED_CSV_HEADERS = {
         "active_seconds",
         "notes",
     ],
+    "docs/R1A-DISCOVERY-LOG.csv": [
+        "session_code",
+        "opportunity_code",
+        "state",
+        "priority",
+        "provider_confirmed_relevant",
+        "provider_confirmed_forgotten",
+        "recommended_action",
+        "action_executed",
+        "conversation_reactivated",
+        "service_confirmed",
+        "recurring_interest",
+        "provider_active_seconds",
+        "operator_active_seconds",
+        "operator_travel_seconds",
+        "candidate_type",
+        "candidate_frequency",
+        "notes",
+    ],
 }
 
 IGNORED_DIRECTORY_NAMES = {

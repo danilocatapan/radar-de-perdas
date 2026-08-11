@@ -1,10 +1,15 @@
 # Protocolo de baseline e produtividade
 
+> **Status: `SUPERSEDED_FOR_CURRENT_R1A`.** Este baseline mede a produção de
+> relatórios da auditoria anterior. O Discovery Concierge usa os critérios por
+> prestador e os tempos definidos em [`R1A-DISCOVERY.md`](R1A-DISCOVERY.md).
+> O conteúdo abaixo permanece como histórico e não bloqueia o `R1A` atual.
+
 | Campo | Valor |
 |---|---|
 | Versão | 1.1 |
 | Responsável pela decisão | Proprietário do Radar de Perdas |
-| Status | `INTERNAL_APPROVED` |
+| Status | `SUPERSEDED_FOR_CURRENT_R1A` |
 | Registro primário | `PILOT-TIME-LOG.csv` |
 
 ## 1. Objetivo

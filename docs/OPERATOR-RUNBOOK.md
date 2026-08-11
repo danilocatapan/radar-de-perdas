@@ -1,5 +1,11 @@
 # Manual do operador — do R0 ao Decision Gate
 
+> **Status: `SUPERSEDED_FOR_CURRENT_R1A`.** Este manual descreve a auditoria com
+> recebimento de exportações e cadeia de custódia. O Discovery Concierge atual
+> não recebe arquivos; use [`R1A-DISCOVERY.md`](R1A-DISCOVERY.md) e
+> [`DISCOVERY-SESSION-READY.md`](DISCOVERY-SESSION-READY.md). O fluxo abaixo
+> permanece preservado para histórico e não autoriza dados reais.
+
 | Campo | Valor |
 |---|---|
 | Versão | 1.2 |

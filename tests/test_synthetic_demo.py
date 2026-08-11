@@ -265,47 +265,35 @@ class SyntheticDemoTests(unittest.TestCase):
         self.assertIn("Isso não cobre todos os clientes nem todo o seu WhatsApp", text)
         self.assertIn("permanecem inconclusivos e separados do total", text)
 
-    def test_customer_faq_is_canonical_and_pilot_evaluation_remains_separate(self) -> None:
+    def test_customer_faq_is_canonical_for_discovery(self) -> None:
         faq = " ".join(CUSTOMER_FAQ_PATH.read_text(encoding="utf-8").split())
         baseline = " ".join(PILOT_BASELINE_PATH.read_text(encoding="utf-8").split())
 
-        commercial_questions = [
+        discovery_questions = [
             "Dá para fazer isso no meu WhatsApp?",
-            "Você consegue descobrir quantos ficaram sem resposta?",
-            "Como você faria isso com minhas conversas?",
+            "O que vocês procuram?",
+            "Vocês conseguem contar todos os clientes sem resposta?",
+            "Como vocês usam minhas conversas?",
         ]
-        for question in commercial_questions:
+        for question in discovery_questions:
             self.assertIn(question, faq)
 
-        evaluation_questions = [
-            "Qual foi o objetivo da auditoria?",
-            "Quais foram os principais achados?",
-            "Qual ação possui maior prioridade?",
-            "Qual limitação impede interpretar os achados como vendas perdidas?",
-            "Qual é o próximo passo recomendado?",
-        ]
-        for question in evaluation_questions:
-            self.assertIn(question, baseline)
-            self.assertNotIn(question, faq)
+        self.assertIn("sem custódia, sem cópia e sem retenção", faq)
+        self.assertIn("SUPERSEDED_FOR_CURRENT_R1A", baseline)
 
     def test_persona_gate_is_canonical_and_referenced_by_agents(self) -> None:
         agents = AGENTS_PATH.read_text(encoding="utf-8")
         persona = PERSONA_PATH.read_text(encoding="utf-8")
 
         self.assertIn("docs/AGENT-PERSONA-USUARIO.md", agents)
-        self.assertIn("9.0/10.0", agents)
-        self.assertIn("USER_VISUAL_REVIEW_REQUIRED", agents)
-        self.assertIn("mostrar -> ouvir", agents)
+        self.assertIn("nota 9,0 não bloqueiam", agents)
         for field in (
-            "verdict=",
-            "score=",
+            "mobile_readability=",
+            "next_action_clarity=",
+            "internal_codes_hidden=",
             "critical_failures=",
-            "score_breakdown=",
-            "top_weaknesses=",
-            "why_customer_should_care=",
-            "recommended_changes=",
-            "visual_review_status=",
-            "external_validation_status=",
+            "external_validation=",
+            "USER_VISUAL_REVIEW_REQUIRED",
         ):
             self.assertIn(field, persona)
 
